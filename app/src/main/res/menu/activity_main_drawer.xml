@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_principal"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Principal" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_action_perfil"
+            android:title="Perfil" />
+        <item
+            android:id="@+id/nav_entitats"
+            android:icon="@drawable/ic_action_entitatss"
+            android:title="Entitats" />
+        <item
+            android:id="@+id/nav_equips"
+            android:icon="@drawable/ic_action_equips"
+            android:title="Equips" />
+        <item
+            android:id="@+id/nav_instalacions"
+            android:icon="@drawable/ic_action_instalacions"
+            android:title="Instal·lacions" />
+        <item
+            android:id="@+id/nav_demanda"
+            android:icon="@drawable/ic_action_activitats"
+            android:title="Fer Demanda" />
+    </group>
+
+    <item android:title="With Us">
+        <menu>
+            <item
+                android:id="@+id/nav_faqs"
+                android:icon="@drawable/ic_action_faqs"
+                android:title="FAQ's" />
+            <item
+                android:id="@+id/nav_contacte"
+                android:icon="@drawable/icono_logo"
+                android:title="Contacte" />
+        </menu>
+    </item>
+
+</menu>
