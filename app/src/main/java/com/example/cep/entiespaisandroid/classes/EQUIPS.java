@@ -22,7 +22,9 @@ public class EQUIPS
 	{
 	}
 
-	public EQUIPS(int id, String nom, Boolean te_discapacitat, int id_entitat, String temporada, int id_competicio, int id_categoria_edat, int id_categoria_equip, int id_sexe, int id_esport)
+	public EQUIPS(int id, String nom, Boolean te_discapacitat, int id_entitat, String temporada,
+				  int id_competicio, int id_categoria_edat, int id_categoria_equip, int id_sexe,
+				  int id_esport)
 	{
 		this.id = id;
 		this.nom = nom;
