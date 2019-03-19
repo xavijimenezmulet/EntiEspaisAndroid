@@ -7,4 +7,6 @@
     tools:context=".activities.SignUpActivity"
     android:background="@drawable/loginandroidcopia">
 
+
+
 </LinearLayout>
