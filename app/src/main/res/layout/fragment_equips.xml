@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+
+        >
+
+        <Button
+            android:id="@+id/btnAfegirEquip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boto_afegir"
+            android:padding="15dp"
+            android:textColor="@color/blanco"
+            android:textStyle="bold"
+            android:background="@drawable/button_test"/>
+
+        <Button
+            android:id="@+id/btnEditarEquip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boto_editar"
+            android:layout_marginLeft="38dp"
+            android:layout_marginRight="38dp"
+            android:textColor="@color/blanco"
+            android:padding="15dp"
+            android:background="@drawable/button_test"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnEliminarEquip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boto_eliminar"
+            android:padding="15dp"
+            android:textColor="@color/blanco"
+            android:background="@drawable/button_test"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</LinearLayout>
