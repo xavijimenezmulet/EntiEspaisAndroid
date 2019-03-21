@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/ListViewEquips"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="9">
 
+        >
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
 
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_weight="1">
+
+        >
 
         <Button
             android:id="@+id/btnAfegirEquip"
@@ -31,7 +32,7 @@
             android:padding="15dp"
             android:textColor="@color/blanco"
             android:textStyle="bold"
-            android:background="@drawable/button_equips"/>
+            android:background="@drawable/button_test"/>
 
         <Button
             android:id="@+id/btnEditarEquip"
@@ -42,16 +43,18 @@
             android:layout_marginRight="38dp"
             android:textColor="@color/blanco"
             android:padding="15dp"
-            android:background="@drawable/button_equips"/>
+            android:background="@drawable/button_test"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btnEliminarEquip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/boto_eliminar"
-            android:textColor="@color/blanco"
             android:padding="15dp"
-            android:background="@drawable/button_equips"/>
+            android:textColor="@color/blanco"
+            android:background="@drawable/button_test"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>
