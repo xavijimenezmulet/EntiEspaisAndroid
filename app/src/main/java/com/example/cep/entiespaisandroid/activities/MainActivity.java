@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
 
 	private Fragment fragment;
 	private NavigationView navigationView;
-	private Toolbar toolbar;
+	public Toolbar toolbar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
