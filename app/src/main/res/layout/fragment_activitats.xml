@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardActs"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true" >
+
+        <ImageView
+            android:id="@+id/ImgPrincipalAct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/loginandroidcopia"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/titolAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="ACTIVITATS"
+            android:layout_gravity="bottom"
+            android:background="#8c000000"
+            android:textColor="#ffe3e3e3"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.CardView>
+    <ListView
+        android:id="@+id/lstActs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </LinearLayout>

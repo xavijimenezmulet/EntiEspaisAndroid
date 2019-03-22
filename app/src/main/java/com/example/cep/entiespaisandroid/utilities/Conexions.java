@@ -6,6 +6,8 @@ import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
 import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
+import com.example.cep.entiespaisandroid.classes.DIAS_DEMANDA;
+import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.ESPAIS;
@@ -33,6 +35,8 @@ public class Conexions
 	public static ArrayList<CATEGORIA_EQUIP> categoria_equips;
 	public static ArrayList<COMPETICIONS> competicions;
 	public static ArrayList<DEMANDA_ACT> demanda_acts;
+	public static ArrayList<DIA_SEMANA> dies_setmana;
+	public static ArrayList<DIAS_DEMANDA> dias_demanda;
 	public static ArrayList<ENTITATS> entitats;
 	public static ArrayList<EQUIPS> equips;
 	public static ArrayList<ESPAIS> espais;
@@ -106,6 +110,26 @@ public class Conexions
 	public static void setDemanda_acts(ArrayList<DEMANDA_ACT> demanda_acts)
 	{
 		Conexions.demanda_acts = demanda_acts;
+	}
+
+	public static ArrayList<DIA_SEMANA> getDies_setmana()
+	{
+		return dies_setmana;
+	}
+
+	public static void setDies_setmana(ArrayList<DIA_SEMANA> dies_setmana)
+	{
+		Conexions.dies_setmana = dies_setmana;
+	}
+
+	public static ArrayList<DIAS_DEMANDA> getDias_demanda()
+	{
+		return dias_demanda;
+	}
+
+	public static void setDias_demanda(ArrayList<DIAS_DEMANDA> dias_demanda)
+	{
+		Conexions.dias_demanda = dias_demanda;
 	}
 
 	public static ArrayList<ENTITATS> getEntitats()

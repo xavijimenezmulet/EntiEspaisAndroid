@@ -112,7 +112,7 @@ public class PrincipalFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				Fragment fragment = new DemandaFragment();
+				Fragment fragment = new DemandasFragment();
 				FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
@@ -127,7 +127,7 @@ public class PrincipalFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				Fragment fragment = new ActivitatFragment();
+				Fragment fragment = new ActivitatsFragment();
 				FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
