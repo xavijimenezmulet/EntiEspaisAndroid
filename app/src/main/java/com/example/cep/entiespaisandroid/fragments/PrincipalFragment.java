@@ -25,6 +25,8 @@ import com.example.cep.entiespaisandroid.utilities.Utilitats;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.example.cep.entiespaisandroid.activities.MainActivity.navigationView;
+
 public class PrincipalFragment extends Fragment
 {
 
@@ -55,6 +57,7 @@ public class PrincipalFragment extends Fragment
 		cardPerfil = (CardView)getView().findViewById(R.id.cardPerfil);
 		cardEntitats = (CardView)getView().findViewById(R.id.cardEntitats);
 		cardEquips = (CardView)getView().findViewById(R.id.cardEquips);
+
 		cardInstalacions = (CardView)getView().findViewById(R.id.cardInstalacions);
 		cardDemandes = (CardView)getView().findViewById(R.id.cardDemandes);
 		cardActivitats = (CardView)getView().findViewById(R.id.cardActivitats);
@@ -72,6 +75,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
+				navigationView.setCheckedItem(R.id.nav_perfil);
 
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Perfil");
 			}
@@ -87,7 +91,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
-
+				navigationView.setCheckedItem(R.id.nav_entitats);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entitats");
 			}
 		});
@@ -102,6 +106,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
+				navigationView.setCheckedItem(R.id.nav_equips);
 
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Equips");
 			}
@@ -117,7 +122,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
-
+				navigationView.setCheckedItem(R.id.nav_demanda);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Demandes");
 			}
 		});
@@ -132,6 +137,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
+
 
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Activitats");
 			}
@@ -148,7 +154,8 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
-				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entitats");
+				navigationView.getMenu().getItem(0).setChecked(false);
+				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Faq's");
 			}
 		});
 
@@ -163,6 +170,7 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
+				navigationView.setCheckedItem(R.id.nav_instalacions);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Instal·lacions");
 			}
 		});
@@ -178,6 +186,7 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
+				navigationView.getMenu().getItem(0).setChecked(false);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Contacte");
 			}
 		});
@@ -203,6 +212,8 @@ public class PrincipalFragment extends Fragment
 		**/
 
 	}
+
+
 
 	public interface EquipsListener {
 		void onEnvironmentSeleccionado(EQUIPS e);
