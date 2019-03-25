@@ -17,5 +17,6 @@ public class FaqsActivity extends AppCompatActivity
 		setContentView(R.layout.activity_faqs);
 
 		ImgLogo1 = (ImageView)findViewById(R.id.ImgLogo1);
+		ImgLogo1.setImageResource(R.drawable.logoprincipal);
 	}
 }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
 {
 
 	private Fragment fragment;
-	private NavigationView navigationView;
+	public static NavigationView navigationView;
 	public Toolbar toolbar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main);
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		toolbar.setLogo(R.drawable.icono_logo_mas_grande);
+		toolbar.setTitle("Principal");
 
 		setSupportActionBar(toolbar);
 
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity
 		{
 			if(fragment instanceof PrincipalFragment){
 				super.onBackPressed();
+				toolbar.setTitle("Principal");
+				navigationView.setCheckedItem(R.id.nav_principal);
 			}
 			else{
 				fragment = new PrincipalFragment();
@@ -170,6 +173,7 @@ public class MainActivity extends AppCompatActivity
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.replace(R.id.fragment_content, fragment);
 			ft.commit();
+			navigationView.getMenu().getItem(0).setChecked(true);
 			toolbar.setTitle("Principal");
 		}
 		else if (id == R.id.nav_perfil)

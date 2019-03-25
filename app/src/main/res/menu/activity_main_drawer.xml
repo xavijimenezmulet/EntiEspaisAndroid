@@ -27,10 +27,11 @@
         <item
             android:id="@+id/nav_demanda"
             android:icon="@drawable/ic_action_activitats"
-            android:title="Fer Demanda" />
+            android:title="Demandes" />
     </group>
 
-    <item android:title="With Us">
+    <item android:title="With Us"
+        android:checkableBehavior="single">
         <menu>
             <item
                 android:id="@+id/nav_faqs"
