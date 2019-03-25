@@ -26,4 +26,11 @@
         <item name="android:textColor">@color/negro</item>
         <item name="android:textSize">@dimen/datos</item>
     </style>
+    <style name="DatosAct" >
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:textSize">@dimen/datos</item>
+        <item name="android:padding">10dp</item>
+    </style>
 </resources>
