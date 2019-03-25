@@ -49,8 +49,10 @@
             android:name=".activities.PoliticaEmpresaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activities.CanviarContActivity" />
-        <activity android:name=".activities.ModificarPerfilActivity"></activity>
+        <activity android:name=".activities.CanviarContActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ModificarPerfilActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
