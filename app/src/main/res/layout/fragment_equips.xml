@@ -25,15 +25,15 @@
         >
 
         <Button
-            android:id="@+id/btnAfegirEquip"
-            android:layout_width="wrap_content"
+            android:id="@+id/modificarContrasenya"
+            style="?android:textAppearanceSmall"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:text="@string/boto_afegir"
-            android:padding="15dp"
-            android:textColor="@color/blanco"
             android:textStyle="bold"
-            android:background="@drawable/button_test"/>
-
+            android:layout_gravity="center_horizontal"
+            android:background="@color/negro"
+            android:textColor="@color/blanco" />
 
     </LinearLayout>
 
