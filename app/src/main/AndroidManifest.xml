@@ -37,15 +37,20 @@
             android:name=".activities.HeinesActivity"
             android:label="Eines"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.SignUpActivity"
+        <activity
+            android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activities.FaqsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.FaqsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activities.PoliticaEmpresaActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.PoliticaEmpresaActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activities.CanviarContActivity" />
+        <activity android:name=".activities.ModificarPerfilActivity"></activity>
     </application>
 
 </manifest>
