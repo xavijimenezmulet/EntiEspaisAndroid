@@ -122,7 +122,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
-				navigationView.setCheckedItem(R.id.nav_demanda);
+				navigationView.setCheckedItem(R.id.nav_demandes);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Demandes");
 			}
 		});
