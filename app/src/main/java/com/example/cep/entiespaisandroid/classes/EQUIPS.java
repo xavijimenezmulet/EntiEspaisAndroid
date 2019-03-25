@@ -1,9 +1,12 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * CLASSE EQUIPS
  */
-public class EQUIPS
+public class EQUIPS implements Parcelable
 {
 	//ATRIBUTS
 	private int id;
@@ -138,4 +141,52 @@ public class EQUIPS
 	{
 		this.id_esport = id_esport;
 	}
+
+	//
+	protected EQUIPS(Parcel in) {
+		id = in.readInt();
+		nom = in.readString();
+		te_discapacitat = in.readByte() != 0;
+		id_entitat = in.readInt();
+		temporada = in.readString();
+		id_competicio = in.readInt();
+		id_categoria_edat = in.readInt();
+		id_categoria_equip = in.readInt();
+		id_sexe = in.readInt();
+		id_esport = in.readInt();
+	}
+
+	public static final Creator<EQUIPS> CREATOR = new Creator<EQUIPS>() {
+		@Override
+		public EQUIPS createFromParcel(Parcel in) {
+			return new EQUIPS(in);
+		}
+
+		@Override
+		public EQUIPS[] newArray(int size) {
+			return new EQUIPS[size];
+		}
+	};
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeString(nom);
+		dest.writeByte((byte) (te_discapacitat ? 1 : 0));
+		dest.writeInt(id_entitat);
+		dest.writeString(temporada);
+		dest.writeInt(id_competicio);
+		dest.writeInt(id_categoria_edat);
+		dest.writeInt(id_categoria_equip);
+		dest.writeInt(id_sexe);
+		dest.writeInt(id_esport);
+	}
+
+
+
 }

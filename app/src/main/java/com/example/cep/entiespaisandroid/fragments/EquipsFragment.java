@@ -1,23 +1,26 @@
 package com.example.cep.entiespaisandroid.fragments;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 
 import java.util.ArrayList;
+
+import static com.example.cep.entiespaisandroid.activities.MainActivity.navigationView;
 
 public class EquipsFragment extends Fragment
 {
@@ -56,8 +59,21 @@ public class EquipsFragment extends Fragment
 		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "CLICK", Toast.LENGTH_LONG).show();
+				Fragment fragment = new EquipFragment();
+				Bundle bundle = new Bundle();
+				bundle.putParcelable("parcel_equip", equips.get(
+						mRecyClerView.getChildAdapterPosition(v)));
+				fragment.setArguments(bundle);
 
+				FragmentTransaction ft = getActivity().getSupportFragmentManager().
+						beginTransaction();
+				ft.replace(R.id.fragment_content, fragment);
+				ft.addToBackStack(null);
+				ft.commit();
+
+				navigationView.getMenu().getItem(0).setChecked(false);
+				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(equips.get(
+						mRecyClerView.getChildAdapterPosition(v)).getNom());
 			}
 		});
 
@@ -105,7 +121,8 @@ public class EquipsFragment extends Fragment
 		@Override
 		public EquipViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
 		{
-			View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item, viewGroup, false);
+			View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item,
+					viewGroup, false);
 
 			itemView.setOnClickListener(this);
 
