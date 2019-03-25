@@ -54,8 +54,12 @@ public class EquipFragment extends Fragment
 			discapacidad_b = "Sí";
 		}
 		discapacidad.setText(discapacidad_b);
-		entidad.setText(String.valueOf(entidad));
-
+		entidad.setText(String.valueOf(equipo.getId_entitat()));
+		competicion.setText(String.valueOf(equipo.getId_competicio()));
+		categoria_edad.setText(String.valueOf(equipo.getId_categoria_edat()));
+		categoria_equip.setText(String.valueOf(equipo.getId_categoria_equip()));
+		sexo.setText(String.valueOf(equipo.getId_sexe()));
+		deporte.setText(String.valueOf(equipo.getId_esport()));
 	}
 
 }

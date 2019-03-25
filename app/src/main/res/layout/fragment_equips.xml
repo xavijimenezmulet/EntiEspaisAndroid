@@ -20,20 +20,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-
-        >
+        android:layout_gravity="center">
 
         <Button
-            android:id="@+id/modificarContrasenya"
+            android:id="@+id/añadirEquipo"
             style="?android:textAppearanceSmall"
-            android:layout_width="350dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/boto_afegir"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:background="@color/negro"
-            android:textColor="@color/blanco" />
+            android:textColor="@color/blanco"/>
+        <Button
+            android:id="@+id/editarEquipo"
+            style="?android:textAppearanceSmall"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/boto_editar"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/negro"
+            android:textColor="@color/blanco"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+        <Button
+            android:id="@+id/eliminarEquipo"
+            style="?android:textAppearanceSmall"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/boto_eliminar"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/negro"
+            android:textColor="@color/blanco"/>
 
     </LinearLayout>
 
