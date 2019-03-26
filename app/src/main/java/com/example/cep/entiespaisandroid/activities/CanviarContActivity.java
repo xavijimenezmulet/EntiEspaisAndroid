@@ -13,5 +13,7 @@ public class CanviarContActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_canviar_cont);
+
+
 	}
 }
