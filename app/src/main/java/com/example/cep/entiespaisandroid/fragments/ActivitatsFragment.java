@@ -1,16 +1,22 @@
 package com.example.cep.entiespaisandroid.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
@@ -25,7 +31,8 @@ public class ActivitatsFragment extends Fragment
 	private ListView listaActs;
 	private ActivitatsFragment.ActivitatsListener listener;
 	private ImageView ImgPrincipal;
-
+	private Button btnAct;
+	private Fragment fragment;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
@@ -41,6 +48,24 @@ public class ActivitatsFragment extends Fragment
 
 		ImgPrincipal = (ImageView) getView().findViewById(R.id.ImgPrincipalAct);
 		ImgPrincipal.setImageResource(R.drawable.logoprincipal);
+		btnAct = (Button) getView().findViewById(R.id.btnAct);
+
+		btnAct.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				FragmentManager fragmentManager = getFragmentManager ();
+
+				Fragment frag = new ActivitatFragment();
+
+				FragmentTransaction ft = fragmentManager.beginTransaction();
+				ft.replace(R.id.fragment_content, frag);
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				ft.addToBackStack(null);
+				ft.commit();
+			}
+		});
 
 		listaActs = (ListView) getView().findViewById(R.id.lstActs);
 
