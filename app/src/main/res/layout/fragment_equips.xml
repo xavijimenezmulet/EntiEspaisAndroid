@@ -25,36 +25,16 @@
         >
 
         <Button
-            android:id="@+id/btnAfegirEquip"
-            android:layout_width="wrap_content"
+            android:id="@+id/modificarContrasenya"
+            style="?android:textAppearanceSmall"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:text="@string/boto_afegir"
-            android:padding="15dp"
-            android:textColor="@color/blanco"
             android:textStyle="bold"
-            android:background="@drawable/button_test"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@color/negro"
+            android:textColor="@color/blanco" />
 
-        <Button
-            android:id="@+id/btnEditarEquip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boto_editar"
-            android:layout_marginLeft="38dp"
-            android:layout_marginRight="38dp"
-            android:textColor="@color/blanco"
-            android:padding="15dp"
-            android:background="@drawable/button_test"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/btnEliminarEquip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boto_eliminar"
-            android:padding="15dp"
-            android:textColor="@color/blanco"
-            android:background="@drawable/button_test"
-            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>
