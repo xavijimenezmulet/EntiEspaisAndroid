@@ -13,5 +13,7 @@ public class ModificarPerfilActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modificar_perfil);
+
+
 	}
 }

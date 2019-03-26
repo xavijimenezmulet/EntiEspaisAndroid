@@ -13,6 +13,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AlertTheme" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@color/colorPrimario</item>
+        <item name="android:foreground">@color/blanco</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

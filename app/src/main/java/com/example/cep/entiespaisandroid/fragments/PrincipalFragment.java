@@ -29,11 +29,6 @@ import static com.example.cep.entiespaisandroid.activities.MainActivity.navigati
 
 public class PrincipalFragment extends Fragment
 {
-
-	private LinearLayout LinearPrincipal;
-	private ListView equipsEntitatPrincipal;
-	private EquipsListener listener;
-	private ImageView ImgPrincipal;
 	private CardView cardPerfil;
 	private CardView cardEntitats;
 	private CardView cardEquips;
@@ -63,8 +58,7 @@ public class PrincipalFragment extends Fragment
 		cardActivitats = (CardView)getView().findViewById(R.id.cardActivitats);
 		cardFaqs = (CardView)getView().findViewById(R.id.cardFaqs);
 		cardContacte = (CardView)getView().findViewById(R.id.cardContacte);
-		LinearPrincipal = (LinearLayout)getView().findViewById(R.id.LinearPrincipal);
-		//LinearPrincipal.setBackgroundResource(R.drawable.bg);
+
 		cardPerfil.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -138,7 +132,7 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
-
+				navigationView.getMenu().getItem(0).setChecked(false);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Activitats");
 			}
 		});
@@ -191,58 +185,8 @@ public class PrincipalFragment extends Fragment
 			}
 		});
 
-
-
-		/**
-		ImgPrincipal = (ImageView)getView().findViewById(R.id.ImgPrincipal);
-		ImgPrincipal.setImageResource(R.drawable.logoprincipal);
-		equipsEntitatPrincipal = (ListView) getView().findViewById(R.id.equipsEntitatPrincipal);
-
-		equipsEntitatPrincipal.setAdapter(new AdaptadorEquips(this));
-
-		equipsEntitatPrincipal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
-				if (listener!=null) {
-					listener.onEnvironmentSeleccionado(
-							(EQUIPS) equipsEntitatPrincipal.getAdapter().getItem(pos));
-				}
-			}
-		});
-		**/
-
 	}
 
-
-
-	public interface EquipsListener {
-		void onEnvironmentSeleccionado(EQUIPS e);
-	}
-
-	public void setEquipsListener(EquipsListener listener) {
-		this.listener=listener;
-	}
-
-	class AdaptadorEquips extends ArrayAdapter<EQUIPS>
-	{
-
-		Activity context;
-
-		AdaptadorEquips(Fragment context) {
-			super(context.getActivity(), R.layout.items_listequips);
-			this.context = context.getActivity();
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = context.getLayoutInflater();
-			View item = inflater.inflate(R.layout.items_listequips, null);
-
-			TextView IdTitulo = (TextView)item.findViewById(R.id.TextEquip);
-			IdTitulo.setText(Conexions.equips.get(position).getNom());
-
-			return(item);
-		}
-	}
 }
 
 
