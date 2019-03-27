@@ -1,18 +1,25 @@
 package com.example.cep.entiespaisandroid.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.cep.entiespaisandroid.R;
@@ -43,7 +50,7 @@ public class EquipsFragment extends Fragment
 		equips.add(new EQUIPS(1, "F.C. Sant Cugat", false,
 				1,"2018-2019", 15, 3,
 				2, 1,1));
-		equips.add(new EQUIPS(3, "F.C. Sant Cugat B", false,
+		equips.add(new EQUIPS(3, "F.C. Sant Cugat B", true,
 				1,"2018-2019", 15, 3,
 				2, 1,1));
 		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
@@ -59,7 +66,7 @@ public class EquipsFragment extends Fragment
 		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Fragment fragment = new EquipFragment();
+				/*Fragment fragment = new EquipFragment();
 				Bundle bundle = new Bundle();
 				bundle.putParcelable("parcel_equip", equips.get(
 						mRecyClerView.getChildAdapterPosition(v)));
@@ -73,12 +80,52 @@ public class EquipsFragment extends Fragment
 
 				navigationView.getMenu().getItem(0).setChecked(false);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(equips.get(
-						mRecyClerView.getChildAdapterPosition(v)).getNom());
+						mRecyClerView.getChildAdapterPosition(v)).getNom());*/
+				final int position_eq = mRecyClerView.getChildAdapterPosition(v);
+				final EQUIPS equip = equips.get(position_eq);
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle(equip.getNom());
+				builder.setIcon(R.drawable.icono_logo);
+				View root = getLayoutInflater().inflate(
+						(R.layout.alert_dialog_equips), null);
+				EditText editText = root.findViewById(R.id.etxt_nombre);
+				editText.setText(equip.getNom());
+
+				CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_si);
+
+				if (equip.getTe_discapacitat())
+				{
+					checkboxDiscapacidad.setChecked(true);
+				}
+				builder.setView(root);
+
+				builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						equips.remove(position_eq);
+						mAdapter.notifyItemRemoved(position_eq);
+						mAdapter.notifyItemRangeChanged(position_eq, equips.size());
+
+					}
+				});
+
+				builder.setPositiveButton("GUARDAR", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+
+
+
+				builder.show();
+
 			}
 		});
 
 		mRecyClerView.setLayoutManager(mLayoutManager);
 		mRecyClerView.setAdapter(mAdapter);
+
+
 
 	}
 
@@ -155,6 +202,8 @@ public class EquipsFragment extends Fragment
 
 
 		}
+
 	}
+
 
 }
