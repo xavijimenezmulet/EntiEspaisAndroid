@@ -1,4 +1,4 @@
-package com.example.cep.entiespaisandroid.fragments;
+package com.example.cep.entiespaisandroid.adapters;
 
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;

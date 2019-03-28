@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.adapters.AdapterInstalaciones;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
 
 import java.util.ArrayList;
@@ -32,8 +33,10 @@ public class InstalacionsFragment extends Fragment
 		super.onActivityCreated(state);
 
 		instalacions = new ArrayList<>();
-		instalacions.add(new INSTALACIONS(1, "Sabadell Poliesporiu", "pepe", "C/Lepanto 150",
-				"Externo", "sabadellpoli@gmail.com", "\\lelel.png", 150, 145));
+		instalacions.add(new INSTALACIONS(1, "Sabadell Poliesportiu", "pepe", "C/Lepanto 150",
+				"Externo", "sabadellpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 150, 145));
+		instalacions.add(new INSTALACIONS(2, "Valencia Poliesportiu", "dadwdwa", "C/Ribas 150",
+				"Externo", "valenpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 145, 160));
 		recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerInstalacions);
 		recyclerView.setHasFixedSize(true);
 
