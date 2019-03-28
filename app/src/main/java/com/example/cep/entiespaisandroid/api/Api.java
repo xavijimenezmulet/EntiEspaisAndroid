@@ -7,7 +7,7 @@ public class Api {
 
 	public static final String IP_PC_CLASSE_XAVI = "http://172.16.110.1:53808/";
 	public static final String IP_PC_CASA_XAVI   = "";
-	public static final String IP_PC_CLASSE_LUIS   = "";
+	public static final String IP_PC_CLASSE_LUIS   = "http://172.16.110.1:53808/";
 	public static final String IP_PC_CASA_LUIS   = "";
 	public static final String IP_PC_CLASSE_JOEL   = "";
 	public static final String IP_PC_CASA_JOEL   = "";

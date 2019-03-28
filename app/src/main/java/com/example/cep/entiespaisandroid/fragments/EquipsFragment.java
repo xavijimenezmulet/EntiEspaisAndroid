@@ -5,22 +5,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.cep.entiespaisandroid.R;
@@ -57,7 +51,48 @@ public class EquipsFragment extends Fragment
 		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
 				false, 1,"2018-2019", 15,
 				3, 2, 1,1));
-
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
 
 		mRecyClerView = getView().findViewById(R.id.rv_recycler_view);
 		mRecyClerView.setHasFixedSize(true);
@@ -105,7 +140,6 @@ public class EquipsFragment extends Fragment
 						equips.remove(position_eq);
 						mAdapter.notifyItemRemoved(position_eq);
 						mAdapter.notifyItemRangeChanged(position_eq, equips.size());
-
 					}
 				});
 
@@ -115,6 +149,14 @@ public class EquipsFragment extends Fragment
 					}
 				});
 
+				builder.setNeutralButton("VER ACTIVIDADES", new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i)
+					{
+
+					}
+				});
 
 
 				builder.show();
