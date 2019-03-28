@@ -141,70 +141,84 @@
             android:layout_height="wrap_content"
             android:id="@+id/introEspaiDem"/>
     </LinearLayout>
-    <LinearLayout
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <TextView
-            android:id="@+id/diesDem"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:background="#ffffffa5"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="8dp"
+        card_view:cardUseCompatPadding="true"
+        tools:context=".MainActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dies: "
-            style="@style/Datos"
-            />
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Dilluns"
-            style="@style/Datos"/>
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/diesDem"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dies: "
+                style="@style/Datos"
+                />
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dilluns"
+                style="@style/Datos"/>
 
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dimarts"
+                style="@style/Datos"/>
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dimecres"
+                style="@style/Datos"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dimarts"
-            style="@style/Datos"/>
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Dimecres"
-            style="@style/Datos"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Dijous"
-            style="@style/Datos"/>
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Divendres"
-            style="@style/Datos"
-            />
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Dissabte"
-            style="@style/Datos"/>
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Diumenge"
-            style="@style/Datos"/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dijous"
+                style="@style/Datos"/>
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Divendres"
+                style="@style/Datos"
+                />
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Dissabte"
+                style="@style/Datos"/>
+            <CheckBox
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Diumenge"
+                style="@style/Datos"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
