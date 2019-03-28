@@ -2,6 +2,9 @@ package com.example.cep.entiespaisandroid.fragments;
 
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -158,8 +161,10 @@ public class EquipsFragment extends Fragment
 					}
 				});
 
-
-				builder.show();
+				//
+				AlertDialog dlg = builder.show();
+				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
+				//
 
 			}
 		});
