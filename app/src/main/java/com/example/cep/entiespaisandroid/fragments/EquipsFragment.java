@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -60,8 +61,7 @@ public class EquipsFragment extends Fragment
 
 		mRecyClerView = getView().findViewById(R.id.rv_recycler_view);
 		mRecyClerView.setHasFixedSize(true);
-		mLayoutManager = new GridLayoutManager(getContext(),
-				1, GridLayoutManager.VERTICAL, true);
+		mLayoutManager = new LinearLayoutManager(getContext());
 		mAdapter = new AdaptadorEquips(equips);
 		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
 			@Override
