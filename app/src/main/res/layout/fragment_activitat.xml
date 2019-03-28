@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardActivitat"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true" >
+
+        <ImageView
+            android:id="@+id/ImgPrincipalActivitat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/loginandroidcopia"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/titolActivitat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="ACTIVITAT"
+            android:layout_gravity="bottom"
+            android:background="#8c000000"
+            android:textColor="#ffe3e3e3"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/nomActivitat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nom"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/equipAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Equip"
+            android:textSize="16sp"
+            />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/horaIniAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="17:00"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textSize="16sp"
+            />
+        <TextText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/horaFiAct"
+            android:text="19:00"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/instalAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Instal·lació"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/espaiDem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Espai"
+            android:textSize="16sp"
+            />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/diesDem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dies: "
+            android:textSize="16sp"
+            />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dilluns"
+            android:textSize="16sp"/>
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dimarts"
+            android:textSize="16sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dimecres"
+            android:textSize="16sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dijous"
+            android:textSize="16sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Divendres"
+            android:textSize="16sp"
+            />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dissabte"
+            android:textSize="16sp"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diumenge"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</LinearLayout>

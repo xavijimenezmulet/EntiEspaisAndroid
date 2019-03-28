@@ -25,12 +25,17 @@
             android:icon="@drawable/ic_action_instalacions"
             android:title="Instal·lacions" />
         <item
-            android:id="@+id/nav_demanda"
+            android:id="@+id/nav_demandes"
             android:icon="@drawable/ic_action_activitats"
-            android:title="Fer Demanda" />
+            android:title="Demandes" />
+        <item
+            android:id="@+id/nav_actividades"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Activitats" />
     </group>
 
-    <item android:title="With Us">
+    <item android:title="With Us"
+        android:checkableBehavior="single">
         <menu>
             <item
                 android:id="@+id/nav_faqs"

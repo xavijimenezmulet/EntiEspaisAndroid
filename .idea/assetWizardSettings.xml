@@ -19,8 +19,35 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\cep\Desktop\EntiEspaisAndroid\app\src\main\res\drawable\escudo.png" />
-                                      <entry key="outputName" value="ic_action_entitatss" />
+                                      <entry key="imageAsset" value="C:\Users\cep\Desktop\ENTIESPAIS\EntiEspaisAndroid\app\src\main\res\drawable\logoprincipal.png" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                            <entry key="launcherLegacy">
+                              <value>
+                                <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="paddingPercent" value="5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\cep\Desktop\ENTIESPAIS\EntiEspaisAndroid\app\src\main\res\drawable\logoprincipal.png" />
+                                      <entry key="outputName" value="ic_launcher_entiespais" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -30,7 +57,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

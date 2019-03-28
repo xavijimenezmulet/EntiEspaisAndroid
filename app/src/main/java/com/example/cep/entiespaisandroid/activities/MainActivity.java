@@ -20,8 +20,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.fragments.ActivitatsFragment;
 import com.example.cep.entiespaisandroid.fragments.ContacteFragment;
 import com.example.cep.entiespaisandroid.fragments.DemandaFragment;
+import com.example.cep.entiespaisandroid.fragments.DemandasFragment;
 import com.example.cep.entiespaisandroid.fragments.EntitatsFragment;
 import com.example.cep.entiespaisandroid.fragments.EquipsFragment;
 import com.example.cep.entiespaisandroid.fragments.FaqsFragment;
@@ -36,8 +38,8 @@ public class MainActivity extends AppCompatActivity
 {
 
 	private Fragment fragment;
-	private NavigationView navigationView;
-	private Toolbar toolbar;
+	public static NavigationView navigationView;
+	public Toolbar toolbar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main);
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		toolbar.setLogo(R.drawable.icono_logo_mas_grande);
+		toolbar.setTitle("Principal");
 
 		setSupportActionBar(toolbar);
 
@@ -58,8 +61,8 @@ public class MainActivity extends AppCompatActivity
 				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 				ft.replace(R.id.fragment_content, fragment);
 				ft.commit();
-				navigationView.setCheckedItem(R.id.nav_demanda);
-				toolbar.setTitle("Demanda");
+				navigationView.setCheckedItem(R.id.nav_demandes);
+				toolbar.setTitle("Nova Demanda");
 
 			}
 		});
@@ -101,6 +104,8 @@ public class MainActivity extends AppCompatActivity
 		{
 			if(fragment instanceof PrincipalFragment){
 				super.onBackPressed();
+				toolbar.setTitle("Principal");
+				navigationView.setCheckedItem(R.id.nav_principal);
 			}
 			else{
 				fragment = new PrincipalFragment();
@@ -163,13 +168,14 @@ public class MainActivity extends AppCompatActivity
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
 
-		if (id == R.id.nav_principal)
+		if (id == R.id.nav_principal)//
 		{
 			fragment = new PrincipalFragment();
 			Toast.makeText(this, "PRINCIPAL", Toast.LENGTH_LONG).show();
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.replace(R.id.fragment_content, fragment);
 			ft.commit();
+			navigationView.getMenu().getItem(0).setChecked(true);
 			toolbar.setTitle("Principal");
 		}
 		else if (id == R.id.nav_perfil)
@@ -205,14 +211,22 @@ public class MainActivity extends AppCompatActivity
 			ft.replace(R.id.fragment_content, fragment);
 			ft.commit();
 			toolbar.setTitle("Instal·lacions");
-		} else if (id == R.id.nav_demanda)
+		}else if (id == R.id.nav_demandes)
 		{
-			fragment = new DemandaFragment();
-			Toast.makeText(this, "DEMANDA", Toast.LENGTH_LONG).show();
+			fragment = new DemandasFragment();
+			Toast.makeText(this, "DEMANDES", Toast.LENGTH_LONG).show();
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.replace(R.id.fragment_content, fragment);
 			ft.commit();
-			toolbar.setTitle("Demanda");
+			toolbar.setTitle("Demandes");
+		}else if (id == R.id.nav_actividades)
+		{
+			fragment = new ActivitatsFragment();
+			Toast.makeText(this, "ACTIVITATS", Toast.LENGTH_LONG).show();
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.replace(R.id.fragment_content, fragment);
+			ft.commit();
+			toolbar.setTitle("Activitats");
 		} else if (id == R.id.nav_faqs)
 		{
 			fragment = new FaqsFragment();

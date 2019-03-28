@@ -13,6 +13,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AlertTheme" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@color/colorPrimario</item>
+        <item name="android:foreground">@color/blanco</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -20,4 +25,10 @@
     <color name="colorAcento">#6A1B9A</color>
     <color name="colorOscuro">#33691E</color>
     <color name="colorPrimario">#7CB342</color>
+
+    <style name="Datos" >
+        <item name="android:gravity">left</item>
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:textSize">@dimen/datos</item>
+    </style>
 </resources>

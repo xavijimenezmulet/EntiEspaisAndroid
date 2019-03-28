@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/TextView_email"
+        android:text="Email entitat:"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+    <EditText
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/EditText_email" />
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/TextView_nom"
+        android:text="Email entitat:"
+        android:textStyle="bold" />
+    <EditText
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/EditText_nom" />
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/TextView_nif"
+        android:text="NIF entitat:"
+        android:textStyle="bold" />
+    <EditText
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/EditText_nif" />
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/TextView_adresa"
+        android:text="NIF entitat:"
+        android:textStyle="bold" />
+    <EditText
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/EditText_adresa" />
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/TextView_telefon1"
+                android:text="Telefon 1:"
+                android:textStyle="bold" />
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/EditText_telefon1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/TextView_telefon2"
+                android:text="Telefon 2:"
+                android:textStyle="bold" />
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/EditText_telefon2" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
