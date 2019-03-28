@@ -11,6 +11,7 @@
             android:layout_height="350dp"
             android:orientation="vertical">
             <ImageView
+                android:id="@+id/ImgPerfil"
                 android:layout_marginTop="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="150dp"
@@ -207,6 +208,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="MODIFICAR CONTRASSENYA"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/negro"
+        android:textColor="@color/blanco" />
+    <Button
+        android:id="@+id/veureVideo"
+        style="?android:textAppearanceSmall"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="VEURE VIDEO"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:background="@color/negro"

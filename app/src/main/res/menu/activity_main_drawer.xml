@@ -34,7 +34,8 @@
             android:title="Activitats" />
     </group>
 
-    <item android:title="With Us">
+    <item android:title="With Us"
+        android:checkableBehavior="single">
         <menu>
             <item
                 android:id="@+id/nav_faqs"

@@ -25,13 +25,10 @@ import com.example.cep.entiespaisandroid.utilities.Utilitats;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.example.cep.entiespaisandroid.activities.MainActivity.navigationView;
+
 public class PrincipalFragment extends Fragment
 {
-
-	private LinearLayout LinearPrincipal;
-	private ListView equipsEntitatPrincipal;
-	private EquipsListener listener;
-	private ImageView ImgPrincipal;
 	private CardView cardPerfil;
 	private CardView cardEntitats;
 	private CardView cardEquips;
@@ -55,13 +52,13 @@ public class PrincipalFragment extends Fragment
 		cardPerfil = (CardView)getView().findViewById(R.id.cardPerfil);
 		cardEntitats = (CardView)getView().findViewById(R.id.cardEntitats);
 		cardEquips = (CardView)getView().findViewById(R.id.cardEquips);
+
 		cardInstalacions = (CardView)getView().findViewById(R.id.cardInstalacions);
 		cardDemandes = (CardView)getView().findViewById(R.id.cardDemandes);
 		cardActivitats = (CardView)getView().findViewById(R.id.cardActivitats);
 		cardFaqs = (CardView)getView().findViewById(R.id.cardFaqs);
 		cardContacte = (CardView)getView().findViewById(R.id.cardContacte);
-		LinearPrincipal = (LinearLayout)getView().findViewById(R.id.LinearPrincipal);
-		//LinearPrincipal.setBackgroundResource(R.drawable.bg);
+
 		cardPerfil.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -72,6 +69,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
+				navigationView.setCheckedItem(R.id.nav_perfil);
 
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Perfil");
 			}
@@ -87,7 +85,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
-
+				navigationView.setCheckedItem(R.id.nav_entitats);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entitats");
 			}
 		});
@@ -102,6 +100,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
+				navigationView.setCheckedItem(R.id.nav_equips);
 
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Equips");
 			}
@@ -117,7 +116,7 @@ public class PrincipalFragment extends Fragment
 				ft.replace(R.id.fragment_content, fragment);
 				ft.addToBackStack(null);
 				ft.commit();
-
+				navigationView.setCheckedItem(R.id.nav_demandes);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Demandes");
 			}
 		});
@@ -133,6 +132,7 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
+				navigationView.getMenu().getItem(0).setChecked(false);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Activitats");
 			}
 		});
@@ -148,7 +148,8 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
-				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entitats");
+				navigationView.getMenu().getItem(0).setChecked(false);
+				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Faq's");
 			}
 		});
 
@@ -163,6 +164,7 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
+				navigationView.setCheckedItem(R.id.nav_instalacions);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Instal·lacions");
 			}
 		});
@@ -178,60 +180,13 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 
+				navigationView.getMenu().getItem(0).setChecked(false);
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Contacte");
 			}
 		});
 
-
-
-		/**
-		ImgPrincipal = (ImageView)getView().findViewById(R.id.ImgPrincipal);
-		ImgPrincipal.setImageResource(R.drawable.logoprincipal);
-		equipsEntitatPrincipal = (ListView) getView().findViewById(R.id.equipsEntitatPrincipal);
-
-		equipsEntitatPrincipal.setAdapter(new AdaptadorEquips(this));
-
-		equipsEntitatPrincipal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
-				if (listener!=null) {
-					listener.onEnvironmentSeleccionado(
-							(EQUIPS) equipsEntitatPrincipal.getAdapter().getItem(pos));
-				}
-			}
-		});
-		**/
-
 	}
 
-	public interface EquipsListener {
-		void onEnvironmentSeleccionado(EQUIPS e);
-	}
-
-	public void setEquipsListener(EquipsListener listener) {
-		this.listener=listener;
-	}
-
-	class AdaptadorEquips extends ArrayAdapter<EQUIPS>
-	{
-
-		Activity context;
-
-		AdaptadorEquips(Fragment context) {
-			super(context.getActivity(), R.layout.items_listequips);
-			this.context = context.getActivity();
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = context.getLayoutInflater();
-			View item = inflater.inflate(R.layout.items_listequips, null);
-
-			TextView IdTitulo = (TextView)item.findViewById(R.id.TextEquip);
-			IdTitulo.setText(Conexions.equips.get(position).getNom());
-
-			return(item);
-		}
-	}
 }
 
 

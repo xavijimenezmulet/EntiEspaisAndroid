@@ -10,8 +10,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.classes.ENTITATS;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity
 {
@@ -83,6 +93,33 @@ public class SplashActivity extends AppCompatActivity
 
 		ImgSplash = (ImageView)findViewById(R.id.ImgSplash);
 		ImgSplash.setImageResource(R.drawable.splashandroid);
+
+		EntitatService es = Api.getApi().create(EntitatService.class);
+
+		Call<ArrayList<ENTITATS>> e = es.getEntitats();
+
+		e.enqueue(new Callback<ArrayList<ENTITATS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<ENTITATS>> call, Response<ArrayList<ENTITATS>> response)
+			{
+				switch (response.code()){
+					case 200:
+						ArrayList<ENTITATS> entitats = response.body();
+						String nom = entitats.get(0).getNom().toString();
+						Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<ENTITATS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
+			}
+		});
 
 		new Thread(){
 			public void run(){
