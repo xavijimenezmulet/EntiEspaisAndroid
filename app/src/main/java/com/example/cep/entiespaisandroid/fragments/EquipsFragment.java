@@ -14,13 +14,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.adapters.ListaActivitatsAdapter;
+import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 
 import java.util.ArrayList;
@@ -157,14 +161,28 @@ public class EquipsFragment extends Fragment
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i)
 					{
-
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+						builder.setTitle(equip.getNom());
+						builder.setIcon(R.drawable.icono_logo);
+						View root = getLayoutInflater().inflate(
+								(R.layout.alert_dialog_activitats), null);
+						ArrayList<ACTIVITATS> activitats = new ArrayList<>();
+						for (int j = 0; j < 20; j++) {
+						activitats.add(new ACTIVITATS(1, "Actividad9293", 2, 3, 4));
+						}
+						ListView listview = root.findViewById(R.id.lv_activitats);
+						ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), activitats);
+						listview.setAdapter(adapter);
+						builder.setView(root);
+						AlertDialog dlg = builder.show();
+						dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
 					}
 				});
 
-				//
+
 				AlertDialog dlg = builder.show();
 				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
-				//
+
 
 			}
 		});
