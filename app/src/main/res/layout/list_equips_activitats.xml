@@ -6,5 +6,7 @@
     <TextView
         android:id="@+id/txt_nombre_actividad"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:textStyle="bold"/>
 </LinearLayout>
