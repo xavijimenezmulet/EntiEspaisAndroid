@@ -12,7 +12,6 @@ import com.example.cep.entiespaisandroid.R;
 
 public class ActivitatFragment extends Fragment
 {
-	private ImageView ImgPrincipal;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -27,7 +26,5 @@ public class ActivitatFragment extends Fragment
 	{
 		super.onActivityCreated(state);
 
-		ImgPrincipal = (ImageView) getView().findViewById(R.id.ImgPrincipalActivitat);
-		ImgPrincipal.setImageResource(R.drawable.logoprincipal);
 	}
 }

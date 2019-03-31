@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +31,8 @@ public class DemandasFragment extends Fragment
 	private ListView listaDem;
 	private DemandasFragment.DemandesListener listener;
 	private ImageView ImgPrincipal;
-
+	private Button btnDem;
+	private Fragment fragment;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
@@ -44,6 +48,25 @@ public class DemandasFragment extends Fragment
 
 		ImgPrincipal = (ImageView) getView().findViewById(R.id.ImgPrincipalDem);
 		ImgPrincipal.setImageResource(R.drawable.logoprincipal);
+
+		btnDem = (Button) getView().findViewById(R.id.btnDem);
+
+		btnDem.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				FragmentManager fragmentManager = getFragmentManager ();
+
+				Fragment frag = new VerDemandaFragment();
+
+				FragmentTransaction ft = fragmentManager.beginTransaction();
+				ft.replace(R.id.fragment_content, frag);
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				ft.addToBackStack(null);
+				ft.commit();
+			}
+		});
 
 		listaDem = (ListView) getView().findViewById(R.id.lstDem);
 
