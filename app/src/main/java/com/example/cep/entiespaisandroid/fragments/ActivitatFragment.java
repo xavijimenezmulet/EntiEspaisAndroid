@@ -12,8 +12,6 @@ import com.example.cep.entiespaisandroid.R;
 
 public class ActivitatFragment extends Fragment
 {
-	private ListView listaActs;
-	private ActivitatsFragment.ActivitatsListener listener;
 	private ImageView ImgPrincipal;
 
 	@Override

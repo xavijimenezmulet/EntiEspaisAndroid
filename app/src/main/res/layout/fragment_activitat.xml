@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nom"
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Equip"
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -58,20 +58,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="17:00"
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=" - "
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
         <TextText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/horaFiAct"
             android:text="19:00"
-            android:textSize="16sp"/>
+            style="@style/DatosAct"/>
     </LinearLayout>
 
         <TextView
@@ -79,14 +79,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Instal·lació"
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
         <TextView
             android:id="@+id/espaiDem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Espai"
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -97,34 +97,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dies: "
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dilluns"
-            android:textSize="16sp"/>
+            style="@style/DatosAct"/>
 
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dimarts"
-            android:textSize="16sp"/>
+            style="@style/DatosAct"/>
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dimecres"
-            android:textSize="16sp"/>
+            style="@style/DatosAct"/>
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dijous"
-            android:textSize="16sp"/>
+            style="@style/DatosAct"/>
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Divendres"
-            android:textSize="16sp"
+            style="@style/DatosAct"
             />
         <CheckBox
             android:layout_width="match_parent"
@@ -135,6 +135,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Diumenge"
-            android:textSize="16sp"/>
+            style="@style/DatosAct"/>
     </LinearLayout>
 </LinearLayout>

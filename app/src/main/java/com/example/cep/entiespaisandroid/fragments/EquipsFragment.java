@@ -1,23 +1,35 @@
 package com.example.cep.entiespaisandroid.fragments;
 
-import android.app.Activity;
+
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.adapters.ListaActivitatsAdapter;
+import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 
 import java.util.ArrayList;
+
+import static com.example.cep.entiespaisandroid.activities.MainActivity.navigationView;
 
 public class EquipsFragment extends Fragment
 {
@@ -40,29 +52,145 @@ public class EquipsFragment extends Fragment
 		equips.add(new EQUIPS(1, "F.C. Sant Cugat", false,
 				1,"2018-2019", 15, 3,
 				2, 1,1));
-		equips.add(new EQUIPS(3, "F.C. Sant Cugat B", false,
+		equips.add(new EQUIPS(3, "F.C. Sant Cugat B", true,
 				1,"2018-2019", 15, 3,
 				2, 1,1));
 		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
 				false, 1,"2018-2019", 15,
 				3, 2, 1,1));
-
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
+		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
+				false, 1,"2018-2019", 15,
+				3, 2, 1,1));
 
 		mRecyClerView = getView().findViewById(R.id.rv_recycler_view);
 		mRecyClerView.setHasFixedSize(true);
-		mLayoutManager = new GridLayoutManager(getContext(),
-				1, GridLayoutManager.VERTICAL, true);
+		mLayoutManager = new LinearLayoutManager(getContext());
 		mAdapter = new AdaptadorEquips(equips);
 		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "CLICK", Toast.LENGTH_LONG).show();
+				/*Fragment fragment = new EquipFragment();
+				Bundle bundle = new Bundle();
+				bundle.putParcelable("parcel_equip", equips.get(
+						mRecyClerView.getChildAdapterPosition(v)));
+				fragment.setArguments(bundle);
+
+				FragmentTransaction ft = getActivity().getSupportFragmentManager().
+						beginTransaction();
+				ft.replace(R.id.fragment_content, fragment);
+				ft.addToBackStack(null);
+				ft.commit();
+
+				navigationView.getMenu().getItem(0).setChecked(false);
+				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(equips.get(
+						mRecyClerView.getChildAdapterPosition(v)).getNom());*/
+				final int position_eq = mRecyClerView.getChildAdapterPosition(v);
+				final EQUIPS equip = equips.get(position_eq);
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle(equip.getNom());
+				builder.setIcon(R.drawable.icono_logo);
+				View root = getLayoutInflater().inflate(
+						(R.layout.alert_dialog_equips), null);
+				EditText editText = root.findViewById(R.id.etxt_nombre);
+				editText.setText(equip.getNom());
+
+				CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_si);
+
+				if (equip.getTe_discapacitat())
+				{
+					checkboxDiscapacidad.setChecked(true);
+				}
+				builder.setView(root);
+
+				builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						equips.remove(position_eq);
+						mAdapter.notifyItemRemoved(position_eq);
+						mAdapter.notifyItemRangeChanged(position_eq, equips.size());
+					}
+				});
+
+				builder.setPositiveButton("GUARDAR", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+
+				builder.setNeutralButton("VER ACTIVIDADES", new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i)
+					{
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+						builder.setTitle(equip.getNom());
+						builder.setIcon(R.drawable.icono_logo);
+						View root = getLayoutInflater().inflate(
+								(R.layout.alert_dialog_activitats), null);
+						ArrayList<ACTIVITATS> activitats = new ArrayList<>();
+						for (int j = 0; j < 20; j++) {
+						activitats.add(new ACTIVITATS(1, "Actividad9293", 2, 3, 4));
+						}
+						ListView listview = root.findViewById(R.id.lv_activitats);
+						ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), activitats);
+						listview.setAdapter(adapter);
+						builder.setView(root);
+						AlertDialog dlg = builder.show();
+						dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
+					}
+				});
+
+
+				AlertDialog dlg = builder.show();
+				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
+
 
 			}
 		});
 
 		mRecyClerView.setLayoutManager(mLayoutManager);
 		mRecyClerView.setAdapter(mAdapter);
+
+
 
 	}
 
@@ -105,7 +233,8 @@ public class EquipsFragment extends Fragment
 		@Override
 		public EquipViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
 		{
-			View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item, viewGroup, false);
+			View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_item,
+					viewGroup, false);
 
 			itemView.setOnClickListener(this);
 
@@ -138,6 +267,8 @@ public class EquipsFragment extends Fragment
 
 
 		}
+
 	}
+
 
 }
