@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Nom equip:"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+    <EditText
+        android:id="@+id/etxt_nombre"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Discapacitat:"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sí"/>
+        <CheckBox
+            android:id="@+id/cb_si"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"/>
+        <CheckBox
+            android:id="@+id/cb_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Entitat:"
+        android:textStyle="bold"/>
+    <Spinner
+        android:id="@+id/spinner_entitat"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Competició:"
+        android:textStyle="bold"/>
+    <Spinner
+        android:id="@+id/spinner_competicio"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Categoria edat:"
+        android:textStyle="bold"/>
+    <Spinner
+        android:id="@+id/spinner_categoriaEdat"
+        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_marginLeft="3dp"/>
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Categoria:"
+        android:textStyle="bold"
+        android:layout_marginLeft="3dp"/>
+    <Spinner
+        android:id="@+id/spinner_categoria"
+        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_marginLeft="3dp"/>
+</LinearLayout>
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Sexe:"
+        android:textStyle="bold" />
+    <Spinner
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/spinner_sexe" />
+    <TextView
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Esport:"
+        android:textStyle="bold" />
+    <Spinner
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/spinner_esport" />
+</LinearLayout>
