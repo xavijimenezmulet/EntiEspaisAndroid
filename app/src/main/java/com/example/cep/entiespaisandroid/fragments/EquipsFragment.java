@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Button;
 
 
 import com.example.cep.entiespaisandroid.R;
@@ -69,7 +70,7 @@ public class EquipsFragment extends Fragment
 		
 	}
 	
-	private void mostrarDialogTema() {
+	private void mostrarDialogEquipo() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		
 		View root = getLayoutInflater().inflate(
@@ -323,7 +324,14 @@ public class EquipsFragment extends Fragment
 
 		mRecyClerView.setLayoutManager(mLayoutManager);
 		mRecyClerView.setAdapter(mAdapter);
-
+		
+		Button btn_afegir = findViewById(R.id.añadirEquipo);
+		btn_afegir.setOnClickListener(new OnClickListener() {
+    		public void onClick(View v)
+    		{
+      		  mostrarDialogEquipo();
+   		} 
+		});
 
 
 	}
