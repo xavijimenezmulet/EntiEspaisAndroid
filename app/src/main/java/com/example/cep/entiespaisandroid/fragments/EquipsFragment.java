@@ -181,6 +181,8 @@ public class EquipsFragment extends Fragment
 	@Override
 	public void onActivityCreated(Bundle state) {
 		super.onActivityCreated(state);
+		
+		//rellenarEquipos();
 		equips.add(new EQUIPS(1, "F.C. Sant Cugat", false,
 				1,"2018-2019", 15, 3,
 				2, 1,1));
