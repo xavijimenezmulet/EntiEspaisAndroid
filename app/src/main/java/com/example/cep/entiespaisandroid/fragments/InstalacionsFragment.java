@@ -15,6 +15,12 @@ import com.example.cep.entiespaisandroid.adapters.AdapterInstalaciones;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.InstalacioService;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
@@ -22,10 +28,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InstalacionsFragment extends Fragment
+public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 {
 	private RecyclerView recyclerView;
 	private ArrayList<INSTALACIONS> instalacions;
+	private GoogleMap mMap;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -41,16 +48,20 @@ public class InstalacionsFragment extends Fragment
 	{
 		super.onActivityCreated(state);
 
-		/*
 		instalacions = new ArrayList<>();
 		instalacions.add(new INSTALACIONS(1, "Sabadell Poliesportiu", "pepe", "C/Lepanto 150",
-				"Externo", "sabadellpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 150, 145));
+				"Externo", "sabadellpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 41.388615, 2.173136));
 		instalacions.add(new INSTALACIONS(2, "Valencia Poliesportiu", "dadwdwa", "C/Ribas 150",
-				"Externo", "valenpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 145, 160));
+				"Externo", "valenpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 41.390523, 2.174123));
 
-		*/
 
-		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
+		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
+		if (mapFragment != null) {
+			mapFragment.getMapAsync(this);
+		}
+
+		/*InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
 		Call<ArrayList<INSTALACIONS>> listCall = instalacioService.getInstalacions();
 
 		listCall.enqueue(new Callback<ArrayList<INSTALACIONS>>()
@@ -72,7 +83,7 @@ public class InstalacionsFragment extends Fragment
 			{
 				Toast.makeText(getContext(), t.getCause() + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
-		});
+		});*/
 
 		recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerInstalacions);
 		recyclerView.setHasFixedSize(true);
@@ -92,5 +103,22 @@ public class InstalacionsFragment extends Fragment
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	public void onMapReady(GoogleMap googleMap)
+	{
+		mMap = googleMap;
+
+		for(INSTALACIONS i: instalacions){
+
+			LatLng marker = new LatLng(i.getAltitut(), i.getLatitut());
+			mMap.addMarker(new MarkerOptions().position(marker).title(i.getNom()));
+		}
+		// Add a marker in Sydney and move the camera
+
+		LatLng def = new LatLng(41.389219, 2.173168);
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(def, 15));
+
 	}
 }

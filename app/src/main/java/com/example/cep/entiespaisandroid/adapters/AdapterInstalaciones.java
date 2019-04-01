@@ -38,7 +38,7 @@ public class AdapterInstalaciones extends RecyclerView.Adapter<AdapterInstalacio
 		}
 
 		public void bindLine(INSTALACIONS i) {
-			imatgeInstalacio.setImageBitmap(BitmapFactory.decodeFile(i.getRuta_imagen()));
+			//imatgeInstalacio.setImageBitmap(BitmapFactory.decodeFile(i.getRuta_imagen()));
 			nomInstalacio.setText(i.getNom());
 
 		}
