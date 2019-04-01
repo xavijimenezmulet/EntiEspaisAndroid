@@ -23,6 +23,6 @@ public interface EquipService
 	@DELETE("api/EQUIPS/{id}")
 	Call<EQUIPS> deleteEquip(@Path("id") int id);
 		
- 	@PUT(""api/EQUIPS/{id}")
+ 	@PUT("api/EQUIPS/{id}")
 	Call<EQUIPS> modificarEquip(@Path("id") int id, @Body EQUIPS equip);
 }
