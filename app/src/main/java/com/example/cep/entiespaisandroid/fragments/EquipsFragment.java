@@ -37,7 +37,139 @@ public class EquipsFragment extends Fragment
 	private RecyclerView.Adapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
 	private ArrayList<EQUIPS> equips = new ArrayList<EQUIPS>();
+	private ArrayList<EQUIPS> equipsList;
+	
+	private void rellenarEquipos() {
+		EquipService equipService = Api.getApi().create(EquipService.class);
+		
+		Call<ArrayList<EQUIPS>> listCall = equipService.getEquips();
+		
+		listCall.enqueue(new Callback<ArrayList<EQUIPS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response)
+			{
+				switch (response.code()){
+					case 200:
+						equipsList = response.body();
+						mAdapter = new AdaptadorEquips(equips);
+						mRecyClerView.setAdapter(mAdapter);
+						break;
+					default:
+						break;
+				}
+			}
 
+			@Override
+			public void onFailure(Call<ArrayList<ENTITATS>> call, Throwable t)
+			{
+				Toast.makeText(getApplicationContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+		});
+		
+	}
+	
+	private void mostrarDialogTema() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		
+		View root = getLayoutInflater().inflate(
+						(R.layout.alert_dialog_equips), null);
+		builder.setView(root);
+		
+		final EditText editTextNombre = root.findViewById(R.id.etxt_nombre);
+		//Añadir spinners
+		builder.setTitle("Afegir equip");
+		
+		builder.setPositiveButton("Acceptar", new DialogInterface.OnClickListener() {
+		 public void onClick(DialogInterface dialog, int which) {
+			EQUIPS equip = new EQUIPS();
+			equip.setNom(editTextNombre.getText().toString());
+			//..
+			
+			EquipService equipService = Api.getApi().create(EquipService.class);
+			Call<EQUIPS> equipCall = equipService.insertEquip(equip); 
+			
+			equipCall.enqueue(new Callback<EQUIPS>()
+			{
+			@Override
+			public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
+			{
+				switch (response.code()){
+					case 201:
+						rellenarEquipos();
+						break;
+					case 400:
+						Gson gson = new Gson();
+						MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+						Toast.makeText(getApplicationContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<EQUIPS> call, Throwable t)
+			{
+				Toast.makeText(getApplicationContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+			});
+			}
+		});
+		
+		AlertDialog alertDialog = builder.create()
+		alertDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
+		alertDialog.show();
+	}
+	
+	protected void mostrarDialogBorrarEquipo(EQUIPS equip) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		//Crear layout (alert_dialog_borrar)
+		View root = getLayoutInflater().inflate(
+						(R.layout.alert_dialog_borrar), null);
+		builder.setView(root);
+		
+		TextView textView = root.findViewById(R.id.txt_mensaje);
+		textView.setText("Estàs segur d'eliminar aquest equip?");
+		
+		builder.setTitle("Eliminar equip: " + equip.getNom());
+		builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+		 public void onClick(DialogInterface dialog, int which) {
+			EquipService equipService = Api.getApi().create(EquipService.class);
+			
+			Call<EQUIPS> equipCall = equipService.deleteEquip(equip.getId());
+			equipCall.enqueue(new Callback<EQUIPS>()
+			{
+			@Override
+			public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
+			{
+				switch (response.code()){
+					case 201:
+						rellenarEquipos();
+						break;
+					case 400:
+						Gson gson = new Gson();
+						MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+						Toast.makeText(getApplicationContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+						break;
+					case 404:
+						Toast.makeText(getApplicationContext(), "No s'ha trobat el registre", Toast.LENGTH_LONG).show();
+						break;
+				}
+			}
+			@Override
+			public void onFailure(Call<EQUIPS> call, Throwable t)
+			{
+				Toast.makeText(getApplicationContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+			});
+			}
+		 });
+		 
+		 
+		AlertDialog alertDialog = builder.create();
+		alertDialog.show();
+	}
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
