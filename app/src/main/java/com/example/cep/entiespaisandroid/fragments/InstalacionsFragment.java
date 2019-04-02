@@ -47,12 +47,14 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 	public void onActivityCreated(Bundle state)
 	{
 		super.onActivityCreated(state);
+/*
 
 		instalacions = new ArrayList<>();
 		instalacions.add(new INSTALACIONS(1, "Sabadell Poliesportiu", "pepe", "C/Lepanto 150",
 				"Externo", "sabadellpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 41.388615, 2.173136));
 		instalacions.add(new INSTALACIONS(2, "Valencia Poliesportiu", "dadwdwa", "C/Ribas 150",
 				"Externo", "valenpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 41.390523, 2.174123));
+*/
 
 
 		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -61,7 +63,7 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 			mapFragment.getMapAsync(this);
 		}
 
-		/*InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
+		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
 		Call<ArrayList<INSTALACIONS>> listCall = instalacioService.getInstalacions();
 
 		listCall.enqueue(new Callback<ArrayList<INSTALACIONS>>()
@@ -72,6 +74,25 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 				switch (response.code()){
 					case 200:
 						instalacions = response.body();
+
+						recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerInstalacions);
+						recyclerView.setHasFixedSize(true);
+
+						final AdapterInstalaciones adaptador = new AdapterInstalaciones(instalacions);
+						recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+						recyclerView.setAdapter(adaptador);
+
+						adaptador.setOnClickListener(new View.OnClickListener()
+						{
+							@Override
+							public void onClick(View v)
+							{
+								INSTALACIONS i = instalacions.get(recyclerView.getChildAdapterPosition(v));
+								Intent intent = new Intent(getContext(), FragmentInstalacio.class);
+								//intent.putExtra("instalacio", i);
+								startActivity(intent);
+							}
+						});
 						break;
 					default:
 						break;
@@ -83,26 +104,9 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 			{
 				Toast.makeText(getContext(), t.getCause() + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
-		});*/
-
-		recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerInstalacions);
-		recyclerView.setHasFixedSize(true);
-
-		final AdapterInstalaciones adaptador = new AdapterInstalaciones(instalacions);
-		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		recyclerView.setAdapter(adaptador);
-
-		adaptador.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				INSTALACIONS i = instalacions.get(recyclerView.getChildAdapterPosition(v));
-				Intent intent = new Intent(getContext(), FragmentInstalacio.class);
-				//intent.putExtra("instalacio", i);
-				startActivity(intent);
-			}
 		});
+
+
 	}
 
 	@Override

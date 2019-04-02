@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nomIns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CENTRO HORARIOS"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="LUNES:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horLunesInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horLunesFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="MARTES:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horMartesInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horMartesFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="MIÉRCOLES:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horMiercolesInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horMiercolesFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="JUEVES:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horJuevesInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horJuevesFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="VIERNES:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horViernesInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horViernesFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SÁBADO:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horSabadoInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horSabadoFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DOMINGO:"
+            android:padding="5dp"
+            android:layout_weight="30"/>
+
+        <TextView
+            android:id="@+id/horDomingoInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_inicio"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+        <TextView
+            android:id="@+id/horDomingoFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Horario_final"
+            android:padding="5dp"
+            android:layout_weight="35"/>
+
+    </LinearLayout>
+
+</LinearLayout>

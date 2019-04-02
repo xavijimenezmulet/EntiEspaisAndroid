@@ -2,6 +2,9 @@ package com.example.cep.entiespaisandroid.fragments;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.cep.entiespaisandroid.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +18,7 @@ public class FragmentInstalacio extends FragmentActivity implements OnMapReadyCa
 {
 
 	private GoogleMap mMap;
+	private Button button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -25,6 +29,22 @@ public class FragmentInstalacio extends FragmentActivity implements OnMapReadyCa
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map);
 		mapFragment.getMapAsync(this);
+		button = findViewById(R.id.horIns);
+
+		button.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				AlertDialog.Builder builder = new AlertDialog.Builder(FragmentInstalacio.this);
+				//builder.setTitle("NOMBRE INSTALACION" + " HORARIOS");
+				View root = getLayoutInflater().inflate((R.layout.alert_dialog_equips), null);
+
+
+				AlertDialog dlg = builder.show();
+				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
+			}
+		});
 	}
 
 

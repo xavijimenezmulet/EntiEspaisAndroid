@@ -10,15 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="70">
+        android:layout_weight="75">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/blanco"
-            android:gravity="center">
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/nomIns"
@@ -61,6 +60,21 @@
                 android:gravity="center"
                 android:padding="5dp"/>
 
+            <TextView
+                android:id="@+id/telns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Teléfono: 932389654"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/horIns"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HORARIOS"/>
+
         </LinearLayout>
 
 
@@ -69,7 +83,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30">
+        android:layout_weight="25">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:map="http://schemas.android.com/apk/res-auto"
