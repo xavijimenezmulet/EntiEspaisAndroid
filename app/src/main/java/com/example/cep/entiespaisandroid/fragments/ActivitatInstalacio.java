@@ -90,10 +90,11 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 
 		// Add a marker in Sydney and move the camera
 		LatLng mark = new LatLng(instalacio.getAltitut(), instalacio.getLatitut());
-		mMap.addMarker(new MarkerOptions().position(mark).title(instalacio.getNom()));
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 15));
+		mMap.addMarker(new MarkerOptions().position(mark));
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 20));
 	}
 
+	//Cargar el Dialog Result
 	public void cargarDialog()
 	{
 
@@ -114,6 +115,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		});
 	}
 
+	//Obtener horarios instalación
 	public void horarioInstalacion(final Context con)
 	{
 
@@ -134,7 +136,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 			@Override
 			public void onFailure(Call<ArrayList<HORARI_INSTALACIO>> call, Throwable t)
 			{
-				Toast.makeText(con, "HOla", Toast.LENGTH_LONG).show();
+				Toast.makeText(con, "Error", Toast.LENGTH_LONG).show();
 			}
 		});
 	}
