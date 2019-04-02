@@ -1,9 +1,11 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import java.io.Serializable;
+
 /**
  * CLASSE INSTALACIONS
  */
-public class INSTALACIONS
+public class INSTALACIONS implements Serializable
 {
 	//ATRIBUTS
 	private int id;

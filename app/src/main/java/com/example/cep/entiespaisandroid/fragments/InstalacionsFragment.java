@@ -56,16 +56,18 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 				"Externo", "valenpoli@gmail.com", "C:\\Users\\Public\\Pictures\\SamplePictures\\Koala.jpeg", 41.390523, 2.174123));
 */
 
-
+		//Cargamos mapa y comprobamos estado
 		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
 		if (mapFragment != null) {
 			mapFragment.getMapAsync(this);
 		}
 
+		//Retroservice
 		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
 		Call<ArrayList<INSTALACIONS>> listCall = instalacioService.getInstalacions();
 
+		//Realizamos llamada y comprobamos el código de respuesta
 		listCall.enqueue(new Callback<ArrayList<INSTALACIONS>>()
 		{
 			@Override
@@ -88,8 +90,8 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 							public void onClick(View v)
 							{
 								INSTALACIONS i = instalacions.get(recyclerView.getChildAdapterPosition(v));
-								Intent intent = new Intent(getContext(), FragmentInstalacio.class);
-								//intent.putExtra("instalacio", i);
+								Intent intent = new Intent(getContext(), ActivitatInstalacio.class);
+								intent.putExtra("instalacio", i);
 								startActivity(intent);
 							}
 						});
@@ -109,6 +111,7 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 
 	}
 
+	//Cargamos mapa
 	@Override
 	public void onMapReady(GoogleMap googleMap)
 	{
@@ -125,4 +128,5 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(def, 15));
 
 	}
+
 }
