@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,11 +39,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.cep.entiespaisandroid.activities.MainActivity.navigationView;
 
 public class EquipsFragment extends Fragment
 {
-	private Boolean verdadero;
 	private RecyclerView mRecyClerView;
 	private RecyclerView.Adapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
@@ -52,7 +49,7 @@ public class EquipsFragment extends Fragment
 	private ArrayList<EQUIPS> equipsList;
 
 	private void rellenarEquipos() {
-		final EquipService equipService = Api.getApi().create(EquipService.class);
+		EquipService equipService = Api.getApi().create(EquipService.class);
 
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquips();
 
@@ -62,7 +59,12 @@ public class EquipsFragment extends Fragment
 				switch(response.code()) {
 					case 200:
 						Conexions.equips = response.body();
-
+						break;
+					case 400:
+						Toast.makeText(getActivity(), response.message().toString(), Toast.LENGTH_LONG).show();
+						break;
+					case 503:
+						Toast.makeText(getActivity(), response.message().toString(), Toast.LENGTH_LONG).show();
 						break;
 					default:
 						break;
@@ -71,7 +73,7 @@ public class EquipsFragment extends Fragment
 
 			@Override
 			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
-				Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
 	}
@@ -129,7 +131,7 @@ public class EquipsFragment extends Fragment
 
 	protected void mostrarDialogBorrarEquipo(final EQUIPS equip2) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		//Crear layout (alert_dialog_borrar)
+
 		View root = getLayoutInflater().inflate(
 				(R.layout.alert_dialog_borrar), null);
 		builder.setView(root);
@@ -189,66 +191,7 @@ public class EquipsFragment extends Fragment
 	public void onActivityCreated(Bundle state) {
 		super.onActivityCreated(state);
 
-		/**
-		equips.add(new EQUIPS(1, "F.C. Sant Cugat", false,
-				1,"2018-2019", 15, 3,
-				2, 1,1));
-		equips.add(new EQUIPS(3, "F.C. Sant Cugat B", true,
-				1,"2018-2019", 15, 3,
-				2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
-				false, 1,"2018-2019", 15,
-				3, 2, 1,1));
-		 **/
-
 		mRecyClerView = getView().findViewById(R.id.rv_recycler_view);
-		/**/
-
-
-		/**/
-
 
 		mRecyClerView.setHasFixedSize(true);
 		mLayoutManager = new LinearLayoutManager(getContext());
@@ -259,21 +202,6 @@ public class EquipsFragment extends Fragment
 		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*Fragment fragment = new EquipFragment();
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("parcel_equip", equips.get(
-						mRecyClerView.getChildAdapterPosition(v)));
-				fragment.setArguments(bundle);
-
-				FragmentTransaction ft = getActivity().getSupportFragmentManager().
-						beginTransaction();
-				ft.replace(R.id.fragment_content, fragment);
-				ft.addToBackStack(null);
-				ft.commit();
-
-				navigationView.getMenu().getItem(0).setChecked(false);
-				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(equips.get(
-						mRecyClerView.getChildAdapterPosition(v)).getNom());*/
 				final int position_eq = mRecyClerView.getChildAdapterPosition(v);
 				final EQUIPS equip = Conexions.equips.get(position_eq);
 
