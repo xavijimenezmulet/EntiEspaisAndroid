@@ -134,8 +134,6 @@ public class SplashActivity extends AppCompatActivity
 				switch(response.code()) {
 					case 200:
 						Conexions.equips = response.body();
-						Toast.makeText(SplashActivity.this, String.valueOf(Conexions.equips.size()), Toast.LENGTH_LONG).show();
-
 						break;
 					case 400:
 						Toast.makeText(SplashActivity.this, response.message().toString(), Toast.LENGTH_LONG).show();

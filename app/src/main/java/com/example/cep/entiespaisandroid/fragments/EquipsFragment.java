@@ -383,7 +383,7 @@ public class EquipsFragment extends Fragment
 			public void bindEquip(EQUIPS e) {
 				imgEquipImage.setImageResource(R.drawable.ic_action_equips);
 				lblEquipName.setText(e.getNom());
-				lblEquipEsport.setText(/*e.getId_esport()*/"Futbol");
+				lblEquipEsport.setText(/*Buscar nombre del deporte por id*/String.valueOf(e.getId_esport()));
 			}
 		}
 
