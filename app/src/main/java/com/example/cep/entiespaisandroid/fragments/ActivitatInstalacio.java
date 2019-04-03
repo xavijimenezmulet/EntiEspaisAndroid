@@ -108,6 +108,22 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 				//builder.setTitle("NOMBRE INSTALACION" + " HORARIOS");
 				View root = getLayoutInflater().inflate((R.layout.alert_dialog_horari_instalacions), null);
 
+				//CARGAR TEXTVIEWS
+				TextView lunesinicio = findViewById(R.id.horLunesInicio);
+				TextView lunesfinal = findViewById(R.id.horLunesFinal);
+				TextView martesinicio = findViewById(R.id.horMartesInicio);
+				TextView martesfinal = findViewById(R.id.horMartesFinal);
+				TextView miercolesinicio = findViewById(R.id.horMiercolesInicio);
+				TextView miercolesfinal = findViewById(R.id.horMiercolesFinal);
+				TextView juevesinicio = findViewById(R.id.horJuevesInicio);
+				TextView juevesfinal = findViewById(R.id.horJuevesFinal);
+				TextView viernesinicio = findViewById(R.id.horViernesInicio);
+				TextView viernesfinal = findViewById(R.id.horViernesFinal);
+				TextView sabadoinicio = findViewById(R.id.horSabadoInicio);
+				TextView sabadofinal = findViewById(R.id.horSabadoFinal);
+				TextView domingoinicio = findViewById(R.id.horDomingoInicio);
+				TextView domingofinal = findViewById(R.id.horDomingoFinal);
+
 				builder.setView(root);
 				AlertDialog dlg = builder.show();
 				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
