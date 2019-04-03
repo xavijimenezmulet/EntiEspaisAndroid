@@ -49,6 +49,7 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 	{
 		super.onActivityCreated(state);
 
+		/*
 		//DATOS SIN API
 		instalacions = new ArrayList<>();
 		instalacions.add(new INSTALACIONS(1, "Sabadell Poliesportiu", "pepe", "C/Lepanto 150",
@@ -75,16 +76,17 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 			}
 		});
 		//FIN
+		*/
 
 		//Cargamos mapa y comprobamos estado
 		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
-		if (mapFragment != null) {
+		if (mapFragment != null)
+		{
 			mapFragment.getMapAsync(this);
 		}
 
 
-		/*
 		//Retroservice
 		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
 		Call<ArrayList<INSTALACIONS>> listCall = instalacioService.getInstalacions();
@@ -95,7 +97,8 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 			@Override
 			public void onResponse(Call<ArrayList<INSTALACIONS>> call, Response<ArrayList<INSTALACIONS>> response)
 			{
-				switch (response.code()){
+				switch (response.code())
+				{
 					case 200:
 						instalacions = response.body();
 
@@ -129,7 +132,6 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 				Toast.makeText(getContext(), t.getCause() + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
-		*/
 
 
 	}
@@ -140,7 +142,8 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 	{
 		mMap = googleMap;
 
-		for(INSTALACIONS i: instalacions){
+		for (INSTALACIONS i : instalacions)
+		{
 
 			LatLng coord = new LatLng(i.getAltitut(), i.getLatitut());
 			Marker marker = mMap.addMarker(new MarkerOptions().position(coord).title(i.getNom()));

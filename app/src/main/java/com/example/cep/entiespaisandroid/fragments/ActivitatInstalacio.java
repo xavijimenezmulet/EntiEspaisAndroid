@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,8 +15,10 @@ import android.widget.Toast;
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.HorariInstalacioService;
+import com.example.cep.entiespaisandroid.api.apiService.HoresService;
 import com.example.cep.entiespaisandroid.api.apiService.InstalacioService;
 import com.example.cep.entiespaisandroid.classes.HORARI_INSTALACIO;
+import com.example.cep.entiespaisandroid.classes.HORES;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,6 +39,8 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 	private GoogleMap mMap;
 	private Button button;
 	private INSTALACIONS instalacio = null;
+	private ArrayList<HORARI_INSTALACIO> horari_instalacio = null;
+	private ArrayList<HORES> hores_instalacion = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -51,6 +54,9 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 
 		//Obtenemos el objeto instalación
 		instalacio = (INSTALACIONS) getIntent().getSerializableExtra("instalacio");
+
+		//Iniciamos arraylist horarios
+		horari_instalacio = new ArrayList<>();
 
 		//CARGAMOS ITEM VIEWS
 		TextView nomi = findViewById(R.id.nomIns);
@@ -67,10 +73,11 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		tpii.setText(instalacio.getTipus());
 		emaili.setText(instalacio.getEmail());
 
-		//Llamada método cargar Dialog Result
-		cargarDialog();
-
 		horarioInstalacion(this);
+
+		//Llamada método cargar Dialog Result
+		//cargarDialog();
+
 	}
 
 
@@ -124,6 +131,8 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 				TextView domingoinicio = findViewById(R.id.horDomingoInicio);
 				TextView domingofinal = findViewById(R.id.horDomingoFinal);
 
+
+
 				builder.setView(root);
 				AlertDialog dlg = builder.show();
 				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
@@ -137,8 +146,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 
 		//Retroservice
 		HorariInstalacioService horariInstalacioServices = Api.getApi().create(HorariInstalacioService.class);
-		int id = instalacio.getId();
-		Call<ArrayList<HORARI_INSTALACIO>> listCall = horariInstalacioServices.getHorariInstalacio();
+		Call<ArrayList<HORARI_INSTALACIO>> listCall = horariInstalacioServices.getHorariInstalacio(instalacio.getId());
 
 		//Realizamos llamada y comprobamos el código de respuesta
 		listCall.enqueue(new Callback<ArrayList<HORARI_INSTALACIO>>()
@@ -146,7 +154,15 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 			@Override
 			public void onResponse(Call<ArrayList<HORARI_INSTALACIO>> call, Response<ArrayList<HORARI_INSTALACIO>> response)
 			{
-
+				switch (response.code())
+				{
+					case 200:
+						horari_instalacio = response.body();
+						intervalosHoras(ActivitatInstalacio.this);
+						break;
+					default:
+						break;
+				}
 			}
 
 			@Override
@@ -155,5 +171,43 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 				Toast.makeText(con, "Error", Toast.LENGTH_LONG).show();
 			}
 		});
+	}
+
+	//Obtener intervalos horas
+	public void intervalosHoras(final Context context){
+
+		hores_instalacion = new ArrayList<>();
+
+		for (HORARI_INSTALACIO hor : horari_instalacio)
+		{
+			//Retroservice
+			HoresService horesService = Api.getApi().create(HoresService.class);
+			Call<HORES> listCall = horesService.getHoresById(hor.getId_hores());
+
+			listCall.enqueue(new Callback<HORES>()
+			{
+				@Override
+				public void onResponse(Call<HORES> call, Response<HORES> response)
+				{
+					switch (response.code())
+					{
+						case 200:
+							HORES hora = response.body();
+							hores_instalacion.add(hora);
+							break;
+						default:
+							break;
+					}
+				}
+
+				@Override
+				public void onFailure(Call<HORES> call, Throwable t)
+				{
+					Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
+				}
+			});
+		}
+
+
 	}
 }
