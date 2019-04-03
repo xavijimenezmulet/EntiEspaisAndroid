@@ -12,8 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
+import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
+import com.example.cep.entiespaisandroid.classes.ENTITATS;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -90,7 +102,6 @@ public class LoginActivity extends AppCompatActivity
 				startActivity(i);
 			}
 		});
-
 	}
 
 
@@ -162,11 +173,6 @@ public class LoginActivity extends AppCompatActivity
 		//TODO: Replace this with your own logic
 		return password.length() > 4;
 	}
-
-
-
-
-
 
 
 

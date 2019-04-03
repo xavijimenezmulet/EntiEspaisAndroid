@@ -19,6 +19,9 @@ public interface Demanda_ActService
 	@GET("api/DEMANDA_ACT/{id}")
 	Call<DEMANDA_ACT> getDemanda_actId(@Path("id")int id);
 
+	@GET("api/DEMANDA_ACT/{id_equip}")
+	Call<DEMANDA_ACT> getDemanda_actEquip(@Path("id_equip")int id_equip);
+
 	@POST("api/DEMANDA_ACT")
 	Call<DEMANDA_ACT> InsertDemanda_act(@Body DEMANDA_ACT demanda_act);
 

@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 
 import java.util.ArrayList;
@@ -90,7 +92,7 @@ public class SplashActivity extends AppCompatActivity
 
 	protected void iniciar()
 	{
-
+		//carregarDades();
 		ImgSplash = (ImageView)findViewById(R.id.ImgSplash);
 		ImgSplash.setImageResource(R.drawable.splashandroid);
 
@@ -121,6 +123,7 @@ public class SplashActivity extends AppCompatActivity
 			}
 		});
 
+
 		new Thread(){
 			public void run(){
 				try{
@@ -146,5 +149,34 @@ public class SplashActivity extends AppCompatActivity
 				iniciar();
 			}
 		}
+	}
+	protected void carregarDades()
+	{
+		Demanda_ActService ds = Api.getApi().create(com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService.class);
+
+		Call<ArrayList<DEMANDA_ACT>> dem = ds.getDemanda_acts();
+
+		dem.enqueue(new Callback<ArrayList<DEMANDA_ACT>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<DEMANDA_ACT>> call, Response<ArrayList<DEMANDA_ACT>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						ArrayList<DEMANDA_ACT> demanda_acts = response.body();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<DEMANDA_ACT>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
 	}
 }
