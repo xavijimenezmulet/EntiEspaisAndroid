@@ -15,7 +15,10 @@ import android.widget.Toast;
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
+import com.example.cep.entiespaisandroid.classes.EQUIPS;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
 
 import java.util.ArrayList;
 
@@ -106,7 +109,7 @@ public class SplashActivity extends AppCompatActivity
 				switch (response.code()){
 					case 200:
 						ArrayList<ENTITATS> entitats = response.body();
-						String nom = entitats.get(0).getNom().toString();
+						String nom = entitats.get(1).getNom().toString();
 						Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
 						break;
 					default:
@@ -118,6 +121,36 @@ public class SplashActivity extends AppCompatActivity
 			public void onFailure(Call<ArrayList<ENTITATS>> call, Throwable t)
 			{
 				Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
+			}
+		});
+
+		EquipService equipService = Api.getApi().create(EquipService.class);
+
+		Call<ArrayList<EQUIPS>> listCall = equipService.getEquips();
+
+		listCall.enqueue(new Callback<ArrayList<EQUIPS>>() {
+			@Override
+			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response) {
+				switch(response.code()) {
+					case 200:
+						Conexions.equips = response.body();
+						Toast.makeText(SplashActivity.this, String.valueOf(Conexions.equips.size()), Toast.LENGTH_LONG).show();
+
+						break;
+					case 400:
+						Toast.makeText(SplashActivity.this, response.message().toString(), Toast.LENGTH_LONG).show();
+						break;
+					case 503:
+						Toast.makeText(SplashActivity.this, response.message().toString(), Toast.LENGTH_LONG).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
 

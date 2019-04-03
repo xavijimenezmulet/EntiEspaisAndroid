@@ -31,6 +31,7 @@ import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.MensajeError;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -43,27 +44,28 @@ import static com.example.cep.entiespaisandroid.activities.MainActivity.navigati
 
 public class EquipsFragment extends Fragment
 {
+	private Boolean verdadero;
 	private RecyclerView mRecyClerView;
 	private RecyclerView.Adapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
-	private ArrayList<EQUIPS> equips = new ArrayList<EQUIPS>();
+	private ArrayList<EQUIPS> equipss = new ArrayList<EQUIPS>();
 	private ArrayList<EQUIPS> equipsList;
-	
+
 	private void rellenarEquipos() {
-		EquipService equipService = Api.getApi().create(EquipService.class);
-		
+		final EquipService equipService = Api.getApi().create(EquipService.class);
+
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquips();
-		
+
 		listCall.enqueue(new Callback<ArrayList<EQUIPS>>() {
 			@Override
 			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response) {
 				switch(response.code()) {
 					case 200:
-						equipsList = response.body();
-						Toast.makeText(getContext(), equipsList.get(0).getNom(), Toast.LENGTH_LONG).show();
+						Conexions.equips = response.body();
+
 						break;
-						default:
-							break;
+					default:
+						break;
 				}
 			}
 
@@ -72,110 +74,109 @@ public class EquipsFragment extends Fragment
 				Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
-
 	}
-	
+
 	private void mostrarDialogEquipo() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		
+
 		View root = getLayoutInflater().inflate(
-						(R.layout.alert_dialog_equips), null);
+				(R.layout.alert_dialog_equips), null);
 		builder.setView(root);
-		
+
 		final EditText editTextNombre = root.findViewById(R.id.etxt_nombre);
 		//Añadir spinners
 		builder.setTitle("Afegir equip");
-		
-		builder.setPositiveButton("Acceptar", new DialogInterface.OnClickListener() {
-		 public void onClick(DialogInterface dialog, int which) {
-			EQUIPS equip = new EQUIPS();
-			equip.setNom(editTextNombre.getText().toString());
-			//..
-			
-			EquipService equipService = Api.getApi().create(EquipService.class);
-			Call<EQUIPS> equipCall = equipService.insertEquip(equip); 
-			
-			equipCall.enqueue(new Callback<EQUIPS>()
-			{
-			@Override
-			public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
-			{
-				switch (response.code()){
-					case 201:
-						rellenarEquipos();
-						break;
-					case 400:
-						Gson gson = new Gson();
-						MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
-						Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
-						break;
-				}
-			}
 
-			@Override
-			public void onFailure(Call<EQUIPS> call, Throwable t)
-			{
-				Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
-			}
-			});
+		builder.setPositiveButton("Acceptar", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				EQUIPS equip = new EQUIPS();
+				equip.setNom(editTextNombre.getText().toString());
+				//..
+
+				EquipService equipService = Api.getApi().create(EquipService.class);
+				Call<EQUIPS> equipCall = equipService.insertEquip(equip);
+
+				equipCall.enqueue(new Callback<EQUIPS>()
+				{
+					@Override
+					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
+					{
+						switch (response.code()){
+							case 201:
+								rellenarEquipos();
+								break;
+							case 400:
+								Gson gson = new Gson();
+								MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+								Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+								break;
+						}
+					}
+
+					@Override
+					public void onFailure(Call<EQUIPS> call, Throwable t)
+					{
+						Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+					}
+				});
 			}
 		});
-		
+
 		AlertDialog alertDialog = builder.create();
 		alertDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
 		alertDialog.show();
 	}
-	
+
 	protected void mostrarDialogBorrarEquipo(final EQUIPS equip2) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		//Crear layout (alert_dialog_borrar)
 		View root = getLayoutInflater().inflate(
-						(R.layout.alert_dialog_borrar), null);
+				(R.layout.alert_dialog_borrar), null);
 		builder.setView(root);
-		
+
 		TextView textView = root.findViewById(R.id.txt_mensaje);
 		textView.setText("Estàs segur d'eliminar aquest equip?");
-		
+
 		builder.setTitle("Eliminar equip: " + equip2.getNom());
 		builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-		 public void onClick(DialogInterface dialog, int which) {
-			EquipService equipService = Api.getApi().create(EquipService.class);
-			
-			Call<EQUIPS> equipCall = equipService.deleteEquip(equip2.getId());
-			equipCall.enqueue(new Callback<EQUIPS>()
-			{
-			@Override
-			public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
-			{
-				switch (response.code()){
-					case 201:
-						rellenarEquipos();
-						break;
-					case 400:
-						Gson gson = new Gson();
-						MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
-						Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
-						break;
-					case 404:
-						Toast.makeText(getContext(), "No s'ha trobat el registre", Toast.LENGTH_LONG).show();
-						break;
-				}
+			public void onClick(DialogInterface dialog, int which) {
+				EquipService equipService = Api.getApi().create(EquipService.class);
+
+				Call<EQUIPS> equipCall = equipService.deleteEquip(equip2.getId());
+				equipCall.enqueue(new Callback<EQUIPS>()
+				{
+					@Override
+					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
+					{
+						switch (response.code()){
+							case 201:
+								rellenarEquipos();
+								break;
+							case 400:
+								Gson gson = new Gson();
+								MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+								Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+								break;
+							case 404:
+								Toast.makeText(getContext(), "No s'ha trobat el registre", Toast.LENGTH_LONG).show();
+								break;
+						}
+					}
+					@Override
+					public void onFailure(Call<EQUIPS> call, Throwable t)
+					{
+						Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+					}
+				});
 			}
-			@Override
-			public void onFailure(Call<EQUIPS> call, Throwable t)
-			{
-				Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
-			}
-			});
-			}
-		 });
-		 
-		 
+		});
+
+
 		AlertDialog alertDialog = builder.create();
 		alertDialog.show();
 	}
-	
-	
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
@@ -187,8 +188,8 @@ public class EquipsFragment extends Fragment
 	@Override
 	public void onActivityCreated(Bundle state) {
 		super.onActivityCreated(state);
-		
 
+		/**
 		equips.add(new EQUIPS(1, "F.C. Sant Cugat", false,
 				1,"2018-2019", 15, 3,
 				2, 1,1));
@@ -240,37 +241,21 @@ public class EquipsFragment extends Fragment
 		equips.add(new EQUIPS(4, "F.C. Sant Cugat Basquet",
 				false, 1,"2018-2019", 15,
 				3, 2, 1,1));
+		 **/
 
 		mRecyClerView = getView().findViewById(R.id.rv_recycler_view);
 		/**/
-		EquipService equipService = Api.getApi().create(EquipService.class);
 
-		Call<ArrayList<EQUIPS>> listCall = equipService.getEquips();
-
-		listCall.enqueue(new Callback<ArrayList<EQUIPS>>() {
-			@Override
-			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response) {
-				switch(response.code()) {
-					case 200:
-						equipsList = response.body();
-						Toast.makeText(getContext(), equipsList.get(0).getNom(), Toast.LENGTH_LONG).show();
-						break;
-					default:
-						break;
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
-				Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
-			}
-		});
 
 		/**/
+
+
 		mRecyClerView.setHasFixedSize(true);
 		mLayoutManager = new LinearLayoutManager(getContext());
 
-		mAdapter = new AdaptadorEquips(equips);
+
+		mAdapter = new AdaptadorEquips(Conexions.equips);
+
 		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -290,7 +275,7 @@ public class EquipsFragment extends Fragment
 				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(equips.get(
 						mRecyClerView.getChildAdapterPosition(v)).getNom());*/
 				final int position_eq = mRecyClerView.getChildAdapterPosition(v);
-				final EQUIPS equip = equips.get(position_eq);
+				final EQUIPS equip = Conexions.equips.get(position_eq);
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setTitle(equip.getNom());
@@ -310,9 +295,9 @@ public class EquipsFragment extends Fragment
 
 				builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						equips.remove(position_eq);
+						equipsList.remove(position_eq);
 						mAdapter.notifyItemRemoved(position_eq);
-						mAdapter.notifyItemRangeChanged(position_eq, equips.size());
+						mAdapter.notifyItemRangeChanged(position_eq, equipsList.size());
 					}
 				});
 
@@ -334,7 +319,7 @@ public class EquipsFragment extends Fragment
 								(R.layout.alert_dialog_activitats), null);
 						ArrayList<ACTIVITATS> activitats = new ArrayList<>();
 						for (int j = 0; j < 20; j++) {
-						activitats.add(new ACTIVITATS(1, "Actividad9293", 2, 3, 4));
+							activitats.add(new ACTIVITATS(1, "Actividad9293", 2, 3, 4));
 						}
 						ListView listview = root.findViewById(R.id.lv_activitats);
 						ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), activitats);
@@ -355,13 +340,13 @@ public class EquipsFragment extends Fragment
 
 		mRecyClerView.setLayoutManager(mLayoutManager);
 		mRecyClerView.setAdapter(mAdapter);
-		
+
 		Button btn_afegir = getView().findViewById(R.id.añadirEquipo);
 		btn_afegir.setOnClickListener(new View.OnClickListener() {
-    		public void onClick(View v)
-    		{
-      		  mostrarDialogEquipo();
-   		} 
+			public void onClick(View v)
+			{
+				mostrarDialogEquipo();
+			}
 		});
 
 
@@ -398,7 +383,7 @@ public class EquipsFragment extends Fragment
 			public void bindEquip(EQUIPS e) {
 				imgEquipImage.setImageResource(R.drawable.ic_action_equips);
 				lblEquipName.setText(e.getNom());
-				lblEquipEsport.setText("Futbol");
+				lblEquipEsport.setText(/*e.getId_esport()*/"Futbol");
 			}
 		}
 
