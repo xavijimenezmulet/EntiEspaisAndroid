@@ -10,7 +10,6 @@ public class DEMANDA_ACT
 	//ATRIBUTS
 	private int id;
 	private String nom;
-	private LocalTime duracio;
 	private byte num_espais;
 	private byte num_dies;
 	private Boolean es_asignada;
@@ -23,11 +22,10 @@ public class DEMANDA_ACT
 	{
 	}
 
-	public DEMANDA_ACT(int id, String nom, LocalTime duracio, byte num_espais, byte num_dies, Boolean es_asignada, int id_equip, int id_interval_hores, int id_espai)
+	public DEMANDA_ACT(int id, String nom, byte num_espais, byte num_dies, Boolean es_asignada, int id_equip, int id_interval_hores, int id_espai)
 	{
 		this.id = id;
 		this.nom = nom;
-		this.duracio = duracio;
 		this.num_espais = num_espais;
 		this.num_dies = num_dies;
 		this.es_asignada = es_asignada;
@@ -56,7 +54,7 @@ public class DEMANDA_ACT
 	{
 		this.nom = nom;
 	}
-
+/**
 	public LocalTime getDuracio()
 	{
 		return duracio;
@@ -66,7 +64,7 @@ public class DEMANDA_ACT
 	{
 		this.duracio = duracio;
 	}
-
+**/
 	public byte getNum_espais()
 	{
 		return num_espais;

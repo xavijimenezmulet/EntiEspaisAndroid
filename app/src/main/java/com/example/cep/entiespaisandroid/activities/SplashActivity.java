@@ -15,9 +15,18 @@ import android.widget.Toast;
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
+import com.example.cep.entiespaisandroid.api.apiService.Dia_SemanaService;
+import com.example.cep.entiespaisandroid.api.apiService.Dias_DemandaService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.api.apiService.EquipService;
+import com.example.cep.entiespaisandroid.api.apiService.HoresService;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
+import com.example.cep.entiespaisandroid.classes.DIAS_DEMANDA;
+import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
+import com.example.cep.entiespaisandroid.classes.EQUIPS;
+import com.example.cep.entiespaisandroid.classes.HORES;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
 
 import java.util.ArrayList;
 
@@ -92,7 +101,7 @@ public class SplashActivity extends AppCompatActivity
 
 	protected void iniciar()
 	{
-		//carregarDades();
+		carregarDades();
 		ImgSplash = (ImageView)findViewById(R.id.ImgSplash);
 		ImgSplash.setImageResource(R.drawable.splashandroid);
 
@@ -124,6 +133,9 @@ public class SplashActivity extends AppCompatActivity
 		});
 
 
+
+
+
 		new Thread(){
 			public void run(){
 				try{
@@ -152,7 +164,7 @@ public class SplashActivity extends AppCompatActivity
 	}
 	protected void carregarDades()
 	{
-		Demanda_ActService ds = Api.getApi().create(com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService.class);
+		Demanda_ActService ds = Api.getApi().create(Demanda_ActService.class);
 
 		Call<ArrayList<DEMANDA_ACT>> dem = ds.getDemanda_acts();
 
@@ -164,7 +176,8 @@ public class SplashActivity extends AppCompatActivity
 				switch (response.code())
 				{
 					case 200:
-						ArrayList<DEMANDA_ACT> demanda_acts = response.body();
+						Conexions.demanda_acts = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
 						break;
 					default:
 						break;
@@ -178,5 +191,111 @@ public class SplashActivity extends AppCompatActivity
 			}
 		});
 
+		EquipService es = Api.getApi().create(EquipService.class);
+
+		Call<ArrayList<EQUIPS>> eq = es.getEquips();
+
+		eq.enqueue(new Callback<ArrayList<EQUIPS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.equips = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		HoresService hs = Api.getApi().create(HoresService.class);
+
+		Call<ArrayList<HORES>> h = hs.getHores();
+
+		h.enqueue(new Callback<ArrayList<HORES>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
+			{
+				switch (response.code())
+				{
+					case 200:Conexions.hores = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		Dia_SemanaService dss = Api.getApi().create(Dia_SemanaService.class);
+
+		Call<ArrayList<DIA_SEMANA>> d = dss.getDiasSemana();
+
+		d.enqueue(new Callback<ArrayList<DIA_SEMANA>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<DIA_SEMANA>> call, Response<ArrayList<DIA_SEMANA>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.dies_setmana = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<DIA_SEMANA>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		Dias_DemandaService dds = Api.getApi().create(Dias_DemandaService.class);
+
+		Call<ArrayList<DIAS_DEMANDA>> dd = dds.getDias_demanda();
+
+		dd.enqueue(new Callback<ArrayList<DIAS_DEMANDA>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<DIAS_DEMANDA>> call, Response<ArrayList<DIAS_DEMANDA>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.dias_demanda = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<DIAS_DEMANDA>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }

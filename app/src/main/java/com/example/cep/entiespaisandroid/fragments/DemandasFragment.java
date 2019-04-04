@@ -1,11 +1,16 @@
 package com.example.cep.entiespaisandroid.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.activities.MainActivity;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
@@ -28,7 +34,7 @@ import java.util.List;
 
 public class DemandasFragment extends Fragment
 {
-	private ListView listaDem;
+	private RecyclerView listaDem;
 	private DemandasFragment.DemandesListener listener;
 	private ImageView ImgPrincipal;
 	private Button btnDem;
@@ -68,8 +74,8 @@ public class DemandasFragment extends Fragment
 			}
 		});
 
-		listaDem = (ListView) getView().findViewById(R.id.lstDem);
-
+		listaDem = (RecyclerView) getView().findViewById(R.id.lstDem);
+/*
 		listaDem.setAdapter(new DemandasFragment.AdaptadorDemandes(this));
 
 		listaDem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,6 +87,34 @@ public class DemandasFragment extends Fragment
 				}
 			}
 		});
+*/
+		//---------------------
+
+		final Adapter adapter = new Adapter(Conexions.demanda_acts);
+
+		Activity act = getActivity();
+		listaDem.setLayoutManager(new GridLayoutManager(act,1));
+		listaDem.addItemDecoration(
+				new DividerItemDecoration(act, DividerItemDecoration.VERTICAL));
+
+		listaDem.setItemAnimator(new DefaultItemAnimator());
+		listaDem.setAdapter(adapter);
+
+		adapter.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				FragmentManager fragmentManager = getFragmentManager ();
+
+				Fragment frag = new VerDemandaFragment();
+
+				FragmentTransaction ft = fragmentManager.beginTransaction();
+				ft.replace(R.id.fragment_content, frag);
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				ft.addToBackStack(null);
+				ft.commit();
+			}
+		});
 	}
 	public interface DemandesListener {
 		void onEnvironmentSeleccionado(DEMANDA_ACT d);
@@ -90,7 +124,100 @@ public class DemandasFragment extends Fragment
 		this.listener=listener;
 	}
 
-	class AdaptadorDemandes extends ArrayAdapter<DEMANDA_ACT>
+
+	public class Adapter extends RecyclerView.Adapter<Adapter.PlaceViewHolder>
+			implements View.OnClickListener
+	{
+		public class PlaceViewHolder extends  RecyclerView.ViewHolder
+		{
+			private TextView nom;
+			private TextView equip;
+			private TextView horaI;
+			private TextView horaF;
+			private ListView dies;
+
+
+			public PlaceViewHolder(View itemView) {
+				super(itemView);
+
+				nom = (TextView)itemView.findViewById(R.id.textNomDem);
+				equip = (TextView)itemView.findViewById(R.id.textNomEquip);
+				horaI = (TextView)itemView.findViewById(R.id.txtHoraIni);
+				horaF = (TextView)itemView.findViewById(R.id.txtHoraFi);
+			}
+
+			public void bindTitular(DEMANDA_ACT d) {
+				String NomEquip = "";
+				String HoraInici = "";
+				String HoraFinal = "";
+				for(int i = 0; i < Conexions.equips.size(); i++)
+				{
+					if(Conexions.equips.get(i).getId() == d.getId_equip())
+					{
+						NomEquip = Conexions.equips.get(i).getNom();
+					}
+				}
+				for(int i = 0; i < Conexions.hores.size(); i++)
+				{
+					if(Conexions.hores.get(i).getId() == d.getId_interval_hores())
+					{
+						HoraInici = Conexions.hores.get(i).getInici();
+						HoraFinal = Conexions.hores.get(i).getFi();
+					}
+				}
+				nom.setText(d.getNom());
+				equip.setText(NomEquip);
+				horaI.setText(HoraInici);
+				horaF.setText(HoraFinal);
+			}
+		}
+
+		private ArrayList<DEMANDA_ACT> demandas;
+
+		public Adapter(ArrayList<DEMANDA_ACT> demandas)
+		{
+			this.demandas = demandas;
+		}
+
+		private View.OnClickListener listener;
+
+		public PlaceViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+			View itemView = LayoutInflater.from(viewGroup.getContext())
+					.inflate(R.layout.item_demandes, viewGroup, false);
+
+			itemView.setOnClickListener(this);
+			PlaceViewHolder tvh = new PlaceViewHolder(itemView);
+
+			return tvh;
+		}
+
+		public void setOnClickListener(View.OnClickListener listener)
+		{
+			this.listener = listener;
+		}
+		@Override
+		public void onClick(View view)
+		{
+			if(listener != null)
+			{
+				listener.onClick(view);
+			}
+		}
+
+		public int getItemCount() {
+			return demandas.size();
+		}
+
+
+		public void onBindViewHolder(PlaceViewHolder viewHolder, int pos) {
+			DEMANDA_ACT item = demandas.get(pos);
+
+			viewHolder.bindTitular(item);
+		}
+	}
+
+
+	/*class AdaptadorDemandes extends ArrayAdapter<DEMANDA_ACT>
 	{
 
 		Activity context;
@@ -154,5 +281,5 @@ public class DemandasFragment extends Fragment
 
 			return(item);
 		}
-	}
+	}*/
 }
