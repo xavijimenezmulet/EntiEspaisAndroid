@@ -59,6 +59,8 @@ public class EquipsFragment extends Fragment
 				switch(response.code()) {
 					case 200:
 						Conexions.equips = response.body();
+						mAdapter = new AdaptadorEquips(Conexions.equips);
+						mRecyClerView.setAdapter(mAdapter);
 						break;
 					case 400:
 						Toast.makeText(getActivity(), response.message().toString(), Toast.LENGTH_LONG).show();
@@ -104,7 +106,7 @@ public class EquipsFragment extends Fragment
 					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
 					{
 						switch (response.code()){
-							case 201:
+							case 200:
 								rellenarEquipos();
 								break;
 							case 400:
@@ -140,7 +142,7 @@ public class EquipsFragment extends Fragment
 		textView.setText("Estàs segur d'eliminar aquest equip?");
 
 		builder.setTitle("Eliminar equip: " + equip2.getNom());
-		builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("SÍ", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				EquipService equipService = Api.getApi().create(EquipService.class);
 
@@ -151,8 +153,9 @@ public class EquipsFragment extends Fragment
 					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
 					{
 						switch (response.code()){
-							case 201:
+							case 200:
 								rellenarEquipos();
+								Toast.makeText(getContext(), "Equip eliminat.", Toast.LENGTH_LONG).show();
 								break;
 							case 400:
 								Gson gson = new Gson();
@@ -172,7 +175,14 @@ public class EquipsFragment extends Fragment
 				});
 			}
 		});
+		builder.setNegativeButton("NO", new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i)
+			{
 
+			}
+		});
 
 		AlertDialog alertDialog = builder.create();
 		alertDialog.show();
@@ -219,13 +229,14 @@ public class EquipsFragment extends Fragment
 				{
 					checkboxDiscapacidad.setChecked(true);
 				}
+
+
+
 				builder.setView(root);
 
 				builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						equipsList.remove(position_eq);
-						mAdapter.notifyItemRemoved(position_eq);
-						mAdapter.notifyItemRangeChanged(position_eq, equipsList.size());
+						mostrarDialogBorrarEquipo(equip);
 					}
 				});
 
