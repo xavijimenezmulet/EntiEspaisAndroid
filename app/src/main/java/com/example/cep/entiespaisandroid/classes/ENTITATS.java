@@ -148,4 +148,22 @@ public class ENTITATS
 	{
 		this.latitud = latitud;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "ENTITATS{" +
+				"id=" + id +
+				", temporada='" + temporada + '\'' +
+				", nom='" + nom + '\'' +
+				", contrasenya='" + contrasenya + '\'' +
+				", adresa='" + adresa + '\'' +
+				", nif='" + nif + '\'' +
+				", email='" + email + '\'' +
+				", ruta_imagen='" + ruta_imagen + '\'' +
+				", ruta_video='" + ruta_video + '\'' +
+				", altitud=" + altitud +
+				", latitud=" + latitud +
+				'}';
+	}
 }

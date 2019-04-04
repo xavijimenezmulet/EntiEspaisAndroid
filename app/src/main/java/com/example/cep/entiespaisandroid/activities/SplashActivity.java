@@ -108,8 +108,8 @@ public class SplashActivity extends AppCompatActivity
 			{
 				switch (response.code()){
 					case 200:
-						ArrayList<ENTITATS> entitats = response.body();
-						String nom = entitats.get(1).getNom().toString();
+						Conexions.entitats = response.body();
+						String nom = Conexions.entitats.get(1).getNom().toString();
 						Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
 						break;
 					default:

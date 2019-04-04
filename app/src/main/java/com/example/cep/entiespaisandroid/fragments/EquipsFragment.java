@@ -14,10 +14,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,9 +27,11 @@ import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.adapters.ListaActivitatsAdapter;
+import com.example.cep.entiespaisandroid.adapters.ListaEntitatsAdapter;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
+import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.MensajeError;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
@@ -230,6 +234,9 @@ public class EquipsFragment extends Fragment
 					checkboxDiscapacidad.setChecked(true);
 				}
 
+				Spinner spinner_entitat = root.findViewById(R.id.spinner_entitat);
+				ListaEntitatsAdapter adapter = new ListaEntitatsAdapter(getContext(), Conexions.entitats);
+				spinner_entitat.setAdapter(adapter);
 
 
 				builder.setView(root);
