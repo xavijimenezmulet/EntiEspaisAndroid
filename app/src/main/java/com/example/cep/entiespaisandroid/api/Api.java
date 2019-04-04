@@ -15,7 +15,7 @@ public class Api {
 	public static final String IP_PC_CASA_DAVID   = "http://192.168.217.1:53808";
 	public static final String IP_LOCALHOST = "http://172.0.0.1:53808";
 
-	private static final String BASE_URL = IP_PC_CASA_DAVID;
+	private static final String BASE_URL = IP_PC_CLASSE_DAVID;
 	private static Retrofit  retrofit = null;
 
 	public static Retrofit getApi(){

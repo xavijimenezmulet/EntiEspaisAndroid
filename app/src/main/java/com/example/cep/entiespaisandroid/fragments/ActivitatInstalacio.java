@@ -40,7 +40,6 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 	private Button button;
 	private INSTALACIONS instalacio = null;
 	private ArrayList<HORARI_INSTALACIO> horari_instalacio = null;
-	private ArrayList<HORES> hores_instalacion = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -131,7 +130,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 				TextView domingoinicio = findViewById(R.id.horDomingoInicio);
 				TextView domingofinal = findViewById(R.id.horDomingoFinal);
 
-
+				//lunesinicio.setText(horari_instalacio.get(0).getHora().getInici().toString());
 
 				builder.setView(root);
 				AlertDialog dlg = builder.show();
@@ -158,7 +157,6 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 				{
 					case 200:
 						horari_instalacio = response.body();
-						intervalosHoras(ActivitatInstalacio.this);
 						break;
 					default:
 						break;
@@ -173,6 +171,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		});
 	}
 
+	/*
 	//Obtener intervalos horas
 	public void intervalosHoras(final Context context){
 
@@ -210,4 +209,5 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 
 
 	}
+	*/
 }
