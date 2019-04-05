@@ -14,8 +14,12 @@ import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.CategoriaEdatService;
+import com.example.cep.entiespaisandroid.api.apiService.CompeticioService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
+import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
+import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
@@ -97,6 +101,10 @@ public class SplashActivity extends AppCompatActivity
 		ImgSplash = (ImageView)findViewById(R.id.ImgSplash);
 		ImgSplash.setImageResource(R.drawable.splashandroid);
 
+		//================================================================================
+		// Rellenar ArrayList<ENTITATS> con todas las entidades de la BD.
+		//================================================================================
+
 		EntitatService es = Api.getApi().create(EntitatService.class);
 
 		Call<ArrayList<ENTITATS>> e = es.getEntitats();
@@ -109,8 +117,6 @@ public class SplashActivity extends AppCompatActivity
 				switch (response.code()){
 					case 200:
 						Conexions.entitats = response.body();
-						String nom = Conexions.entitats.get(1).getNom().toString();
-						Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
 						break;
 					default:
 						break;
@@ -120,7 +126,7 @@ public class SplashActivity extends AppCompatActivity
 			@Override
 			public void onFailure(Call<ArrayList<ENTITATS>> call, Throwable t)
 			{
-				Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
 
@@ -151,6 +157,66 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
+
+		//================================================================================
+		// Rellenar ArrayList<CATEGORIA_EDAT> con todas las categorias de edad de la BD.
+		//================================================================================
+
+		CompeticioService competicioService = Api.getApi().create(CompeticioService.class);
+
+		Call<ArrayList<COMPETICIONS>> listCall1 = competicioService.getCompeticions();
+
+		listCall1.enqueue(new Callback<ArrayList<COMPETICIONS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<COMPETICIONS>> call, Response<ArrayList<COMPETICIONS>> response)
+			{
+				switch (response.code()) {
+					case 200:
+						Conexions.competicions = response.body();
+						break;
+					default:
+						break;
+				}
+
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<COMPETICIONS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+		});
+
+		//================================================================================
+		// Rellenar ArrayList<COMPETICIONS> con todas las competiciones de la BD.
+		//================================================================================
+
+		CategoriaEdatService categoriaEdatService = Api.getApi().create(CategoriaEdatService.class);
+
+		Call<ArrayList<CATEGORIA_EDAT>> listCall2 = categoriaEdatService.getCategoriasEdats();
+
+		listCall2.enqueue(new Callback<ArrayList<CATEGORIA_EDAT>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<CATEGORIA_EDAT>> call, Response<ArrayList<CATEGORIA_EDAT>> response)
+			{
+				switch(response.code()) {
+					case 200:
+						Conexions.categoria_edats = response.body();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<CATEGORIA_EDAT>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+		});
+
 
 		new Thread(){
 			public void run(){

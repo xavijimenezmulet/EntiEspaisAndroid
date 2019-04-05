@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,10 +28,14 @@ import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.adapters.ListaActivitatsAdapter;
+import com.example.cep.entiespaisandroid.adapters.ListaCategoriaEdatAdapter;
+import com.example.cep.entiespaisandroid.adapters.ListaCompeticionsAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaEntitatsAdapter;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
+import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
+import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.MensajeError;
@@ -38,6 +43,7 @@ import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,8 +55,6 @@ public class EquipsFragment extends Fragment
 	private RecyclerView mRecyClerView;
 	private RecyclerView.Adapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
-	private ArrayList<EQUIPS> equipss = new ArrayList<EQUIPS>();
-	private ArrayList<EQUIPS> equipsList;
 
 	private void rellenarEquipos() {
 		EquipService equipService = Api.getApi().create(EquipService.class);
@@ -234,9 +238,94 @@ public class EquipsFragment extends Fragment
 					checkboxDiscapacidad.setChecked(true);
 				}
 
-				Spinner spinner_entitat = root.findViewById(R.id.spinner_entitat);
+				/*final Spinner spinner_entitat = root.findViewById(R.id.spinner_entitat);
 				ListaEntitatsAdapter adapter = new ListaEntitatsAdapter(getContext(), Conexions.entitats);
 				spinner_entitat.setAdapter(adapter);
+				int i = 0;
+				int posicion = 0;
+
+				boolean encontrado = false;
+				Iterator<ENTITATS> iteratorEntitats = Conexions.entitats.iterator();
+				while(iteratorEntitats.hasNext() && !encontrado){
+					ENTITATS entitat = iteratorEntitats.next();
+
+					if (entitat.getId() == equip.getId_entitat()) {
+						posicion = i;
+						encontrado = true;
+					}
+					i++;
+				}
+
+				spinner_entitat.setSelection(posicion);
+
+				spinner_entitat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+				{
+					@Override
+					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+					{
+
+						String something = Conexions.entitats.get(i).getNom();
+						Toast.makeText(getContext(), something, Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> adapterView)
+					{
+
+					}
+				});*/
+
+				//================================================================================
+				// Rellenar spinner competiciones
+				//================================================================================
+				final Spinner spinner_competicio = root.findViewById(R.id.spinner_competicio);
+				ListaCompeticionsAdapter adapter_competicions = new ListaCompeticionsAdapter(getContext(), Conexions.competicions);
+				spinner_competicio.setAdapter(adapter_competicions);
+
+				int i = 0;
+				int posicion = 0;
+
+				boolean encontrado = false;
+				Iterator<COMPETICIONS> iteratorCompeticions= Conexions.competicions.iterator();
+				while(iteratorCompeticions.hasNext() && !encontrado){
+					COMPETICIONS competicio = iteratorCompeticions.next();
+
+					if (competicio.getId() == equip.getId_competicio()) {
+						posicion = i;
+						encontrado = true;
+					}
+					i++;
+				}
+
+				spinner_competicio.setSelection(posicion);
+
+				//================================================================================
+				// Rellenar spinner categoria edad
+				//================================================================================
+				final Spinner spinner_categoria_edat = root.findViewById(R.id.spinner_categoriaEdat);
+				ListaCategoriaEdatAdapter adapter_categoria_edat = new ListaCategoriaEdatAdapter(getContext(), Conexions.categoria_edats);
+				spinner_categoria_edat.setAdapter(adapter_categoria_edat);
+
+				i = 0;
+				posicion = 0;
+
+				encontrado = false;
+				Iterator<CATEGORIA_EDAT> iteratorCategoriaEdat= Conexions.categoria_edats.iterator();
+				while(iteratorCompeticions.hasNext() && !encontrado){
+					CATEGORIA_EDAT categoria_edat = iteratorCategoriaEdat.next();
+
+					if (categoria_edat.getId() == equip.getId_categoria_edat()) {
+						posicion = i;
+						encontrado = true;
+					}
+					i++;
+				}
+
+				spinner_competicio.setSelection(posicion);
+
+				//================================================================================
+				// Rellenar spinner categoria equip
+				//================================================================================
 
 
 				builder.setView(root);
@@ -373,6 +462,7 @@ public class EquipsFragment extends Fragment
 		}
 
 	}
+
 
 
 }
