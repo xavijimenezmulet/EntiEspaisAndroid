@@ -10,19 +10,20 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.cep.entiespaisandroid.R;
-import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
+import com.example.cep.entiespaisandroid.classes.ESPORTS;
+import com.example.cep.entiespaisandroid.classes.SEXE;
 
 import java.util.ArrayList;
 
-public class ListaCategoriaEdatAdapter extends ArrayAdapter<CATEGORIA_EDAT>
+public class ListaEsportAdapter extends ArrayAdapter<ESPORTS>
 {
-	private ArrayList<CATEGORIA_EDAT> categoriesEdatArrayList;
+	private ArrayList<ESPORTS> esportArrayList;
 	private Context context;
 
-	public ListaCategoriaEdatAdapter(@NonNull Context context, ArrayList<CATEGORIA_EDAT> list) {
+	public ListaEsportAdapter(@NonNull Context context, ArrayList<ESPORTS> list) {
 		super(context, 0 , list);
 		this.context = context;
-		categoriesEdatArrayList = list;
+		esportArrayList = list;
 	}
 
 	@NonNull
@@ -32,10 +33,10 @@ public class ListaCategoriaEdatAdapter extends ArrayAdapter<CATEGORIA_EDAT>
 		if(listItem == null)
 			listItem = LayoutInflater.from(context).inflate(R.layout.list_equips_entitats,parent,false);
 
-		CATEGORIA_EDAT currentCategoriaEdat = categoriesEdatArrayList.get(position);
+		ESPORTS currentEsport = esportArrayList.get(position);
 
 		TextView name = listItem.findViewById(R.id.txt_nombre_entidad);
-		name.setText(currentCategoriaEdat.getNom());
+		name.setText(currentEsport.getNom());
 
 		return listItem;
 	}
@@ -51,10 +52,10 @@ public class ListaCategoriaEdatAdapter extends ArrayAdapter<CATEGORIA_EDAT>
 		if(listItem == null)
 			listItem = LayoutInflater.from(context).inflate(R.layout.list_equips_entitats,null,false);
 
-		CATEGORIA_EDAT currentCategoriaEdat = categoriesEdatArrayList.get(position);
+		ESPORTS currentEsport = esportArrayList.get(position);
 
 		TextView name = listItem.findViewById(R.id.txt_nombre_entidad);
-		name.setText(currentCategoriaEdat.getNom());
+		name.setText(currentEsport.getNom());
 
 		return listItem;
 	}

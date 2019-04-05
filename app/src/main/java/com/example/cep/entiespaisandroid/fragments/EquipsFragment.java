@@ -32,6 +32,8 @@ import com.example.cep.entiespaisandroid.adapters.ListaCategoriaEdatAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaCategoriaEquipAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaCompeticionsAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaEntitatsAdapter;
+import com.example.cep.entiespaisandroid.adapters.ListaEsportAdapter;
+import com.example.cep.entiespaisandroid.adapters.ListaSexeAdapter;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
@@ -40,7 +42,9 @@ import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
 import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
+import com.example.cep.entiespaisandroid.classes.ESPORTS;
 import com.example.cep.entiespaisandroid.classes.MensajeError;
+import com.example.cep.entiespaisandroid.classes.SEXE;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.google.gson.Gson;
 
@@ -349,6 +353,54 @@ public class EquipsFragment extends Fragment
 
 				spinner_categoria_equip.setSelection(posicion);
 
+				//================================================================================
+				// Rellenar spinner sexe
+				//================================================================================
+				final Spinner spinner_sexe = root.findViewById(R.id.spinner_sexe);
+				ListaSexeAdapter adapter_sexe = new ListaSexeAdapter(getContext(), Conexions.sexes);
+				spinner_sexe.setAdapter(adapter_sexe);
+
+				i = 0;
+				posicion = 0;
+
+				encontrado = false;
+				Iterator<SEXE> iteratorSexe = Conexions.sexes.iterator();
+				while(iteratorSexe.hasNext() && !encontrado){
+					SEXE sexe = iteratorSexe.next();
+
+					if (sexe.getId() == equip.getId_sexe()) {
+						posicion = i;
+						encontrado = true;
+					}
+					i++;
+				}
+
+				spinner_sexe.setSelection(posicion);
+
+				//================================================================================
+				// Rellenar spinner esport.
+				//================================================================================
+				final Spinner spinner_esport = root.findViewById(R.id.spinner_esport);
+				ListaEsportAdapter adapter_esport = new ListaEsportAdapter(getContext(), Conexions.esports);
+				spinner_esport.setAdapter(adapter_esport);
+
+				i = 0;
+				posicion = 0;
+
+				encontrado = false;
+				Iterator<ESPORTS> iteratorEsport = Conexions.esports.iterator();
+				while(iteratorEsport.hasNext() && !encontrado){
+					ESPORTS esport = iteratorEsport.next();
+
+					if (esport.getId() == equip.getId_esport()) {
+						posicion = i;
+						encontrado = true;
+					}
+					i++;
+				}
+
+				spinner_esport.setSelection(posicion);
+
 				builder.setView(root);
 
 				builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener() {
@@ -439,7 +491,7 @@ public class EquipsFragment extends Fragment
 			public void bindEquip(EQUIPS e) {
 				imgEquipImage.setImageResource(R.drawable.ic_action_equips);
 				lblEquipName.setText(e.getNom());
-				lblEquipEsport.setText(/*Buscar nombre del deporte por id*/String.valueOf(e.getId_esport()));
+				lblEquipEsport.setText(String.valueOf(e.getId_esport()));
 			}
 		}
 

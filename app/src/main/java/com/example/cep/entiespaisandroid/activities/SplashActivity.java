@@ -19,11 +19,15 @@ import com.example.cep.entiespaisandroid.api.apiService.CategoriaEquipService;
 import com.example.cep.entiespaisandroid.api.apiService.CompeticioService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
+import com.example.cep.entiespaisandroid.api.apiService.EsportService;
+import com.example.cep.entiespaisandroid.api.apiService.SexeService;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
 import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
+import com.example.cep.entiespaisandroid.classes.ESPORTS;
+import com.example.cep.entiespaisandroid.classes.SEXE;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 
 import java.util.ArrayList;
@@ -243,6 +247,65 @@ public class SplashActivity extends AppCompatActivity
 
 			@Override
 			public void onFailure(Call<ArrayList<CATEGORIA_EQUIP>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+		});
+
+		//================================================================================
+		// Rellenar ArrayList<SEXE> con todos los sexos de la BD.
+		//================================================================================
+
+		SexeService sexeService = Api.getApi().create(SexeService.class);
+
+		Call<ArrayList<SEXE>> listCall4 = sexeService.getSexes();
+
+		listCall4.enqueue(new Callback<ArrayList<SEXE>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<SEXE>> call, Response<ArrayList<SEXE>> response)
+			{
+				switch(response.code()) {
+					case 200:
+						Conexions.sexes = response.body();
+						Toast.makeText(SplashActivity.this, Conexions.sexes.get(0).getTipus(), Toast.LENGTH_LONG).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<SEXE>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+		});
+
+		//================================================================================
+		// Rellenar ArrayList<ESPORTS> con todos los deportes de la BD.
+		//================================================================================
+		EsportService esportService = Api.getApi().create(EsportService.class);
+
+		Call<ArrayList<ESPORTS>> listCall5 = esportService.getEsports();
+
+		listCall5.enqueue(new Callback<ArrayList<ESPORTS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<ESPORTS>> call, Response<ArrayList<ESPORTS>> response)
+			{
+				switch(response.code()) {
+					case 200:
+						Conexions.esports = response.body();
+						Toast.makeText(SplashActivity.this, Conexions.sexes.get(0).getTipus(), Toast.LENGTH_LONG).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<ESPORTS>> call, Throwable t)
 			{
 				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}

@@ -42,4 +42,13 @@ public class SEXE
 	{
 		this.tipus = tipus;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "SEXE{" +
+				"id=" + id +
+				", tipus='" + tipus + '\'' +
+				'}';
+	}
 }
