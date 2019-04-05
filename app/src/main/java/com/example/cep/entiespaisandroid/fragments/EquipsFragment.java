@@ -29,12 +29,14 @@ import android.widget.Toast;
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.adapters.ListaActivitatsAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaCategoriaEdatAdapter;
+import com.example.cep.entiespaisandroid.adapters.ListaCategoriaEquipAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaCompeticionsAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaEntitatsAdapter;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
+import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
 import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
@@ -321,12 +323,31 @@ public class EquipsFragment extends Fragment
 					i++;
 				}
 
-				spinner_competicio.setSelection(posicion);
+				spinner_categoria_edat.setSelection(posicion);
 
 				//================================================================================
 				// Rellenar spinner categoria equip
 				//================================================================================
+				final Spinner spinner_categoria_equip = root.findViewById(R.id.spinner_categoria);
+				ListaCategoriaEquipAdapter adapter_categoria_equip = new ListaCategoriaEquipAdapter(getContext(), Conexions.categoria_equips);
+				spinner_categoria_equip.setAdapter(adapter_categoria_equip);
 
+				i = 0;
+				posicion = 0;
+
+				encontrado = false;
+				Iterator<CATEGORIA_EQUIP> iteratorCategoriaEquip= Conexions.categoria_equips.iterator();
+				while(iteratorCategoriaEquip.hasNext() && !encontrado){
+					CATEGORIA_EQUIP categoria_equip = iteratorCategoriaEquip.next();
+
+					if (categoria_equip.getId() == equip.getId_categoria_equip()) {
+						posicion = i;
+						encontrado = true;
+					}
+					i++;
+				}
+
+				spinner_categoria_equip.setSelection(posicion);
 
 				builder.setView(root);
 

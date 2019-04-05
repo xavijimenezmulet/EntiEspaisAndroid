@@ -15,10 +15,12 @@ import android.widget.Toast;
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.CategoriaEdatService;
+import com.example.cep.entiespaisandroid.api.apiService.CategoriaEquipService;
 import com.example.cep.entiespaisandroid.api.apiService.CompeticioService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
+import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
 import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
@@ -159,7 +161,7 @@ public class SplashActivity extends AppCompatActivity
 		});
 
 		//================================================================================
-		// Rellenar ArrayList<CATEGORIA_EDAT> con todas las categorias de edad de la BD.
+		// Rellenar ArrayList<COMPETICIONS> con todas las competiciones de la BD.
 		//================================================================================
 
 		CompeticioService competicioService = Api.getApi().create(CompeticioService.class);
@@ -189,7 +191,7 @@ public class SplashActivity extends AppCompatActivity
 		});
 
 		//================================================================================
-		// Rellenar ArrayList<COMPETICIONS> con todas las competiciones de la BD.
+		// Rellenar ArrayList<CATEGORIA_EDAT> con todas las categorias de edad de la BD.
 		//================================================================================
 
 		CategoriaEdatService categoriaEdatService = Api.getApi().create(CategoriaEdatService.class);
@@ -217,6 +219,34 @@ public class SplashActivity extends AppCompatActivity
 			}
 		});
 
+		//================================================================================
+		// Rellenar ArrayList<CATEGORIA_EQUIP> con todas las categorias de equipo de la BD.
+		//================================================================================
+
+		CategoriaEquipService categoriaEquipService = Api.getApi().create(CategoriaEquipService.class);
+
+		Call<ArrayList<CATEGORIA_EQUIP>> listCall3 = categoriaEquipService.getCategoriasEquips();
+
+		listCall3.enqueue(new Callback<ArrayList<CATEGORIA_EQUIP>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<CATEGORIA_EQUIP>> call, Response<ArrayList<CATEGORIA_EQUIP>> response)
+			{
+				switch(response.code()) {
+					case 200:
+						Conexions.categoria_equips = response.body();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<CATEGORIA_EQUIP>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+			}
+		});
 
 		new Thread(){
 			public void run(){

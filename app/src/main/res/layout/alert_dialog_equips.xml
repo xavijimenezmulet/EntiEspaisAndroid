@@ -82,18 +82,18 @@
     <Spinner
         android:id="@+id/spinner_categoriaEdat"
         android:layout_height="wrap_content"
-        android:layout_width="90dp"
+        android:layout_width="match_parent"
         android:layout_marginLeft="3dp"/>
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Categoria:"
         android:textStyle="bold"
-        android:layout_marginLeft="3dp"/>
+        android:layout_marginLeft="7dp"/>
     <Spinner
         android:id="@+id/spinner_categoria"
         android:layout_height="wrap_content"
-        android:layout_width="90dp"
+        android:layout_width="match_parent"
         android:layout_marginLeft="3dp"/>
 </LinearLayout>
     <TextView
