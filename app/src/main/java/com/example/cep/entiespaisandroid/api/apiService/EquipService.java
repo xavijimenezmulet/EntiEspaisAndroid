@@ -17,6 +17,9 @@ public interface EquipService
 	@GET("api/EQUIPS")
 	Call<ArrayList<EQUIPS>> getEquips();
 
+	@GET("api/EQUIPS/id_entitat/{id_entitat}")
+	Call<ArrayList<EQUIPS>> getEquipsByIdEntitat(@Path("id_entitat") int id_entitat);
+
 	@POST("api/EQUIPS")
 	Call<EQUIPS> insertEquip(@Body EQUIPS equip);
 	
