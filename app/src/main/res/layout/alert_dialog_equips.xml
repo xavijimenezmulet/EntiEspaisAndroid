@@ -35,29 +35,10 @@
             android:layout_height="wrap_content"
             android:text="Sí"/>
         <CheckBox
-            android:id="@+id/cb_si"
+            android:id="@+id/cb_discapacitat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No"/>
-        <CheckBox
-            android:id="@+id/cb_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
-    <!--<TextView
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Entitat:"
-        android:textStyle="bold"/>
-    <Spinner
-        android:id="@+id/spinner_entitat"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/> -->
     <TextView
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
@@ -69,33 +50,33 @@
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
-<LinearLayout
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_margin="5dp"
-    android:orientation="horizontal">
-    <TextView
+    <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Categoria edat:"
-        android:textStyle="bold"/>
-    <Spinner
-        android:id="@+id/spinner_categoriaEdat"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="3dp"/>
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Categoria:"
-        android:textStyle="bold"
-        android:layout_marginLeft="7dp"/>
-    <Spinner
-        android:id="@+id/spinner_categoria"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="3dp"/>
-</LinearLayout>
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Categoria edat:"
+            android:textStyle="bold"/>
+        <Spinner
+            android:id="@+id/spinner_categoriaEdat"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="3dp"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Categoria:"
+            android:textStyle="bold"
+            android:layout_marginLeft="7dp"/>
+        <Spinner
+            android:id="@+id/spinner_categoria"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="3dp"/>
+    </LinearLayout>
     <TextView
         android:layout_margin="5dp"
         android:layout_height="wrap_content"

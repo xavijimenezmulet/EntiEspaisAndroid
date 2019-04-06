@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,7 +63,7 @@ public class EquipsFragment extends Fragment
 	private RecyclerView.Adapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
 	private Spinner spinner_competicion, spinner_categoria_edad, spinner_categoria_equipo,
-					spinner_sexo, spinner_deporte;
+			spinner_sexo, spinner_deporte;
 	private View root = null;
 
 	private void rellenarEquipos() {
@@ -78,6 +79,7 @@ public class EquipsFragment extends Fragment
 						Conexions.equips = response.body();
 						mAdapter = new AdaptadorEquips(Conexions.equips);
 						mRecyClerView.setAdapter(mAdapter);
+
 						break;
 					case 400:
 						Toast.makeText(getActivity(), response.message().toString(), Toast.LENGTH_LONG).show();
@@ -100,13 +102,15 @@ public class EquipsFragment extends Fragment
 	private void mostrarDialogEquipo() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-		/*View*/ root = getLayoutInflater().inflate(
+		root = getLayoutInflater().inflate(
 				(R.layout.alert_dialog_equips), null);
+
 		builder.setView(root);
 
 		final EditText editTextNombre = root.findViewById(R.id.etxt_nombre);
-		final CheckBox checkboxDiscapacidadSI = root.findViewById(R.id.cb_si);
-		final CheckBox checkboxDiscapacidadNO = root.findViewById(R.id.cb_no);
+		final CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_discapacitat);
+
+		checkboxDiscapacidad.setChecked(false);
 
 		rellenarCompeticiones();
 		rellenarCategoriaEdad();
@@ -124,12 +128,10 @@ public class EquipsFragment extends Fragment
 				COMPETICIONS competicion = (COMPETICIONS) spinner_competicion.getSelectedItem();
 				equip.setId_competicio(competicion.getId());
 
-				checkboxDiscapacidadNO.setChecked(true);
-
-				if(checkboxDiscapacidadSI.isChecked() && !checkboxDiscapacidadNO.isChecked()) {
+				if( checkboxDiscapacidad.isChecked() ) {
 					equip.setTe_discapacitat(true);
 				}
-				else if (!checkboxDiscapacidadSI.isChecked() && checkboxDiscapacidadNO.isChecked()) {
+				else {
 					equip.setTe_discapacitat(false);
 				}
 
@@ -160,9 +162,9 @@ public class EquipsFragment extends Fragment
 					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
 					{
 						switch (response.code()){
-							case 200:
+							case 201:
 								rellenarEquipos();
-								Toast.makeText(getContext(), "EQUIPO INTRODUÏT CORRECTAMENT", Toast.LENGTH_LONG).show();
+								Toast.makeText(getContext(), "EQUIP INTRODUÏT CORRECTAMENT", Toast.LENGTH_LONG).show();
 								break;
 							case 400:
 								Gson gson = new Gson();
@@ -244,6 +246,8 @@ public class EquipsFragment extends Fragment
 	}
 
 
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
@@ -261,10 +265,9 @@ public class EquipsFragment extends Fragment
 		mRecyClerView.setHasFixedSize(true);
 		mLayoutManager = new LinearLayoutManager(getContext());
 
-
 		mAdapter = new AdaptadorEquips(Conexions.equips);
 
-		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener() {
+		((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener()  {
 			@Override
 			public void onClick(View v) {
 				final int position_eq = mRecyClerView.getChildAdapterPosition(v);
@@ -275,52 +278,15 @@ public class EquipsFragment extends Fragment
 				builder.setIcon(R.drawable.icono_logo);
 				root = getLayoutInflater().inflate(
 						(R.layout.alert_dialog_equips), null);
-				EditText editText = root.findViewById(R.id.etxt_nombre);
+				final EditText editText = root.findViewById(R.id.etxt_nombre);
 				editText.setText(equip.getNom());
 
-				CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_si);
+				CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_discapacitat);
 
 				if (equip.getTe_discapacitat())
 				{
 					checkboxDiscapacidad.setChecked(true);
 				}
-
-				/*final Spinner spinner_entitat = root.findViewById(R.id.spinner_entitat);
-				ListaEntitatsAdapter adapter = new ListaEntitatsAdapter(getContext(), Conexions.entitats);
-				spinner_entitat.setAdapter(adapter);
-				int i = 0;
-				int posicion = 0;
-
-				boolean encontrado = false;
-				Iterator<ENTITATS> iteratorEntitats = Conexions.entitats.iterator();
-				while(iteratorEntitats.hasNext() && !encontrado){
-					ENTITATS entitat = iteratorEntitats.next();
-
-					if (entitat.getId() == equip.getId_entitat()) {
-						posicion = i;
-						encontrado = true;
-					}
-					i++;
-				}
-
-				spinner_entitat.setSelection(posicion);
-
-				spinner_entitat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-				{
-					@Override
-					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-					{
-
-						String something = Conexions.entitats.get(i).getNom();
-						Toast.makeText(getContext(), something, Toast.LENGTH_SHORT).show();
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> adapterView)
-					{
-
-					}
-				});*/
 
 				//================================================================================
 				// Rellenar spinner competiciones
@@ -367,6 +333,66 @@ public class EquipsFragment extends Fragment
 
 				builder.setPositiveButton("GUARDAR", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						EditText editTextNombre = root.findViewById(R.id.etxt_nombre);
+						CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_discapacitat);
+
+						EQUIPS equip2 = equip;
+						equip2.setNom(editTextNombre.getText().toString());
+
+						COMPETICIONS competicion = (COMPETICIONS) spinner_competicion.getSelectedItem();
+						equip2.setId_competicio(competicion.getId());
+
+						if( checkboxDiscapacidad.isChecked() ) {
+							equip2.setTe_discapacitat(true);
+						}
+						else {
+							equip2.setTe_discapacitat(false);
+						}
+
+						equip2.setId_entitat(5);
+
+						equip2.setTemporada("2018-2019");
+
+						CATEGORIA_EDAT categoria_edat = (CATEGORIA_EDAT) spinner_categoria_edad.getSelectedItem();
+						equip2.setId_categoria_edat(categoria_edat.getId());
+
+						CATEGORIA_EQUIP categoria_equip = (CATEGORIA_EQUIP) spinner_categoria_equipo.getSelectedItem();
+						equip2.setId_categoria_equip(categoria_equip.getId());
+
+						SEXE sexe = (SEXE) spinner_sexo.getSelectedItem();
+						equip2.setId_sexe(sexe.getId());
+
+						ESPORTS esport = (ESPORTS) spinner_deporte.getSelectedItem();
+						equip2.setId_esport(esport.getId());
+
+						EquipService equipService = Api.getApi().create(EquipService.class);
+
+						Call<EQUIPS> listCall = equipService.modificarEquip(equip.getId(), equip2);
+
+						listCall.enqueue(new Callback<EQUIPS>() {
+							@Override
+							public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response) {
+								switch (response.code()){
+									case 204:
+										rellenarEquipos();
+										Toast.makeText(getContext(), "EQUIP MODIFICAT CORRECTAMENT", Toast.LENGTH_LONG).show();
+										break;
+									case 400:
+										Gson gson = new Gson();
+										MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+										Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+										break;
+									case 404:
+										Toast.makeText(getContext(), "Registro no encontrado", Toast.LENGTH_LONG).show();
+										break;
+								}
+							}
+
+							@Override
+							public void onFailure(Call<EQUIPS> call, Throwable t) {
+								Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+							}
+						});
 
 					}
 				});
@@ -381,12 +407,12 @@ public class EquipsFragment extends Fragment
 						builder.setIcon(R.drawable.icono_logo);
 						View root = getLayoutInflater().inflate(
 								(R.layout.alert_dialog_activitats), null);
-						ArrayList<ACTIVITATS> activitats = new ArrayList<>();
-						for (int j = 0; j < 20; j++) {
-							activitats.add(new ACTIVITATS(1, "Actividad9293", 2, 3, 4));
-						}
+
+						
+
+
 						ListView listview = root.findViewById(R.id.lv_activitats);
-						ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), activitats);
+						ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), Conexions.activitats);
 						listview.setAdapter(adapter);
 						builder.setView(root);
 						AlertDialog dlg = builder.show();
@@ -427,6 +453,7 @@ public class EquipsFragment extends Fragment
 
 		public AdaptadorEquips(ArrayList<EQUIPS> lista_equipos) {
 			this.equipos = lista_equipos;
+			this.listener = null; /**/
 		}
 		class EquipViewHolder
 				extends RecyclerView.ViewHolder
@@ -486,19 +513,17 @@ public class EquipsFragment extends Fragment
 				listener.onClick(view);
 
 			}
-
-
 		}
 
 	}
 
-    public void rellenarCompeticiones() {
-        spinner_competicion = root.findViewById(R.id.spinner_competicio);
-        ListaCompeticionsAdapter adapter_competicions = new ListaCompeticionsAdapter(getContext(), Conexions.competicions);
-        spinner_competicion.setAdapter(adapter_competicions);
-    }
+	public void rellenarCompeticiones() {
+		spinner_competicion = root.findViewById(R.id.spinner_competicio);
+		ListaCompeticionsAdapter adapter_competicions = new ListaCompeticionsAdapter(getContext(), Conexions.competicions);
+		spinner_competicion.setAdapter(adapter_competicions);
+	}
 
-    public void indicarCompeticion(EQUIPS equip) {
+	public void indicarCompeticion(EQUIPS equip) {
 		int i = 0;
 		int posicion = 0;
 
