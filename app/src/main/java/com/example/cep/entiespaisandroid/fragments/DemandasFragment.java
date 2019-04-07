@@ -89,8 +89,23 @@ public class DemandasFragment extends Fragment
 		});
 */
 		//---------------------
+		final ArrayList<DEMANDA_ACT> demandas = new ArrayList<>();
 
-		final Adapter adapter = new Adapter(Conexions.demanda_acts);
+		for(EQUIPS e : Conexions.equips)
+		{
+			if(e.getId_entitat() == Conexions.getEntitat_conectada().getId())
+			{
+				for(DEMANDA_ACT dem : Conexions.demanda_acts)
+				{
+					if(dem.getId_equip() == e.getId())
+					{
+						demandas.add(dem);
+					}
+				}
+			}
+		}
+
+		final Adapter adapter = new Adapter(demandas);
 
 		Activity act = getActivity();
 		listaDem.setLayoutManager(new GridLayoutManager(act,1));
@@ -107,7 +122,12 @@ public class DemandasFragment extends Fragment
 				FragmentManager fragmentManager = getFragmentManager ();
 
 				Fragment frag = new VerDemandaFragment();
-
+				//-----------extras
+				Bundle bundle = new Bundle();
+				DEMANDA_ACT demanda = demandas.get(listaDem.getChildAdapterPosition(v));
+				bundle.putSerializable("DEM", demanda);
+				frag.setArguments(bundle);
+				//--------------------
 				FragmentTransaction ft = fragmentManager.beginTransaction();
 				ft.replace(R.id.fragment_content, frag);
 				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -117,7 +137,7 @@ public class DemandasFragment extends Fragment
 		});
 	}
 	public interface DemandesListener {
-		void onEnvironmentSeleccionado(DEMANDA_ACT d);
+		void onDemandesSeleccionado(DEMANDA_ACT d);
 	}
 
 	public void setDemandesListener(DemandasFragment.DemandesListener listener) {

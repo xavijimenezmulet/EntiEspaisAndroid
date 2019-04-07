@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardActivitat"
+        android:id="@+id/cardDemanda"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:cardCornerRadius="6dp"
@@ -14,7 +14,7 @@
         app:cardUseCompatPadding="true" >
 
         <TextView
-            android:id="@+id/titolActivitat"
+            android:id="@+id/titolDemanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -40,7 +40,7 @@
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
         <TextView
-            android:id="@+id/nomActivitat"
+            android:id="@+id/nomDemanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nom"
@@ -61,7 +61,7 @@
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
         <TextView
-            android:id="@+id/equipAct"
+            android:id="@+id/equipDemanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Equip"
@@ -82,12 +82,12 @@
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/horaIniAct"
+                android:id="@+id/horaIniDemanda"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 style="@style/DatosAct"
                 />
             <TextView
-                android:id="@+id/horaFiAct"
+                android:id="@+id/horaFiDemanda"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -129,14 +129,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/instalAct"
+                android:id="@+id/instalDemanda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Instal·lació"
                 style="@style/DatosAct"
                 />
             <TextView
-                android:id="@+id/espaiDem"
+                android:id="@+id/espaiDemanda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Espai"
@@ -163,7 +163,7 @@
             android:orientation="horizontal"
             android:layout_margin="5dp">
             <TextView
-                android:id="@+id/diesDem"
+                android:id="@+id/diesDemanda"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -187,17 +187,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnEnreraDem"
-            android:text="ENRERE"
-            android:textSize="14sp"
-            android:background="@color/negro"
-            android:textColor="@color/blanco"
-            android:padding="5dp"
-            android:layout_marginHorizontal="20dp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnDeleteDem"
+            android:id="@+id/btnDeleteDemanda"
             android:text="ELIMINAR"
             android:textSize="14sp"
             android:background="@color/negro"

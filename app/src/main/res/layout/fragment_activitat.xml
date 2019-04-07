@@ -82,7 +82,7 @@
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
@@ -136,7 +136,7 @@
             style="@style/DatosAct"
             />
         <TextView
-            android:id="@+id/espaiDem"
+            android:id="@+id/espaiAct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Espai"
@@ -172,7 +172,7 @@
                     style="@style/Datos"
                     />
                 <ListView
-                    android:id="@+id/lstDias"
+                    android:id="@+id/lstDiasAct"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
@@ -182,8 +182,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/btnEnrera"
-        android:text="ENRERE"
+        android:id="@+id/btnEliminar"
+        android:text="ELIMINAR"
         android:textSize="14sp"
         android:background="@color/negro"
         android:textColor="@color/blanco"

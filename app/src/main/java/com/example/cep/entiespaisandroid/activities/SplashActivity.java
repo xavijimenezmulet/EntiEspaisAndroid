@@ -20,14 +20,20 @@ import com.example.cep.entiespaisandroid.api.apiService.Dia_SemanaService;
 import com.example.cep.entiespaisandroid.api.apiService.Dias_DemandaService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
+import com.example.cep.entiespaisandroid.api.apiService.EspaisService;
+import com.example.cep.entiespaisandroid.api.apiService.Horari_InstalacioService;
 import com.example.cep.entiespaisandroid.api.apiService.HoresService;
+import com.example.cep.entiespaisandroid.api.apiService.InstalacionsService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.DIAS_DEMANDA;
 import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
+import com.example.cep.entiespaisandroid.classes.ESPAIS;
+import com.example.cep.entiespaisandroid.classes.HORARI_INSTALACIO;
 import com.example.cep.entiespaisandroid.classes.HORES;
+import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 
 import java.util.ArrayList;
@@ -120,6 +126,7 @@ public class SplashActivity extends AppCompatActivity
 					case 200:
 						ArrayList<ENTITATS> entitats = response.body();
 						String nom = entitats.get(0).getNom().toString();
+						Conexions.setEntitat_conectada(entitats.get(0));
 						Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
 						break;
 					default:
@@ -326,6 +333,86 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
-		
+
+		InstalacionsService is = Api.getApi().create(InstalacionsService.class);
+
+		Call<ArrayList<INSTALACIONS>> inst = is.getInstalacions();
+
+		inst.enqueue(new Callback<ArrayList<INSTALACIONS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<INSTALACIONS>> call, Response<ArrayList<INSTALACIONS>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.instalacions = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<INSTALACIONS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		EspaisService esps = Api.getApi().create(EspaisService.class);
+
+		Call<ArrayList<ESPAIS>> espais = esps.getEspais();
+
+		espais.enqueue(new Callback<ArrayList<ESPAIS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<ESPAIS>> call, Response<ArrayList<ESPAIS>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.espais = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<ESPAIS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		Horari_InstalacioService his = Api.getApi().create(Horari_InstalacioService.class);
+
+		Call<ArrayList<HORARI_INSTALACIO>> horarisI = his.getHorariInstalacio();
+
+		horarisI.enqueue(new Callback<ArrayList<HORARI_INSTALACIO>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<HORARI_INSTALACIO>> call, Response<ArrayList<HORARI_INSTALACIO>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.horari_instalacios = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<HORARI_INSTALACIO>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }
