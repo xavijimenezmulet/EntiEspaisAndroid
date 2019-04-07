@@ -14,12 +14,14 @@ import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.ActivitatsService;
 import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
 import com.example.cep.entiespaisandroid.api.apiService.Dia_SemanaService;
 import com.example.cep.entiespaisandroid.api.apiService.Dias_DemandaService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.api.apiService.HoresService;
+import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.DIAS_DEMANDA;
 import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
@@ -297,5 +299,33 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
+
+		ActivitatsService as = Api.getApi().create(ActivitatsService.class);
+
+		Call<ArrayList<ACTIVITATS>> acts = as.getActivitats();
+
+		acts.enqueue(new Callback<ArrayList<ACTIVITATS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<ACTIVITATS>> call, Response<ArrayList<ACTIVITATS>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.activitats = response.body();
+						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<ACTIVITATS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+		
 	}
 }
