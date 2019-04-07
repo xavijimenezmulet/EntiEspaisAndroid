@@ -11,9 +11,9 @@ import retrofit2.http.Path;
 public interface HoresService
 {
 	@GET("api/HORES")
-	Call<ArrayList<HORES>> getHores();
+	Call<HORES> getHores();
 
 	//Obtener hora por id
-	@GET("api/HORES/{id}")
-	Call<HORES> getHoresById(@Path("id") int id);
+	@GET("api/HORES/{id_hor}")
+	Call<HORES> getHoresInstalacio(@Path("id_hor") int id_hor);
 }

@@ -1,5 +1,6 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import java.sql.Time;
 import java.time.LocalTime;
 
 /**
@@ -9,15 +10,15 @@ public class HORES
 {
 	//ATRIBUTS
 	private int id;
-	private LocalTime inici;
-	private LocalTime fi;
+	private String inici;
+	private String fi;
 
 	//CONSTRUCTORS
 	public HORES()
 	{
 	}
 
-	public HORES(int id, LocalTime inici, LocalTime fi)
+	public HORES(int id, String inici, String fi)
 	{
 		this.id = id;
 		this.inici = inici;
@@ -25,6 +26,7 @@ public class HORES
 	}
 
 	//GETTERS && SETTERS
+
 	public int getId()
 	{
 		return id;
@@ -35,22 +37,22 @@ public class HORES
 		this.id = id;
 	}
 
-	public LocalTime getInici()
+	public String getInici()
 	{
 		return inici;
 	}
 
-	public void setInici(LocalTime inici)
+	public void setInici(String inici)
 	{
 		this.inici = inici;
 	}
 
-	public LocalTime getFi()
+	public String getFi()
 	{
 		return fi;
 	}
 
-	public void setFi(LocalTime fi)
+	public void setFi(String fi)
 	{
 		this.fi = fi;
 	}

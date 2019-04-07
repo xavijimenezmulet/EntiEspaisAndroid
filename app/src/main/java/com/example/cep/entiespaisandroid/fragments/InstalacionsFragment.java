@@ -49,6 +49,7 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 	{
 		super.onActivityCreated(state);
 
+
 		/*
 		//DATOS SIN API
 		instalacions = new ArrayList<>();
@@ -77,15 +78,6 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 		});
 		//FIN
 		*/
-
-		//Cargamos mapa y comprobamos estado
-		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-
-		if (mapFragment != null)
-		{
-			mapFragment.getMapAsync(this);
-		}
-
 
 		//Retroservice
 		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
@@ -133,6 +125,14 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 			}
 		});
 
+
+		//Cargamos mapa y comprobamos estado
+		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
+		if (mapFragment != null)
+		{
+			mapFragment.getMapAsync(this);
+		}
 
 	}
 

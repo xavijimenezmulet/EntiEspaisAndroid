@@ -10,9 +10,6 @@ public class HORARI_INSTALACIO
 	private int id_hores;
 	private int id_instalacio;
 
-	//Tomar horas
-	private HORES hora;
-
 	//CONSTRUCTORS
 	public HORARI_INSTALACIO()
 	{
@@ -23,15 +20,6 @@ public class HORARI_INSTALACIO
 		this.id_dia = id_dia;
 		this.id_hores = id_hores;
 		this.id_instalacio = id_instalacio;
-	}
-
-
-	public HORARI_INSTALACIO(int id_dia, int id_hores, int id_instalacio, HORES hora)
-	{
-		this.id_dia = id_dia;
-		this.id_hores = id_hores;
-		this.id_instalacio = id_instalacio;
-		this.hora = hora;
 	}
 
 	//GETTERS && SETTERS
@@ -65,10 +53,4 @@ public class HORARI_INSTALACIO
 		this.id_instalacio = id_instalacio;
 	}
 
-	/*
-	public HORES getHora()
-	{
-		return hora;
-	}
-	*/
 }

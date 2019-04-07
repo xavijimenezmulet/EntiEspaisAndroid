@@ -27,6 +27,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -37,9 +39,9 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 {
 
 	private GoogleMap mMap;
-	private Button button;
 	private INSTALACIONS instalacio = null;
 	private ArrayList<HORARI_INSTALACIO> horari_instalacio = null;
+	private ArrayList<HORES> hores_instalacion = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +59,9 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		//Iniciamos arraylist horarios
 		horari_instalacio = new ArrayList<>();
 
+		//Iniciamos arraylist hores
+		hores_instalacion = new ArrayList<>();
+
 		//CARGAMOS ITEM VIEWS
 		TextView nomi = findViewById(R.id.nomIns);
 		ImageView imgi = findViewById(R.id.imatgeIns);
@@ -64,7 +69,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		TextView tpii = findViewById(R.id.tipusIns);
 		TextView emaili = findViewById(R.id.emailIns);
 		TextView teli = findViewById(R.id.telns);
-		button = findViewById(R.id.horIns);
+		Button button = findViewById(R.id.horIns);
 
 		//Cargamos datos en los items
 		nomi.setText(instalacio.getNom());
@@ -74,8 +79,16 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 
 		horarioInstalacion(this);
 
-		//Llamada método cargar Dialog Result
-		//cargarDialog();
+		button.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				//Llamada método cargar Dialog Result
+				cargarDialog();
+			}
+		});
+
 
 	}
 
@@ -100,45 +113,6 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 20));
 	}
 
-	//Cargar el Dialog Result
-	public void cargarDialog()
-	{
-
-		//Al pulsar sobre el botón se mostrará un DialogResult con los horarios
-		button.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(ActivitatInstalacio.this);
-				//builder.setTitle("NOMBRE INSTALACION" + " HORARIOS");
-				View root = getLayoutInflater().inflate((R.layout.alert_dialog_horari_instalacions), null);
-
-				//CARGAR TEXTVIEWS
-				TextView lunesinicio = findViewById(R.id.horLunesInicio);
-				TextView lunesfinal = findViewById(R.id.horLunesFinal);
-				TextView martesinicio = findViewById(R.id.horMartesInicio);
-				TextView martesfinal = findViewById(R.id.horMartesFinal);
-				TextView miercolesinicio = findViewById(R.id.horMiercolesInicio);
-				TextView miercolesfinal = findViewById(R.id.horMiercolesFinal);
-				TextView juevesinicio = findViewById(R.id.horJuevesInicio);
-				TextView juevesfinal = findViewById(R.id.horJuevesFinal);
-				TextView viernesinicio = findViewById(R.id.horViernesInicio);
-				TextView viernesfinal = findViewById(R.id.horViernesFinal);
-				TextView sabadoinicio = findViewById(R.id.horSabadoInicio);
-				TextView sabadofinal = findViewById(R.id.horSabadoFinal);
-				TextView domingoinicio = findViewById(R.id.horDomingoInicio);
-				TextView domingofinal = findViewById(R.id.horDomingoFinal);
-
-				//lunesinicio.setText(horari_instalacio.get(0).getHora().getInici().toString());
-
-				builder.setView(root);
-				AlertDialog dlg = builder.show();
-				dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
-			}
-		});
-	}
-
 	//Obtener horarios instalación
 	public void horarioInstalacion(final Context con)
 	{
@@ -157,6 +131,11 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 				{
 					case 200:
 						horari_instalacio = response.body();
+						for (int i = 0; i < horari_instalacio.size(); i++)
+						{
+							int id_hora = horari_instalacio.get(i).getId_hores();
+							intervalosHoras(con, id_hora);
+						}
 						break;
 					default:
 						break;
@@ -171,43 +150,99 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		});
 	}
 
-	/*
 	//Obtener intervalos horas
-	public void intervalosHoras(final Context context){
+	public void intervalosHoras(final Context con, int id_hora)
+	{
+		//Retroservice
+		HoresService horesService = Api.getApi().create(HoresService.class);
+		Call<HORES> listCall = horesService.getHoresInstalacio(id_hora);
 
-		hores_instalacion = new ArrayList<>();
-
-		for (HORARI_INSTALACIO hor : horari_instalacio)
+		listCall.enqueue(new Callback<HORES>()
 		{
-			//Retroservice
-			HoresService horesService = Api.getApi().create(HoresService.class);
-			Call<HORES> listCall = horesService.getHoresById(hor.getId_hores());
-
-			listCall.enqueue(new Callback<HORES>()
+			@Override
+			public void onResponse(Call<HORES> call, Response<HORES> response)
 			{
-				@Override
-				public void onResponse(Call<HORES> call, Response<HORES> response)
+				switch (response.code())
 				{
-					switch (response.code())
-					{
-						case 200:
-							HORES hora = response.body();
-							hores_instalacion.add(hora);
-							break;
-						default:
-							break;
-					}
+					case 200:
+						HORES h = response.body();
+						hores_instalacion.add(h);
+						break;
+					default:
+						break;
 				}
+			}
 
-				@Override
-				public void onFailure(Call<HORES> call, Throwable t)
-				{
-					Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-				}
-			});
+			@Override
+			public void onFailure(Call<HORES> call, Throwable t)
+			{
+				Toast.makeText(con, "Error", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
+	//Cargar el Dialog Result
+	public void cargarDialog()
+	{
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(ActivitatInstalacio.this);
+		//builder.setTitle("NOMBRE INSTALACION" + " HORARIOS");
+		View root = getLayoutInflater().inflate((R.layout.alert_dialog_horari_instalacions), null);
+
+		//CARGAR TEXTVIEWS
+		TextView lunesinicio = findViewById(R.id.horLunesInicio);
+		TextView lunesfinal = findViewById(R.id.horLunesFinal);
+		TextView martesinicio = findViewById(R.id.horMartesInicio);
+		TextView martesfinal = findViewById(R.id.horMartesFinal);
+		TextView miercolesinicio = findViewById(R.id.horMiercolesInicio);
+		TextView miercolesfinal = findViewById(R.id.horMiercolesFinal);
+		TextView juevesinicio = findViewById(R.id.horJuevesInicio);
+		TextView juevesfinal = findViewById(R.id.horJuevesFinal);
+		TextView viernesinicio = findViewById(R.id.horViernesInicio);
+		TextView viernesfinal = findViewById(R.id.horViernesFinal);
+		TextView sabadoinicio = findViewById(R.id.horSabadoInicio);
+		TextView sabadofinal = findViewById(R.id.horSabadoFinal);
+		TextView domingoinicio = findViewById(R.id.horDomingoInicio);
+		TextView domingofinal = findViewById(R.id.horDomingoFinal);
+
+		//Lunes
+		if (hores_instalacion.get(0).getInici() == null)
+		{
+			Toast.makeText(ActivitatInstalacio.this, "La puta madre", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			HORES h = hores_instalacion.get(0);
+			lunesinicio.setText(h.getInici());
+			lunesfinal.setText(hores_instalacion.get(0).getFi());
 		}
 
 
+		//Martes
+		martesinicio.setText(hores_instalacion.get(1).getInici());
+		martesfinal.setText(hores_instalacion.get(1).getFi());
+
+		//Miercoles
+		miercolesinicio.setText(hores_instalacion.get(2).getInici());
+		miercolesfinal.setText(hores_instalacion.get(2).getFi());
+
+		//Jueves
+		juevesinicio.setText(hores_instalacion.get(3).getInici());
+		juevesfinal.setText(hores_instalacion.get(3).getFi());
+
+		//Viernes
+		viernesinicio.setText(hores_instalacion.get(4).getInici());
+		viernesfinal.setText(hores_instalacion.get(4).getFi());
+
+		//Sábado
+		sabadoinicio.setText(hores_instalacion.get(5).getInici());
+		sabadofinal.setText(hores_instalacion.get(5).getFi());
+
+		//Domingo
+		domingoinicio.setText(hores_instalacion.get(6).getInici());
+		domingofinal.setText(hores_instalacion.get(6).getFi());
+
+		builder.setView(root);
+		AlertDialog dlg = builder.show();
+		dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
 	}
-	*/
 }
