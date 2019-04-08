@@ -133,7 +133,7 @@
                         android:layout_height="40dp" />
 
                     <TextView
-                        android:text="Entitats"
+                        android:text="OMET"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"

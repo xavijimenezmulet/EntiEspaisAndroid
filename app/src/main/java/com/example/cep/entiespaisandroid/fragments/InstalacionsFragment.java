@@ -15,6 +15,7 @@ import com.example.cep.entiespaisandroid.adapters.AdapterInstalaciones;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.InstalacioService;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -79,20 +80,8 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 		//FIN
 		*/
 
-		//Retroservice
-		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
-		Call<ArrayList<INSTALACIONS>> listCall = instalacioService.getInstalacions();
 
-		//Realizamos llamada y comprobamos el código de respuesta
-		listCall.enqueue(new Callback<ArrayList<INSTALACIONS>>()
-		{
-			@Override
-			public void onResponse(Call<ArrayList<INSTALACIONS>> call, Response<ArrayList<INSTALACIONS>> response)
-			{
-				switch (response.code())
-				{
-					case 200:
-						instalacions = response.body();
+		instalacions = Conexions.instalacions;
 
 						recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerInstalacions);
 						recyclerView.setHasFixedSize(true);
@@ -112,18 +101,8 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 								startActivity(intent);
 							}
 						});
-						break;
-					default:
-						break;
-				}
-			}
 
-			@Override
-			public void onFailure(Call<ArrayList<INSTALACIONS>> call, Throwable t)
-			{
-				Toast.makeText(getContext(), t.getCause() + t.getMessage(), Toast.LENGTH_LONG).show();
-			}
-		});
+
 
 
 		//Cargamos mapa y comprobamos estado
@@ -151,7 +130,7 @@ public class InstalacionsFragment extends Fragment implements OnMapReadyCallback
 		}
 
 		// Add a marker in Sydney and move the camera
-		LatLng def = new LatLng(41.389219, 2.173168);
+		LatLng def = new LatLng(41.4719, 2.08214);
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(def, 15));
 
 

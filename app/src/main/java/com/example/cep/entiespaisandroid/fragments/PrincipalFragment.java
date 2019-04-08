@@ -86,7 +86,7 @@ public class PrincipalFragment extends Fragment
 				ft.addToBackStack(null);
 				ft.commit();
 				navigationView.setCheckedItem(R.id.nav_entitats);
-				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entitats");
+				((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Web OMET");
 			}
 		});
 
