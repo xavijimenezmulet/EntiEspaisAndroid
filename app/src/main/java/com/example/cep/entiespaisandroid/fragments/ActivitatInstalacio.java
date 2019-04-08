@@ -190,32 +190,24 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 		View root = getLayoutInflater().inflate((R.layout.alert_dialog_horari_instalacions), null);
 
 		//CARGAR TEXTVIEWS
-		TextView lunesinicio = findViewById(R.id.horLunesInicio);
-		TextView lunesfinal = findViewById(R.id.horLunesFinal);
-		TextView martesinicio = findViewById(R.id.horMartesInicio);
-		TextView martesfinal = findViewById(R.id.horMartesFinal);
-		TextView miercolesinicio = findViewById(R.id.horMiercolesInicio);
-		TextView miercolesfinal = findViewById(R.id.horMiercolesFinal);
-		TextView juevesinicio = findViewById(R.id.horJuevesInicio);
-		TextView juevesfinal = findViewById(R.id.horJuevesFinal);
-		TextView viernesinicio = findViewById(R.id.horViernesInicio);
-		TextView viernesfinal = findViewById(R.id.horViernesFinal);
-		TextView sabadoinicio = findViewById(R.id.horSabadoInicio);
-		TextView sabadofinal = findViewById(R.id.horSabadoFinal);
-		TextView domingoinicio = findViewById(R.id.horDomingoInicio);
-		TextView domingofinal = findViewById(R.id.horDomingoFinal);
+		TextView lunesinicio = root.findViewById(R.id.horLunesInicio);
+		TextView lunesfinal = root.findViewById(R.id.horLunesFinal);
+		TextView martesinicio = root.findViewById(R.id.horMartesInicio);
+		TextView martesfinal = root.findViewById(R.id.horMartesFinal);
+		TextView miercolesinicio = root.findViewById(R.id.horMiercolesInicio);
+		TextView miercolesfinal = root.findViewById(R.id.horMiercolesFinal);
+		TextView juevesinicio = root.findViewById(R.id.horJuevesInicio);
+		TextView juevesfinal = root.findViewById(R.id.horJuevesFinal);
+		TextView viernesinicio = root.findViewById(R.id.horViernesInicio);
+		TextView viernesfinal = root.findViewById(R.id.horViernesFinal);
+		TextView sabadoinicio = root.findViewById(R.id.horSabadoInicio);
+		TextView sabadofinal = root.findViewById(R.id.horSabadoFinal);
+		TextView domingoinicio = root.findViewById(R.id.horDomingoInicio);
+		TextView domingofinal = root.findViewById(R.id.horDomingoFinal);
 
 		//Lunes
-		if (hores_instalacion.get(0).getInici() == null)
-		{
-			Toast.makeText(ActivitatInstalacio.this, "La puta madre", Toast.LENGTH_SHORT).show();
-		}
-		else{
-			HORES h = hores_instalacion.get(0);
-			lunesinicio.setText(h.getInici());
-			lunesfinal.setText(hores_instalacion.get(0).getFi());
-		}
-
+		lunesinicio.setText(hores_instalacion.get(0).getInici());
+		lunesfinal.setText(hores_instalacion.get(0).getFi());
 
 		//Martes
 		martesinicio.setText(hores_instalacion.get(1).getInici());
