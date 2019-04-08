@@ -18,7 +18,7 @@ public class DEMANDA_ACT implements Serializable
 	private int id_equip;
 	private int id_interval_hores;
 	private int id_espai;
-	//private ArrayList<DIA_SEMANA> dia_semanas;
+	private ArrayList<DIA_SEMANA> dia_semanas;
 	//CONSTRUCTORS
 	public DEMANDA_ACT()
 	{
@@ -127,7 +127,7 @@ public class DEMANDA_ACT implements Serializable
 	{
 		this.id_espai = id_espai;
 	}
-/*
+
 	public ArrayList<DIA_SEMANA> getDia_semanas() {
 		return dia_semanas;
 	}
@@ -135,5 +135,5 @@ public class DEMANDA_ACT implements Serializable
 	public void setDia_semanas(ArrayList<DIA_SEMANA> dia_semanas) {
 		this.dia_semanas = dia_semanas;
 	}
-	*/
+
 }

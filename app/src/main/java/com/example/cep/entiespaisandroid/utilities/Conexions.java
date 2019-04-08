@@ -50,6 +50,7 @@ public class Conexions
 	public static ArrayList<TELEFONS_ENTITATS> telefons_entitats;
 	public static ArrayList<TELEFONS_INSTALACIONS> telefons_instalacions;
 	public static ENTITATS entitat_conectada;
+	//public static ArrayList<EQUIPS> equipsGeneral;
 
 	//GETTERS && SETTERS
 	public static ArrayList<ACTIVITATS> getActivitats()

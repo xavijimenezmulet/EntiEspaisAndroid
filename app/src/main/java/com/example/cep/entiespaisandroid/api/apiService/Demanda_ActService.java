@@ -23,7 +23,7 @@ public interface Demanda_ActService
 	@GET("api/DEMANDA_ACT/{id_equip}")
 	Call<DEMANDA_ACT> getDemanda_actEquip(@Path("id_equip")int id_equip);
 
-	@GET("api/DEMANDA_ACT/dias/{id}")
+	@GET("api/DEMANDA_ACT/id/{id}")
 	Call<ArrayList<DIA_SEMANA>> getDemanda_actDays(@Path("id")int id);
 
 	@POST("api/DEMANDA_ACT")
