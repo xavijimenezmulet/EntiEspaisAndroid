@@ -1,5 +1,6 @@
 package com.example.cep.entiespaisandroid.api.apiService;
 ;
+import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.TELEFONS_ENTITATS;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public interface TelefonsEntitatsService
 {
 	@GET("api/TELEFONS_ENTITATS")
 	Call<ArrayList<TELEFONS_ENTITATS>> getTelefonsEntitat();
+
+	@GET("api/TELEFONS_ENTITATS/id_entitat/{id_entitat}")
+	Call<ArrayList<TELEFONS_ENTITATS>> getEquipsByIdEntitat(@Path("id_entitat") int id_entitat);
 
 	@POST("api/TELEFONS_ENTITATS")
 	Call<ArrayList<TELEFONS_ENTITATS>> setTelefonEntitat(@Body TELEFONS_ENTITATS telefonEntitat);

@@ -1,12 +1,14 @@
 package com.example.cep.entiespaisandroid.activities;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -223,7 +225,33 @@ public class SignUpActivity extends AppCompatActivity
 				}
 			});
 
-			finish();
+
+			final ProgressDialog TempDialog;
+			CountDownTimer CDT;
+			int i =5;
+
+			TempDialog = new ProgressDialog(SignUpActivity.this);
+			TempDialog.setMessage("Please wait...");
+			TempDialog.setCancelable(false);
+			TempDialog.setProgress(10);
+			TempDialog.show();
+
+			CDT = new CountDownTimer(5000, 1000)
+			{
+				public void onTick(long millisUntilFinished)
+				{
+					TempDialog.setMessage("Guardant canvis....");
+
+				}
+
+				public void onFinish()
+				{
+					TempDialog.dismiss();
+					finish();
+					//Your Code ...
+				}
+			}.start();
+
 
 
 

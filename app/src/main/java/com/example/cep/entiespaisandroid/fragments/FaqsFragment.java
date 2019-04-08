@@ -43,7 +43,7 @@ public class FaqsFragment extends Fragment
 		ImgLogo1 = (ImageView)getView().findViewById(R.id.ImgLogo1);
 		linearFaqs = (LinearLayout)getView().findViewById(R.id.linearFaqs);
 		ImgLogo1.setImageResource(R.drawable.logoprincipal);
-		linearFaqs.setBackgroundResource(R.color.colorPrimario);
+		linearFaqs.setBackgroundResource(R.color.blanco);
 
 		ListFaqs = (ListView)getView().findViewById(R.id.ListFaqs);
 
