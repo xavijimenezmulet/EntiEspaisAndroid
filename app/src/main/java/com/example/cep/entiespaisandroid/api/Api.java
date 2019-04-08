@@ -14,7 +14,7 @@ public class Api {
 	public static final String IP_PC_CLASSE_DAVID   = "";
 	public static final String IP_PC_CASA_DAVID   = "";
 
-	private static final String BASE_URL = IP_PC_CASA_JOEL;
+	private static final String BASE_URL = IP_PC_CLASSE_JOEL;
 	private static Retrofit  retrofit = null;
 
 	public static Retrofit getApi(){
