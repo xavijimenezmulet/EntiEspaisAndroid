@@ -47,6 +47,7 @@ import com.example.cep.entiespaisandroid.classes.ESPORTS;
 import com.example.cep.entiespaisandroid.classes.MensajeError;
 import com.example.cep.entiespaisandroid.classes.SEXE;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
+import com.example.cep.entiespaisandroid.utilities.Utilitats;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -70,11 +71,6 @@ public class EquipsFragment extends Fragment
 	{
 		EquipService equipService = Api.getApi().create(EquipService.class);
 
-
-		/**
-		 * Cambiar número 5 por la entidad conectada.
-		 */
-		//Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(Conexions.entitat_conectada.getId());
 		listCall.enqueue(new Callback<ArrayList<EQUIPS>>()
 		{
@@ -176,16 +172,13 @@ public class EquipsFragment extends Fragment
 											equip2.setTe_discapacitat(false);
 										}
 
-										/**
-										 * Cambiar número 5 por la entidad conectada.
-										 */
-										//equip2.setId_entitat(5);
+
 										equip2.setId_entitat(Conexions.entitat_conectada.getId());
 										/**
 										 * Si hay método de coger temporada:
 										 */
-										equip2.setTemporada("2018-2019");
-
+										//equip2.setTemporada("2018-2019");
+										equip2.setTemporada(Utilitats.tempActual());
 										CATEGORIA_EDAT categoria_edat = (CATEGORIA_EDAT) spinner_categoria_edad.getSelectedItem();
 										equip2.setId_categoria_edat(categoria_edat.getId());
 
@@ -327,10 +320,11 @@ public class EquipsFragment extends Fragment
 					equip.setTe_discapacitat(false);
 				}
 
-				//equip.setId_entitat(5);
+
 				equip.setId_entitat(Conexions.entitat_conectada.getId());
 
-				equip.setTemporada("2018-2019");
+				//equip.setTemporada("2018-2019");
+				equip.setTemporada(Utilitats.tempActual());
 
 				CATEGORIA_EDAT categoria_edat = (CATEGORIA_EDAT) spinner_categoria_edad.getSelectedItem();
 				equip.setId_categoria_edat(categoria_edat.getId());

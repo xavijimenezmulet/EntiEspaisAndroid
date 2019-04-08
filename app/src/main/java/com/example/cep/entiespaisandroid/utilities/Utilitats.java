@@ -9,6 +9,8 @@ package com.example.cep.entiespaisandroid.utilities;
 
 import org.mindrot.jbcrypt.*;
 
+import java.util.Calendar;
+
 
 public class Utilitats
 {
@@ -70,6 +72,26 @@ public class Utilitats
 		} catch (NumberFormatException nfe){
 			return false;
 		}
+	}
+
+	public static String tempActual()
+	{
+		String temp = "";
+
+		int monthN = Calendar.getInstance().get(Calendar.MONTH);
+		int yearN = Calendar.getInstance().get(Calendar.YEAR);
+
+
+		if (monthN < 7)
+		{
+			temp = (yearN - 1) + "-" + yearN;
+		}
+		else
+		{
+			temp = yearN + "-" + (yearN + 1);
+		}
+
+		return temp;
 	}
 
 
