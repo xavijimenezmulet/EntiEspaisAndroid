@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:background="#CACFD2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="75">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/blanco"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/nomIns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CENTRO"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <ImageView
+                android:id="@+id/imatgeIns"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/ajuntament"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/adresaIns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Direccion: C/Ribas 145"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/tipusIns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo: Exterior"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/emailIns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email: centroemail@gmail.com"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/telns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Teléfono: 932389654"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/horIns"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HORARIOS"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:map="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:id="@+id/map"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  tools:context=".fragments.ActivitatInstalacio"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

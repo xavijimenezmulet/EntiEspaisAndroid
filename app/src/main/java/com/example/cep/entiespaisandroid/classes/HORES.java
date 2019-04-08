@@ -26,6 +26,7 @@ public class HORES
 	}
 
 	//GETTERS && SETTERS
+
 	public int getId()
 	{
 		return id;

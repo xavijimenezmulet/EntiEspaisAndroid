@@ -12,6 +12,4 @@ public interface CompeticioService
 	@GET("api/COMPETICIONS")
 	Call<ArrayList<COMPETICIONS>> getCompeticions();
 
-	//..
-
 }
