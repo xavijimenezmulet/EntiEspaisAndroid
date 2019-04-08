@@ -46,7 +46,7 @@ public class VerDemandaFragment extends Fragment
     private TextView espaiDemanda;
     private ListView lstDias;
     private Button btnDeleteDemanda;
-    private ArrayList<DIA_SEMANA> days = new ArrayList<>();
+    private ArrayList<DIA_SEMANA> days;
     private DEMANDA_ACT demanda = new DEMANDA_ACT();
 
     @Override
@@ -192,9 +192,10 @@ public class VerDemandaFragment extends Fragment
 
 
         ArrayList<String> dias = new ArrayList<>();
-        for(DIA_SEMANA dia : days)
-        {
-            dias.add(dia.getNom());
+        if(days != null) {
+            for (DIA_SEMANA dia : days) {
+                dias.add(dia.getNom());
+            }
         }
 /*
         for(int i = 0; i < Conexions.dias_demanda.size(); i++)

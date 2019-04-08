@@ -217,7 +217,7 @@ public class SplashActivity extends AppCompatActivity
 		// Rellenar ArrayList<EQUIPS> con todos los equipos de la BD.
 		//================================================================================
 
-		/*EquipService equipService = Api.getApi().create(EquipService.class);
+		EquipService equipService = Api.getApi().create(EquipService.class);
 
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquips();
 
@@ -243,12 +243,12 @@ public class SplashActivity extends AppCompatActivity
 			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
 				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
-		});*/
+		});
 
 		//================================================================================
 		// Rellenar ArrayList<EQUIPS> con los equipos de una entidad de la BD.
 		//================================================================================
-		EquipService equipService = Api.getApi().create(EquipService.class);
+		/*EquipService equipService = Api.getApi().create(EquipService.class);
 
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
 
@@ -274,7 +274,7 @@ public class SplashActivity extends AppCompatActivity
 			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
 				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
-		});
+		});*/
 		//================================================================================
 		// Rellenar ArrayList<COMPETICIONS> con todas las competiciones de la BD.
 		//================================================================================
@@ -476,7 +476,7 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
-
+/*
 		EquipService es = Api.getApi().create(EquipService.class);
 
 		Call<ArrayList<EQUIPS>> eq = es.getEquips();
@@ -503,7 +503,7 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
-
+*/
 		HoresService hs = Api.getApi().create(HoresService.class);
 
 		Call<ArrayList<HORES>> h = hs.getHores();
@@ -556,7 +556,7 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
-
+/*
 		Dias_DemandaService dds = Api.getApi().create(Dias_DemandaService.class);
 
 		Call<ArrayList<DIAS_DEMANDA>> dd = dds.getDias_demanda();
@@ -583,7 +583,7 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
-
+*/
 		ActivitatsService as = Api.getApi().create(ActivitatsService.class);
 
 		Call<ArrayList<ACTIVITATS>> acts = as.getActivitats();
@@ -664,7 +664,7 @@ public class SplashActivity extends AppCompatActivity
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
 		});
-
+/*
 		Horari_InstalacioService his = Api.getApi().create(Horari_InstalacioService.class);
 
 		Call<ArrayList<HORARI_INSTALACIO>> horarisI = his.getHorariInstalacio();
@@ -690,6 +690,6 @@ public class SplashActivity extends AppCompatActivity
 			{
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
 			}
-		});
+		});*/
 	}
 }
