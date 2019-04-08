@@ -74,8 +74,8 @@ public class EquipsFragment extends Fragment
 		/**
 		 * Cambiar número 5 por la entidad conectada.
 		 */
-		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
-
+		//Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
+		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(Conexions.entitat_conectada.getId());
 		listCall.enqueue(new Callback<ArrayList<EQUIPS>>()
 		{
 			@Override
@@ -179,8 +179,8 @@ public class EquipsFragment extends Fragment
 										/**
 										 * Cambiar número 5 por la entidad conectada.
 										 */
-										equip2.setId_entitat(5);
-
+										//equip2.setId_entitat(5);
+										equip2.setId_entitat(Conexions.entitat_conectada.getId());
 										/**
 										 * Si hay método de coger temporada:
 										 */
@@ -327,7 +327,8 @@ public class EquipsFragment extends Fragment
 					equip.setTe_discapacitat(false);
 				}
 
-				equip.setId_entitat(5);
+				//equip.setId_entitat(5);
+				equip.setId_entitat(Conexions.entitat_conectada.getId());
 
 				equip.setTemporada("2018-2019");
 

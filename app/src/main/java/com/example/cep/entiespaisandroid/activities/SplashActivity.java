@@ -245,36 +245,7 @@ public class SplashActivity extends AppCompatActivity
 			}
 		});*/
 
-		//================================================================================
-		// Rellenar ArrayList<EQUIPS> con los equipos de una entidad de la BD.
-		//================================================================================
-		EquipService equipService = Api.getApi().create(EquipService.class);
 
-		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
-
-		listCall.enqueue(new Callback<ArrayList<EQUIPS>>() {
-			@Override
-			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response) {
-				switch(response.code()) {
-					case 200:
-						Conexions.equips = response.body();
-						break;
-					case 400:
-						Toast.makeText(SplashActivity.this, response.message(), Toast.LENGTH_LONG).show();
-						break;
-					case 503:
-						Toast.makeText(SplashActivity.this, response.message(), Toast.LENGTH_LONG).show();
-						break;
-					default:
-						break;
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
-				Toast.makeText(SplashActivity.this, t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
-			}
-		});
 		//================================================================================
 		// Rellenar ArrayList<COMPETICIONS> con todas las competiciones de la BD.
 		//================================================================================

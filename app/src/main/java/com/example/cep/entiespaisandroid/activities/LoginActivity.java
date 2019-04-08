@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
+import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.example.cep.entiespaisandroid.utilities.Utilitats;
 
@@ -204,6 +207,38 @@ public class LoginActivity extends AppCompatActivity
 					cancel = true;
 				}
 				else{
+
+					//================================================================================
+					// Rellenar ArrayList<EQUIPS> con los equipos de la entidad conectada de la BD.
+					//================================================================================
+					EquipService equipService = Api.getApi().create(EquipService.class);
+
+					Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(Conexions.entitat_conectada.getId());
+
+					listCall.enqueue(new Callback<ArrayList<EQUIPS>>() {
+						@Override
+						public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response) {
+							switch(response.code()) {
+								case 200:
+									Conexions.equips = response.body();
+									break;
+								case 400:
+									Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
+									break;
+								case 503:
+									Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
+									break;
+								default:
+									break;
+							}
+						}
+
+						@Override
+						public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
+							Toast.makeText(getApplicationContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+						}
+					});
+
 					Intent intent = new Intent(new Intent(LoginActivity.this, MainActivity.class));
 					startActivity(intent);
 				}
