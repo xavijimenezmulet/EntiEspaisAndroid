@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.replace(R.id.fragment_content, fragment);
 			ft.commit();
-			toolbar.setTitle("Entitats");
+			toolbar.setTitle(" Web OMET");
 		} else if (id == R.id.nav_equips)
 		{
 			fragment = new EquipsFragment();

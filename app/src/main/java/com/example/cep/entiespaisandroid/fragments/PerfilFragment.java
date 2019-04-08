@@ -74,6 +74,9 @@ public class PerfilFragment extends Fragment
 	private EditText EditText_telefon2;
 	private Button acceptarModificar;
 	private Button aceptarContrassenyes;
+	private TextView textEq1;
+	private TextView textAc1;
+	private TextView textDe1;
 
 
 	@Override
@@ -92,12 +95,18 @@ public class PerfilFragment extends Fragment
 		textNifEntitat = (TextView)getView().findViewById(R.id.textNifEntitat);
 		textAdresaEntitat = (TextView)getView().findViewById(R.id.textAdresaEntiat);
 		textTelefonEntitat= (TextView)getView().findViewById(R.id.textTelefonEntitat);
+		textAc1 = (TextView)getView().findViewById(R.id.textAc1);
+		textEq1 = (TextView)getView().findViewById(R.id.textEq1);
+		textDe1 = (TextView)getView().findViewById(R.id.textDe1);
 
 		textNomEntitat.setText(Conexions.entitat_conectada.getNom());
 		textEmailEntitat.setText(Conexions.entitat_conectada.getEmail());
 		textNifEntitat.setText(Conexions.entitat_conectada.getNif());
 		textAdresaEntitat.setText(Conexions.entitat_conectada.getAdresa());
 		textTelefonEntitat.setText("+34" + Conexions.telefons_entitats.get(0).getNumero());
+		textAc1.setText(String.valueOf(Conexions.activitats.size()));
+		textEq1.setText(String.valueOf(Conexions.equips.size()));
+		textDe1.setText(String.valueOf(Conexions.demanda_acts.size()));
 
 		ImgPerfil = (ImageView)getView().findViewById(R.id.ImgPerfil);
 		veureVideo = (Button)getView().findViewById(R.id.veureVideo);

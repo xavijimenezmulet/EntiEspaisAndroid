@@ -9,10 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.adapters.AdapterInstalaciones;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.CategoriaEdatService;
 import com.example.cep.entiespaisandroid.api.apiService.CategoriaEquipService;
@@ -24,6 +28,7 @@ import com.example.cep.entiespaisandroid.api.apiService.Dias_DemandaService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.api.apiService.EsportService;
+import com.example.cep.entiespaisandroid.api.apiService.InstalacioService;
 import com.example.cep.entiespaisandroid.api.apiService.SexeService;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
@@ -43,6 +48,7 @@ import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.ESPORTS;
 import com.example.cep.entiespaisandroid.classes.SEXE;
+import com.example.cep.entiespaisandroid.fragments.ActivitatInstalacio;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.example.cep.entiespaisandroid.classes.ESPORTS;
 import com.example.cep.entiespaisandroid.classes.FAQS;
@@ -689,6 +695,32 @@ public class SplashActivity extends AppCompatActivity
 			public void onFailure(Call<ArrayList<HORARI_INSTALACIO>> call, Throwable t)
 			{
 				Toast.makeText(SplashActivity.this, "HA IDO MAL", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		InstalacioService instalacioService = Api.getApi().create(InstalacioService.class);
+		Call<ArrayList<INSTALACIONS>> listCall = instalacioService.getInstalacions();
+
+		//Realizamos llamada y comprobamos el código de respuesta
+		listCall.enqueue(new Callback<ArrayList<INSTALACIONS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<INSTALACIONS>> call, Response<ArrayList<INSTALACIONS>> response)
+			{
+				switch (response.code())
+				{
+					case 200:
+						Conexions.instalacions = response.body();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<INSTALACIONS>> call, Throwable t)
+			{
+
 			}
 		});
 	}

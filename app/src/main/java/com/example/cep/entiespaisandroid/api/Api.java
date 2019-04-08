@@ -16,7 +16,7 @@ public class Api {
 	public static final String IP_PC_NOX   = "http://192.168.24.1:8080";
 	public static final String IP_LOCALHOST = "http://172.0.0.1:53808";
 
-	private static final String BASE_URL = /*"http://10.0.2.2:53808/"*/ "http://172.16.110.1:53808/";
+	private static final String BASE_URL = "http://192.168.67.1:53808/";
 	private static Retrofit  retrofit = null;
 
 	public static Retrofit getApi(){
