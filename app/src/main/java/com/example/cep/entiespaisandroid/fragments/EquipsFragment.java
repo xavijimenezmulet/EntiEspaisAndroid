@@ -70,6 +70,10 @@ public class EquipsFragment extends Fragment
 	{
 		EquipService equipService = Api.getApi().create(EquipService.class);
 
+
+		/**
+		 * Cambiar número 5 por la entidad conectada.
+		 */
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
 
 		listCall.enqueue(new Callback<ArrayList<EQUIPS>>()
@@ -172,8 +176,14 @@ public class EquipsFragment extends Fragment
 											equip2.setTe_discapacitat(false);
 										}
 
+										/**
+										 * Cambiar número 5 por la entidad conectada.
+										 */
 										equip2.setId_entitat(5);
 
+										/**
+										 * Si hay método de coger temporada:
+										 */
 										equip2.setTemporada("2018-2019");
 
 										CATEGORIA_EDAT categoria_edat = (CATEGORIA_EDAT) spinner_categoria_edad.getSelectedItem();
@@ -235,6 +245,11 @@ public class EquipsFragment extends Fragment
 										View root = getLayoutInflater().inflate(
 												(R.layout.alert_dialog_activitats), null);
 
+										/**
+										 * Demandas de actividad por id de equipo.
+										 * Actividades por id de demanda de actividad (^) .
+										 * Pasarlo al adapter
+										 */
 
 										ListView listview = root.findViewById(R.id.lv_activitats);
 										ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), Conexions.activitats);
