@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity
 		toolbar.setLogo(R.drawable.icono_logo_mas_grande);
 		toolbar.setTitle("Principal");
 
+		if(Conexions.entitat_conectada.getRuta_imagen().equals("")){
+			Conexions.entitat_conectada.setRuta_imagen("http://cdn.ertheo.com/blog/wp-content/uploads/2018/06/Fc_barcelona.png");
+			Conexions.entitat_conectada.setRuta_video("http://techslides.com/demos/sample-videos/small.mp4");
+		}
+
 		/************PROVA************/
 		Conexions.getTelefonsEntitatProva();
 		///Conexions.getDadesProvaEntitatConectada();
@@ -208,7 +213,7 @@ public class MainActivity extends AppCompatActivity
 		} else if (id == R.id.nav_entitats)
 		{
 			fragment = new EntitatsFragment();
-			Toast.makeText(this, "ENTITATS", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Web OMET", Toast.LENGTH_LONG).show();
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.replace(R.id.fragment_content, fragment);
 			ft.commit();
