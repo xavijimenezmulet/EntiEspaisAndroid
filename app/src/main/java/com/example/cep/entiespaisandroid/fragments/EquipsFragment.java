@@ -174,11 +174,9 @@ public class EquipsFragment extends Fragment
 
 
 										equip2.setId_entitat(Conexions.entitat_conectada.getId());
-										/**
-										 * Si hay método de coger temporada:
-										 */
-										//equip2.setTemporada("2018-2019");
+
 										equip2.setTemporada(Utilitats.tempActual());
+
 										CATEGORIA_EDAT categoria_edat = (CATEGORIA_EDAT) spinner_categoria_edad.getSelectedItem();
 										equip2.setId_categoria_edat(categoria_edat.getId());
 
@@ -323,7 +321,6 @@ public class EquipsFragment extends Fragment
 
 				equip.setId_entitat(Conexions.entitat_conectada.getId());
 
-				//equip.setTemporada("2018-2019");
 				equip.setTemporada(Utilitats.tempActual());
 
 				CATEGORIA_EDAT categoria_edat = (CATEGORIA_EDAT) spinner_categoria_edad.getSelectedItem();
