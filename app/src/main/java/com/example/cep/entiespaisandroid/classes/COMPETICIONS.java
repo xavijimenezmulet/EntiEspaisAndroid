@@ -40,4 +40,13 @@ public class COMPETICIONS
 	{
 		this.nom = nom;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "COMPETICIONS{" +
+				"id=" + id +
+				", nom='" + nom + '\'' +
+				'}';
+	}
 }

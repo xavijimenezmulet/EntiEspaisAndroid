@@ -187,6 +187,20 @@ public class EQUIPS implements Parcelable
 		dest.writeInt(id_esport);
 	}
 
-
-
+	@Override
+	public String toString()
+	{
+		return "EQUIPS{" +
+				"id=" + id +
+				", nom='" + nom + '\'' +
+				", te_discapacitat=" + te_discapacitat +
+				", id_entitat=" + id_entitat +
+				", temporada='" + temporada + '\'' +
+				", id_competicio=" + id_competicio +
+				", id_categoria_edat=" + id_categoria_edat +
+				", id_categoria_equip=" + id_categoria_equip +
+				", id_sexe=" + id_sexe +
+				", id_esport=" + id_esport +
+				'}';
+	}
 }
