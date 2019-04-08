@@ -36,11 +36,14 @@ import com.example.cep.entiespaisandroid.adapters.ListaEntitatsAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaEsportAdapter;
 import com.example.cep.entiespaisandroid.adapters.ListaSexeAdapter;
 import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.ActivitatsService;
+import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EDAT;
 import com.example.cep.entiespaisandroid.classes.CATEGORIA_EQUIP;
 import com.example.cep.entiespaisandroid.classes.COMPETICIONS;
+import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.ESPORTS;
@@ -66,6 +69,9 @@ public class EquipsFragment extends Fragment
 	private Spinner spinner_competicion, spinner_categoria_edad, spinner_categoria_equipo,
 			spinner_sexo, spinner_deporte;
 	private View root = null;
+
+    private ArrayList<DEMANDA_ACT> demandas_equipo;
+	private ArrayList<ACTIVITATS> actividades_equipo;
 
 	private void rellenarEquipos()
 	{
@@ -225,29 +231,47 @@ public class EquipsFragment extends Fragment
 									}
 								});
 
-								builder.setNeutralButton("VER ACTIVIDADES", new DialogInterface.OnClickListener()
+								builder.setNeutralButton("VEURE ACTIVITATS", new DialogInterface.OnClickListener()
 								{
 									@Override
 									public void onClick(DialogInterface dialogInterface, int i)
 									{
-										AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-										builder.setTitle(equip.getNom());
-										builder.setIcon(R.drawable.icono_logo);
-										View root = getLayoutInflater().inflate(
-												(R.layout.alert_dialog_activitats), null);
 
-										/**
-										 * Demandas de actividad por id de equipo.
-										 * Actividades por id de demanda de actividad (^) .
-										 * Pasarlo al adapter
-										 */
 
+                                        demandas_equipo = new ArrayList<>();
+
+                                        for (DEMANDA_ACT demanda_act : Conexions.demanda_acts) {
+                                            if (demanda_act.getId_equip() == equip.getId()) {
+                                                demandas_equipo.add(demanda_act);
+                                            }
+                                        }
+
+                                        actividades_equipo = new ArrayList<>();
+                                        for (ACTIVITATS activitat : Conexions.activitats) {
+                                            for (DEMANDA_ACT demanda_act : demandas_equipo) {
+                                                if (demanda_act.getId() == activitat.getId_demanda_act()) {
+                                                    actividades_equipo.add(activitat);
+                                                }
+                                            }
+                                        }
+
+
+                                        if (actividades_equipo.size() > 0) {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                            builder.setTitle(equip.getNom());
+                                            builder.setIcon(R.drawable.icono_logo);
+                                            View root = getLayoutInflater().inflate(
+                                                    (R.layout.alert_dialog_activitats), null);
 										ListView listview = root.findViewById(R.id.lv_activitats);
-										ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), Conexions.activitats);
+										ListaActivitatsAdapter adapter = new ListaActivitatsAdapter(getContext(), actividades_equipo);
 										listview.setAdapter(adapter);
 										builder.setView(root);
 										AlertDialog dlg = builder.show();
 										dlg.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
+                                        }
+                                        else {
+                                            Toast.makeText(getContext(), "Aquest equip no té activitats", Toast.LENGTH_LONG).show();
+                                        }
 									}
 								});
 
@@ -719,6 +743,9 @@ public class EquipsFragment extends Fragment
 
 		return nombre;
 	}
+
+
+
 
 
 }
