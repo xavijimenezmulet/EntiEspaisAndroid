@@ -14,6 +14,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cep.entiespaisandroid.R;
+import com.example.cep.entiespaisandroid.api.Api;
+import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.classes.ENTITATS;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
+import com.example.cep.entiespaisandroid.utilities.Utilitats;
+
+import java.util.ArrayList;
+
+import okhttp3.internal.Util;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -39,6 +51,8 @@ public class LoginActivity extends AppCompatActivity
 		setContentView(R.layout.activity_login);
 		ImgLogin = (ImageView)findViewById(R.id.ImgLogin);
 		ImgLogin.setImageResource(R.drawable.logoprincipal);
+
+
 		contador = 0;
 
 		TextFaqs = (TextView)findViewById(R.id.TextFaqs);
@@ -105,6 +119,38 @@ public class LoginActivity extends AppCompatActivity
 	 */
 	private void attemptLogin()
 	{
+		EntitatService entis = Api.getApi().create(EntitatService.class);
+
+		Call<ArrayList<ENTITATS>> entitats = entis.getEntitats();
+
+		entitats.enqueue(new Callback<ArrayList<ENTITATS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<ENTITATS>> call, Response<ArrayList<ENTITATS>> response)
+			{
+				switch (response.code()){
+					case 200:
+						Conexions.entitats = response.body();
+						String nom = Conexions.entitats.get(0).getNom().toString();
+						//Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
+						break;
+					case 400:
+						//Toast.makeText(SplashActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+						break;
+					case 503:
+						//Toast.makeText(SplashActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ArrayList<ENTITATS>> call, Throwable t)
+			{
+				//Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
+			}
+		});
 
 
 		// Reset errors.
@@ -146,9 +192,54 @@ public class LoginActivity extends AppCompatActivity
 			focusView.requestFocus();
 		} else
 		{
-			Intent intent = new Intent(new Intent(LoginActivity.this, MainActivity.class));
-			startActivity(intent);
+			if (!comprobarEmail(email)){
+				mEmailView.setError("Bad credentials!");
+				focusView = mEmailView;
+				cancel = true;
+			}
+			else{
+				if (!comprobarContrasenya(password)){
+					mEmailView.setError("Bad credentials!");
+					focusView = mEmailView;
+					cancel = true;
+				}
+				else{
+					Intent intent = new Intent(new Intent(LoginActivity.this, MainActivity.class));
+					startActivity(intent);
+				}
+			}
+
 		}
+	}
+
+	private Boolean comprobarContrasenya(String password)
+	{
+		Boolean verdadero = false;
+
+
+		if(Utilitats.verificar(password)){
+			verdadero = true;
+		}
+
+		return verdadero;
+	}
+
+	private Boolean comprobarEmail(String email)
+	{
+		int i = 0;
+		Boolean verdadero = false;
+		do{
+			ENTITATS e = Conexions.entitats.get(i);
+			if(email.equals(e.getEmail())){
+				verdadero = true;
+				Conexions.entitat_conectada = e;
+			}
+			else{
+				i++;
+			}
+		} while(!verdadero && i < Conexions.entitats.size());
+
+		return verdadero;
 	}
 
 	private boolean isEmailValid(String email)

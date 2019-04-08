@@ -99,4 +99,5 @@
     <string name="boto_afegir">Afegir</string>
     <string name="boto_editar">Editar</string>
     <string name="boto_eliminar">Eliminar</string>
+    <string name="obligatori">Obligatori!</string>
 </resources>

@@ -4,9 +4,13 @@
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION/"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Finish Permissions -->
 
     <application
         android:allowBackup="true"
@@ -50,10 +54,8 @@
             android:name=".activities.PoliticaEmpresaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activities.CanviarContActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ModificarPerfilActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.VideoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

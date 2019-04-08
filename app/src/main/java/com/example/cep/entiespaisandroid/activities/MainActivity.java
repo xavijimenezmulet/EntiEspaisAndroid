@@ -1,6 +1,8 @@
 package com.example.cep.entiespaisandroid.activities;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
@@ -30,6 +34,8 @@ import com.example.cep.entiespaisandroid.fragments.FaqsFragment;
 import com.example.cep.entiespaisandroid.fragments.InstalacionsFragment;
 import com.example.cep.entiespaisandroid.fragments.PerfilFragment;
 import com.example.cep.entiespaisandroid.fragments.PrincipalFragment;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
+import com.squareup.picasso.Picasso;
 
 import static com.example.cep.entiespaisandroid.activities.LoginActivity.contador;
 
@@ -40,6 +46,11 @@ public class MainActivity extends AppCompatActivity
 	private Fragment fragment;
 	public static NavigationView navigationView;
 	public Toolbar toolbar;
+	public static View headerNavigationView;
+	public static ImageView imageView;
+	public static Uri path;
+	public static TextView textNombre;
+	public static TextView textView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -48,6 +59,10 @@ public class MainActivity extends AppCompatActivity
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		toolbar.setLogo(R.drawable.icono_logo_mas_grande);
 		toolbar.setTitle("Principal");
+
+		/************PROVA************/
+		Conexions.getTelefonsEntitatProva();
+		///Conexions.getDadesProvaEntitatConectada();
 
 		setSupportActionBar(toolbar);
 
@@ -73,8 +88,11 @@ public class MainActivity extends AppCompatActivity
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 
-		navigationView = (NavigationView) findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
+
+
+		changeNavHeaderData();
+
+
 
 		if(contador == 1){
 			contador++;
@@ -250,5 +268,31 @@ public class MainActivity extends AppCompatActivity
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
+	}
+
+	public void changeNavHeaderData(){
+
+		navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+		headerNavigationView = navigationView.getHeaderView(0);
+
+		imageView = (ImageView)headerNavigationView.findViewById(R.id.imageView);
+		textView = (TextView)headerNavigationView.findViewById(R.id.textView);
+		textNombre = (TextView)headerNavigationView.findViewById(R.id.textNombre);
+		if(path == null){
+			path = (new Uri.Builder())
+					.scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+					.authority(getResources().getResourcePackageName(R.drawable.logoprincipal))
+					.appendPath(getResources().getResourceTypeName(R.drawable.logoprincipal))
+					.appendPath(getResources().getResourceEntryName(R.drawable.logoprincipal))
+					.build();
+			path = Uri.parse(Conexions.entitat_conectada.getRuta_imagen());
+			Picasso.get().load(path).into(imageView);
+		}
+		else{
+			Picasso.get().load(Conexions.entitat_conectada.getRuta_imagen()).into(imageView);
+		}
+		textNombre.setText(Conexions.entitat_conectada.getNom().toUpperCase());
+		textView.setText(Conexions.entitat_conectada.getEmail());
 	}
 }

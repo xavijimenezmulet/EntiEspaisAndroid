@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':089898', ':jbcrypt-0.3m'
