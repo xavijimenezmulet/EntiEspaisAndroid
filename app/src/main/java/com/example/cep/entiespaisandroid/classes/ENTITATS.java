@@ -1,5 +1,7 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import java.util.ArrayList;
+
 /**
  * CLASSE ENTITATS
  */
@@ -17,13 +19,14 @@ public class ENTITATS
 	private String ruta_video;
 	private double altitud;
 	private double latitud;
+	public ArrayList<TELEFONS_ENTITATS> telefons_entitats;
 
 	//CONSTRUCTORS
 	public ENTITATS()
 	{
 	}
 
-	public ENTITATS(int id, String temporada, String nom, String contrasenya, String adresa, String nif, String email, String ruta_imagen, String ruta_video, double altitud, double latitud)
+	public ENTITATS(int id, String temporada, String nom, String contrasenya, String adresa, String nif, String email, String ruta_imagen, String ruta_video, double altitud, double latitud, ArrayList<TELEFONS_ENTITATS> telefons_entitats)
 	{
 		this.id = id;
 		this.temporada = temporada;
@@ -36,6 +39,7 @@ public class ENTITATS
 		this.ruta_video = ruta_video;
 		this.altitud = altitud;
 		this.latitud = latitud;
+		this.telefons_entitats = telefons_entitats;
 	}
 
 	//GETTERS && SETTERS
@@ -147,5 +151,20 @@ public class ENTITATS
 	public void setLatitud(double latitud)
 	{
 		this.latitud = latitud;
+	}
+
+	public void setContrasenya(String contrasenya)
+	{
+		this.contrasenya = contrasenya;
+	}
+
+	public ArrayList<TELEFONS_ENTITATS> getTelefons_entitats()
+	{
+		return telefons_entitats;
+	}
+
+	public void setTelefons_entitats(ArrayList<TELEFONS_ENTITATS> telefons_entitats)
+	{
+		this.telefons_entitats = telefons_entitats;
 	}
 }

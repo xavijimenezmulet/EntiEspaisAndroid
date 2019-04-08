@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/TextView_adresa"
-        android:text="NIF entitat:"
+        android:text="Adreça completa entitat:"
         android:textStyle="bold" />
     <EditText
         android:layout_margin="10dp"
@@ -96,5 +96,17 @@
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/acceptarModificar"
+        style="?android:textAppearanceSmall"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ACCEPTAR"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/negro"
+        android:textColor="@color/blanco" />
 
 </LinearLayout>

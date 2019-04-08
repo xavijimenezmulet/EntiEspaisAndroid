@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardActivitat"
+        android:id="@+id/cardDemanda"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:cardCornerRadius="6dp"
@@ -14,11 +14,11 @@
         app:cardUseCompatPadding="true" >
 
         <TextView
-            android:id="@+id/titolActivitat"
+            android:id="@+id/titolDemanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:text="ACTIVITAT"
+            android:text="DEMANDA"
             android:layout_gravity="bottom"
             android:background="#8c000000"
             android:textColor="#ffe3e3e3"
@@ -40,7 +40,7 @@
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
         <TextView
-            android:id="@+id/nomActivitat"
+            android:id="@+id/nomDemanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nom"
@@ -61,7 +61,7 @@
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
         <TextView
-            android:id="@+id/equipAct"
+            android:id="@+id/equipDemanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Equip"
@@ -81,35 +81,35 @@
         card_view:cardElevation="8dp"
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
-    <LinearLayout
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/horaIniAct"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="500dp"
             android:layout_height="wrap_content"
-            android:text="17:00"
-            style="@style/DatosAct"
-            />
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text=" - "
-            style="@style/DatosAct"
-            />
-        <TextView
-            android:id="@+id/horaFiAct"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="19:00"
-            style="@style/DatosAct"
-            />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/horaIniDemanda"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="17:00"
+                style="@style/DatosAct"
+                />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                style="@style/DatosAct"
+                />
+            <TextView
+                android:id="@+id/horaFiDemanda"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="19:00"
+                style="@style/DatosAct"
+                />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view = "http://schemas.android.com/apk/res-auto"
@@ -128,20 +128,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <TextView
-            android:id="@+id/instalAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Instal·lació"
-            style="@style/DatosAct"
-            />
-        <TextView
-            android:id="@+id/espaiAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Espai"
-            style="@style/DatosAct"
-            />
+            <TextView
+                android:id="@+id/instalDemanda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Instal·lació"
+                style="@style/DatosAct"
+                />
+            <TextView
+                android:id="@+id/espaiDemanda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Espai"
+                style="@style/DatosAct"
+                />
         </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -157,36 +157,42 @@
         card_view:cardElevation="8dp"
         card_view:cardUseCompatPadding="true"
         tools:context=".MainActivity">
-            <LinearLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+            <TextView
+                android:id="@+id/diesDemanda"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-                <TextView
-                    android:id="@+id/diesDem"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:text="Dies: "
-                    style="@style/Datos"
-                    />
-                <ListView
-                    android:id="@+id/lstDiasAct"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
+                android:gravity="top"
+                android:text="Dies: "
+                style="@style/Datos"
+                />
+            <ListView
+                android:id="@+id/lstDias"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/btnEliminar"
-        android:text="ELIMINAR"
-        android:textSize="14sp"
-        android:background="@color/negro"
-        android:textColor="@color/blanco"
-        android:padding="5dp"
-        android:layout_marginHorizontal="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="10dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDeleteDemanda"
+            android:text="ELIMINAR"
+            android:textSize="14sp"
+            android:background="@color/negro"
+            android:textColor="@color/blanco"
+            android:padding="5dp"
+            android:layout_marginHorizontal="20dp"/>
+    </LinearLayout>
 </LinearLayout>

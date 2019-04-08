@@ -15,9 +15,9 @@
                 android:layout_marginTop="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/logoprincipal"/>
+                android:layout_height="150dp"/>
             <TextView
+                android:id="@+id/textNomEntitat"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
@@ -44,12 +44,15 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/textEq"
+                        android:textColor="@color/negro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Equips"
                         android:textSize="20sp"
                         />
                     <TextView
+                        android:id="@+id/textEq1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -66,12 +69,15 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/textAc"
+                        android:textColor="@color/negro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Activitats"
                         android:textSize="20sp"
                         />
                     <TextView
+                        android:id="@+id/textAc1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -88,12 +94,15 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/textDe"
+                        android:textColor="@color/negro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Demandes"
                         android:textSize="20sp"
                         />
                     <TextView
+                        android:id="@+id/textDe1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -122,14 +131,16 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_action_entitatss"/>
+                android:src="@drawable/ic_email"/>
             <TextView
+                android:id="@+id/textEmailEntitat"
                 android:textStyle="bold"
+                android:textColor="@color/negro"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Wiliam@gmail.com"/>
+                android:text="entitat@entitat.com"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -140,15 +151,16 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_action_entitatss"/>
+                android:src="@drawable/ic_nif"/>
             <TextView
+                android:id="@+id/textNifEntitat"
                 android:textStyle="bold"
-
+                android:textColor="@color/negro"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="+266 225 225"/>
+                android:text="B1234567"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -159,15 +171,16 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_action_entitatss"/>
+                android:src="@drawable/ic_location"/>
             <TextView
+                android:id="@+id/textAdresaEntiat"
                 android:textStyle="bold"
-
+                android:textColor="@color/negro"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Add to group"/>
+                android:text="Sant Terna 34, Sant Cugat del Vallès"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -178,15 +191,16 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_action_entitatss"/>
+                android:src="@drawable/ic_telef"/>
             <TextView
+                android:id="@+id/textTelefonEntitat"
                 android:textStyle="bold"
-
+                android:textColor="@color/negro"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Show all comments"/>
+                android:text="+34 692 882 429"/>
         </LinearLayout>
     </LinearLayout>
 

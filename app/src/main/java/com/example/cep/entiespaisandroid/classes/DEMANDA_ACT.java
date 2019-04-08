@@ -1,39 +1,40 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  * CLASSE DEMANDA ACTIVITAT
  */
-public class DEMANDA_ACT
+public class DEMANDA_ACT implements Serializable
 {
 	//ATRIBUTS
 	private int id;
 	private String nom;
-	private LocalTime duracio;
 	private byte num_espais;
 	private byte num_dies;
 	private Boolean es_asignada;
 	private int id_equip;
 	private int id_interval_hores;
 	private int id_espai;
-
+	//private ArrayList<DIA_SEMANA> dia_semanas;
 	//CONSTRUCTORS
 	public DEMANDA_ACT()
 	{
 	}
 
-	public DEMANDA_ACT(int id, String nom, LocalTime duracio, byte num_espais, byte num_dies, Boolean es_asignada, int id_equip, int id_interval_hores, int id_espai)
+	public DEMANDA_ACT(int id, String nom, byte num_espais, byte num_dies, Boolean es_asignada, int id_equip, int id_interval_hores, int id_espai/*, ArrayList<DIA_SEMANA> dia_semanas*/)
 	{
 		this.id = id;
 		this.nom = nom;
-		this.duracio = duracio;
 		this.num_espais = num_espais;
 		this.num_dies = num_dies;
 		this.es_asignada = es_asignada;
 		this.id_equip = id_equip;
 		this.id_interval_hores = id_interval_hores;
 		this.id_espai = id_espai;
+		//this.dia_semanas=dia_semanas;
 	}
 
 	//GETTERS && SETTERS
@@ -56,7 +57,7 @@ public class DEMANDA_ACT
 	{
 		this.nom = nom;
 	}
-
+/**
 	public LocalTime getDuracio()
 	{
 		return duracio;
@@ -66,7 +67,7 @@ public class DEMANDA_ACT
 	{
 		this.duracio = duracio;
 	}
-
+**/
 	public byte getNum_espais()
 	{
 		return num_espais;
@@ -126,4 +127,13 @@ public class DEMANDA_ACT
 	{
 		this.id_espai = id_espai;
 	}
+/*
+	public ArrayList<DIA_SEMANA> getDia_semanas() {
+		return dia_semanas;
+	}
+
+	public void setDia_semanas(ArrayList<DIA_SEMANA> dia_semanas) {
+		this.dia_semanas = dia_semanas;
+	}
+	*/
 }

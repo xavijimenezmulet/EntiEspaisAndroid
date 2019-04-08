@@ -261,4 +261,24 @@ public class Conexions
 	{
 		Conexions.entitat_conectada = entitat_conectada;
 	}
+
+	public static void getDadesProvaEntitatConectada(){
+		entitat_conectada = new ENTITATS();
+		entitat_conectada.setNom("S.E. SANT CUGAT");
+		entitat_conectada.setAdresa("Germandat 49, Sant Cugat del Vallès");
+		entitat_conectada.setNif("B1234567");
+		entitat_conectada.setEmail("sesantcugat@gmail.com)");
+		entitat_conectada.setRuta_imagen("http://cdn.ertheo.com/blog/wp-content/uploads/2018/06/Fc_barcelona.png");
+		entitat_conectada.setRuta_video("http://techslides.com/demos/sample-videos/small.mp4");
+	}
+
+	public static void getTelefonsEntitatProva(){
+		telefons_entitats = new ArrayList<TELEFONS_ENTITATS>();
+		TELEFONS_ENTITATS te = new TELEFONS_ENTITATS();
+		te.setNumero("692882429");
+		telefons_entitats.add(te);
+		te.setNumero("938174107");
+		telefons_entitats.add(te);
+
+	}
 }

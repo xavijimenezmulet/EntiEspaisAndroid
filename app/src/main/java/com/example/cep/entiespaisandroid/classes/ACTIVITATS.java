@@ -1,9 +1,11 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import java.io.Serializable;
+
 /**
  * CLASSE ACTIVITATS
  */
-public class ACTIVITATS
+public class ACTIVITATS implements Serializable
 {
 	//ATRIBUTS
 	private int id;
