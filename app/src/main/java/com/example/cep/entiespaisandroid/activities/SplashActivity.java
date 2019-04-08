@@ -19,6 +19,8 @@ import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
 import com.example.cep.entiespaisandroid.api.apiService.Dia_SemanaService;
 import com.example.cep.entiespaisandroid.api.apiService.Dias_DemandaService;
 import com.example.cep.entiespaisandroid.api.apiService.EntitatService;
+import com.example.cep.entiespaisandroid.api.apiService.EsportsService;
+import com.example.cep.entiespaisandroid.api.apiService.FaqsService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
 import com.example.cep.entiespaisandroid.api.apiService.EspaisService;
 import com.example.cep.entiespaisandroid.api.apiService.Horari_InstalacioService;
@@ -29,6 +31,9 @@ import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.DIAS_DEMANDA;
 import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.ENTITATS;
+import com.example.cep.entiespaisandroid.classes.ESPORTS;
+import com.example.cep.entiespaisandroid.classes.FAQS;
+import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.ESPAIS;
 import com.example.cep.entiespaisandroid.classes.HORARI_INSTALACIO;
@@ -75,7 +80,16 @@ public class SplashActivity extends AppCompatActivity
 					!= PackageManager.PERMISSION_GRANTED &&
 					ContextCompat.checkSelfPermission((Activity)this,
 							Manifest.permission.WRITE_EXTERNAL_STORAGE)
-							!= PackageManager.PERMISSION_GRANTED)
+							!= PackageManager.PERMISSION_GRANTED &&
+					ContextCompat.checkSelfPermission((Activity)this,
+							Manifest.permission.INTERNET)
+							!= PackageManager.PERMISSION_GRANTED &&
+					ContextCompat.checkSelfPermission((Activity)this,
+					Manifest.permission.ACCESS_FINE_LOCATION)
+					!= PackageManager.PERMISSION_GRANTED &&
+					ContextCompat.checkSelfPermission((Activity)this,
+					Manifest.permission.ACCESS_COARSE_LOCATION)
+					!= PackageManager.PERMISSION_GRANTED)
 			{
 
 				// Si l'usuari no ens havia atorgat permisos, els hi demanem i
@@ -83,7 +97,10 @@ public class SplashActivity extends AppCompatActivity
 
 				ActivityCompat.requestPermissions(this,
 						new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-								Manifest.permission.WRITE_EXTERNAL_STORAGE},
+								Manifest.permission.WRITE_EXTERNAL_STORAGE,
+								Manifest.permission.INTERNET,
+								Manifest.permission.ACCESS_FINE_LOCATION,
+								Manifest.permission.ACCESS_COARSE_LOCATION},
 						1);
 
 				iniciar();
@@ -124,10 +141,15 @@ public class SplashActivity extends AppCompatActivity
 			{
 				switch (response.code()){
 					case 200:
-						ArrayList<ENTITATS> entitats = response.body();
-						String nom = entitats.get(0).getNom().toString();
-						Conexions.setEntitat_conectada(entitats.get(0));
-						Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
+						Conexions.entitats = response.body();
+						String nom = Conexions.entitats.get(0).getNom().toString();
+						//Toast.makeText(SplashActivity.this, nom , Toast.LENGTH_LONG).show();
+						break;
+					case 400:
+						//Toast.makeText(SplashActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+						break;
+					case 503:
+						//Toast.makeText(SplashActivity.this, response.toString(), Toast.LENGTH_LONG).show();
 						break;
 					default:
 						break;
@@ -137,13 +159,40 @@ public class SplashActivity extends AppCompatActivity
 			@Override
 			public void onFailure(Call<ArrayList<ENTITATS>> call, Throwable t)
 			{
-				Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
+				//Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
 			}
 		});
 
+		FaqsService fs = Api.getApi().create(FaqsService.class);
 
+		Call<ArrayList<FAQS>> f = fs.getFaqs();
 
+		f.enqueue(new Callback<ArrayList<FAQS>>()
+		{
+			@Override
+			public void onResponse(Call<ArrayList<FAQS>> call, Response<ArrayList<FAQS>> response)
+			{
+				switch (response.code()){
+					case 200:
+						Conexions.faqs = response.body();
+						break;
+					case 400:
+						Toast.makeText(SplashActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+						break;
+					case 503:
+						Toast.makeText(SplashActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+						break;
+					default:
+						break;
+				}
+			}
 
+			@Override
+			public void onFailure(Call<ArrayList<FAQS>> call, Throwable t)
+			{
+				Toast.makeText(SplashActivity.this, "HA IDO MAL" , Toast.LENGTH_LONG).show();
+			}
+		});
 
 		new Thread(){
 			public void run(){
@@ -165,8 +214,9 @@ public class SplashActivity extends AppCompatActivity
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
 		if(requestCode == 1){
-			if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED &&
-					grantResults[1]==PackageManager.PERMISSION_GRANTED){
+			if(grantResults.length==5 && grantResults[0]==PackageManager.PERMISSION_GRANTED &&
+					grantResults[1]==PackageManager.PERMISSION_GRANTED && grantResults[2]==PackageManager.PERMISSION_GRANTED &&
+					grantResults[3]==PackageManager.PERMISSION_GRANTED && grantResults[4]==PackageManager.PERMISSION_GRANTED ){
 				iniciar();
 			}
 		}

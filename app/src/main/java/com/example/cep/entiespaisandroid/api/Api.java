@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Api {
 
 	public static final String IP_PC_CLASSE_XAVI = "http://172.16.110.1:53808/";
-	public static final String IP_PC_CASA_XAVI   = "";
+	public static final String IP_PC_CASA_XAVI   = "http://192.168.67.1:53808/";
 	public static final String IP_PC_CLASSE_LUIS   = "http://172.16.110.1:53808/";
 	public static final String IP_PC_CASA_LUIS   = "";
 	public static final String IP_PC_CLASSE_JOEL   = "http://172.16.110.1:53808/";
@@ -14,7 +14,7 @@ public class Api {
 	public static final String IP_PC_CLASSE_DAVID   = "";
 	public static final String IP_PC_CASA_DAVID   = "";
 
-	private static final String BASE_URL = IP_PC_CLASSE_JOEL;
+	private static final String BASE_URL = IP_PC_CASA_JOEL;
 	private static Retrofit  retrofit = null;
 
 	public static Retrofit getApi(){
