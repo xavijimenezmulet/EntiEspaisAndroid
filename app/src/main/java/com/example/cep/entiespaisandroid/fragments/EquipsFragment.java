@@ -66,22 +66,28 @@ public class EquipsFragment extends Fragment
 			spinner_sexo, spinner_deporte;
 	private View root = null;
 
-	private void rellenarEquipos() {
+	private void rellenarEquipos()
+	{
 		EquipService equipService = Api.getApi().create(EquipService.class);
 
 		Call<ArrayList<EQUIPS>> listCall = equipService.getEquipsByIdEntitat(5);
 
-		listCall.enqueue(new Callback<ArrayList<EQUIPS>>() {
+		listCall.enqueue(new Callback<ArrayList<EQUIPS>>()
+		{
 			@Override
-			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response) {
-				switch(response.code()) {
+			public void onResponse(Call<ArrayList<EQUIPS>> call, Response<ArrayList<EQUIPS>> response)
+			{
+				switch (response.code())
+				{
 					case 200:
 						Conexions.equips = response.body();
 						mAdapter = new AdaptadorEquips(Conexions.equips);
 						mRecyClerView.setAdapter(mAdapter);
-						((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener()  {
+						((AdaptadorEquips) mAdapter).setOnClickListener(new View.OnClickListener()
+						{
 							@Override
-							public void onClick(View v) {
+							public void onClick(View v)
+							{
 								final int position_eq = mRecyClerView.getChildAdapterPosition(v);
 								final EQUIPS equip = Conexions.equips.get(position_eq);
 
@@ -137,14 +143,18 @@ public class EquipsFragment extends Fragment
 
 								builder.setView(root);
 
-								builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog, int whichButton) {
+								builder.setNegativeButton("ELIMINAR", new DialogInterface.OnClickListener()
+								{
+									public void onClick(DialogInterface dialog, int whichButton)
+									{
 										mostrarDialogBorrarEquipo(equip);
 									}
 								});
 
-								builder.setPositiveButton("GUARDAR", new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog, int which) {
+								builder.setPositiveButton("GUARDAR", new DialogInterface.OnClickListener()
+								{
+									public void onClick(DialogInterface dialog, int which)
+									{
 										EditText editTextNombre = root.findViewById(R.id.etxt_nombre);
 										CheckBox checkboxDiscapacidad = root.findViewById(R.id.cb_discapacitat);
 
@@ -154,10 +164,11 @@ public class EquipsFragment extends Fragment
 										COMPETICIONS competicion = (COMPETICIONS) spinner_competicion.getSelectedItem();
 										equip2.setId_competicio(competicion.getId());
 
-										if( checkboxDiscapacidad.isChecked() ) {
+										if (checkboxDiscapacidad.isChecked())
+										{
 											equip2.setTe_discapacitat(true);
-										}
-										else {
+										} else
+										{
 											equip2.setTe_discapacitat(false);
 										}
 
@@ -181,10 +192,13 @@ public class EquipsFragment extends Fragment
 
 										Call<EQUIPS> listCall = equipService.modificarEquip(equip.getId(), equip2);
 
-										listCall.enqueue(new Callback<EQUIPS>() {
+										listCall.enqueue(new Callback<EQUIPS>()
+										{
 											@Override
-											public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response) {
-												switch (response.code()){
+											public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
+											{
+												switch (response.code())
+												{
 													case 204:
 														rellenarEquipos();
 														Toast.makeText(getContext(), "EQUIP MODIFICAT CORRECTAMENT", Toast.LENGTH_LONG).show();
@@ -201,7 +215,8 @@ public class EquipsFragment extends Fragment
 											}
 
 											@Override
-											public void onFailure(Call<EQUIPS> call, Throwable t) {
+											public void onFailure(Call<EQUIPS> call, Throwable t)
+											{
 												Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 											}
 										});
@@ -219,8 +234,6 @@ public class EquipsFragment extends Fragment
 										builder.setIcon(R.drawable.icono_logo);
 										View root = getLayoutInflater().inflate(
 												(R.layout.alert_dialog_activitats), null);
-
-
 
 
 										ListView listview = root.findViewById(R.id.lv_activitats);
@@ -252,13 +265,15 @@ public class EquipsFragment extends Fragment
 			}
 
 			@Override
-			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t) {
+			public void onFailure(Call<ArrayList<EQUIPS>> call, Throwable t)
+			{
 				Toast.makeText(getActivity(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});
 	}
 
-	private void mostrarDialogEquipo() {
+	private void mostrarDialogEquipo()
+	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 		root = getLayoutInflater().inflate(
@@ -279,18 +294,21 @@ public class EquipsFragment extends Fragment
 
 		builder.setTitle("Afegir equip");
 
-		builder.setPositiveButton("Acceptar", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
+		builder.setPositiveButton("Acceptar", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int which)
+			{
 				EQUIPS equip = new EQUIPS();
 				equip.setNom(editTextNombre.getText().toString());
 
 				COMPETICIONS competicion = (COMPETICIONS) spinner_competicion.getSelectedItem();
 				equip.setId_competicio(competicion.getId());
 
-				if( checkboxDiscapacidad.isChecked() ) {
+				if (checkboxDiscapacidad.isChecked())
+				{
 					equip.setTe_discapacitat(true);
-				}
-				else {
+				} else
+				{
 					equip.setTe_discapacitat(false);
 				}
 
@@ -311,7 +329,6 @@ public class EquipsFragment extends Fragment
 				equip.setId_esport(esport.getId());
 
 
-
 				EquipService equipService = Api.getApi().create(EquipService.class);
 				Call<EQUIPS> equipCall = equipService.insertEquip(equip);
 
@@ -320,7 +337,8 @@ public class EquipsFragment extends Fragment
 					@Override
 					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
 					{
-						switch (response.code()){
+						switch (response.code())
+						{
 							case 201:
 								rellenarEquipos();
 								Toast.makeText(getContext(), "EQUIP INTRODUÏT CORRECTAMENT", Toast.LENGTH_LONG).show();
@@ -347,7 +365,8 @@ public class EquipsFragment extends Fragment
 		alertDialog.show();
 	}
 
-	protected void mostrarDialogBorrarEquipo(final EQUIPS equip2) {
+	protected void mostrarDialogBorrarEquipo(final EQUIPS equip2)
+	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 		root = getLayoutInflater().inflate(
@@ -358,8 +377,10 @@ public class EquipsFragment extends Fragment
 		textView.setText("Estàs segur d'eliminar aquest equip?");
 
 		builder.setTitle("Eliminar equip: " + equip2.getNom());
-		builder.setPositiveButton("SÍ", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
+		builder.setPositiveButton("SÍ", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int which)
+			{
 				EquipService equipService = Api.getApi().create(EquipService.class);
 
 				Call<EQUIPS> equipCall = equipService.deleteEquip(equip2.getId());
@@ -368,7 +389,8 @@ public class EquipsFragment extends Fragment
 					@Override
 					public void onResponse(Call<EQUIPS> call, Response<EQUIPS> response)
 					{
-						switch (response.code()){
+						switch (response.code())
+						{
 							case 200:
 								rellenarEquipos();
 								Toast.makeText(getContext(), "Equip eliminat.", Toast.LENGTH_LONG).show();
@@ -383,6 +405,7 @@ public class EquipsFragment extends Fragment
 								break;
 						}
 					}
+
 					@Override
 					public void onFailure(Call<EQUIPS> call, Throwable t)
 					{
@@ -405,18 +428,18 @@ public class EquipsFragment extends Fragment
 	}
 
 
-
-
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
-							 Bundle savedInstanceState) {
+							 Bundle savedInstanceState)
+	{
 
 		return inflater.inflate(R.layout.fragment_equips, container, false);
 	}
 
 	@Override
-	public void onActivityCreated(Bundle state) {
+	public void onActivityCreated(Bundle state)
+	{
 		super.onActivityCreated(state);
 
 		mRecyClerView = getView().findViewById(R.id.rv_recycler_view);
@@ -591,7 +614,8 @@ public class EquipsFragment extends Fragment
 		//mRecyClerView.setAdapter(mAdapter);
 
 		Button btn_afegir = getView().findViewById(R.id.añadirEquipo);
-		btn_afegir.setOnClickListener(new View.OnClickListener() {
+		btn_afegir.setOnClickListener(new View.OnClickListener()
+		{
 			public void onClick(View v)
 			{
 				mostrarDialogEquipo();
@@ -602,18 +626,19 @@ public class EquipsFragment extends Fragment
 	}
 
 
-
-	class AdaptadorEquips extends RecyclerView.Adapter <AdaptadorEquips.EquipViewHolder>
+	class AdaptadorEquips extends RecyclerView.Adapter<AdaptadorEquips.EquipViewHolder>
 			implements View.OnClickListener
 	{
 		private View.OnClickListener listener;
 		ArrayList<EQUIPS> equipos;
 
 
-		public AdaptadorEquips(ArrayList<EQUIPS> lista_equipos) {
+		public AdaptadorEquips(ArrayList<EQUIPS> lista_equipos)
+		{
 			this.equipos = lista_equipos;
 			this.listener = null; /**/
 		}
+
 		class EquipViewHolder
 				extends RecyclerView.ViewHolder
 		{
@@ -630,10 +655,11 @@ public class EquipsFragment extends Fragment
 				lblEquipEsport = itemView.findViewById(R.id.tv_blah);
 			}
 
-			public void bindEquip(EQUIPS e) {
+			public void bindEquip(EQUIPS e)
+			{
 				imgEquipImage.setImageResource(R.drawable.ic_action_equips);
 				lblEquipName.setText(e.getNom());
-				lblEquipEsport.setText(String.valueOf(e.getId_esport()));
+				lblEquipEsport.setText(nombreDeporteById(e));
 			}
 		}
 
@@ -649,6 +675,7 @@ public class EquipsFragment extends Fragment
 			EquipViewHolder evh = new EquipViewHolder(itemView);
 			return evh;
 		}
+
 		@Override
 		public void onBindViewHolder(@NonNull EquipViewHolder equipViewHolder, int i)
 		{
@@ -662,13 +689,16 @@ public class EquipsFragment extends Fragment
 			return equipos.size();
 		}
 
-		public void setOnClickListener(View.OnClickListener listener) {
+		public void setOnClickListener(View.OnClickListener listener)
+		{
 			this.listener = listener;
 		}
 
 		@Override
-		public void onClick(View view) {
-			if(listener != null) {
+		public void onClick(View view)
+		{
+			if (listener != null)
+			{
 				listener.onClick(view);
 
 			}
@@ -676,22 +706,26 @@ public class EquipsFragment extends Fragment
 
 	}
 
-	public void rellenarCompeticiones() {
+	public void rellenarCompeticiones()
+	{
 		spinner_competicion = root.findViewById(R.id.spinner_competicio);
 		ListaCompeticionsAdapter adapter_competicions = new ListaCompeticionsAdapter(getContext(), Conexions.competicions);
 		spinner_competicion.setAdapter(adapter_competicions);
 	}
 
-	public void indicarCompeticion(EQUIPS equip) {
+	public void indicarCompeticion(EQUIPS equip)
+	{
 		int i = 0;
 		int posicion = 0;
 
 		boolean encontrado = false;
-		Iterator<COMPETICIONS> iteratorCompeticions= Conexions.competicions.iterator();
-		while(iteratorCompeticions.hasNext() && !encontrado){
+		Iterator<COMPETICIONS> iteratorCompeticions = Conexions.competicions.iterator();
+		while (iteratorCompeticions.hasNext() && !encontrado)
+		{
 			COMPETICIONS competicio = iteratorCompeticions.next();
 
-			if (competicio.getId() == equip.getId_competicio()) {
+			if (competicio.getId() == equip.getId_competicio())
+			{
 				posicion = i;
 				encontrado = true;
 			}
@@ -701,23 +735,27 @@ public class EquipsFragment extends Fragment
 		spinner_competicion.setSelection(posicion);
 	}
 
-	public void rellenarCategoriaEdad() {
+	public void rellenarCategoriaEdad()
+	{
 		spinner_categoria_edad = root.findViewById(R.id.spinner_categoriaEdat);
 		ListaCategoriaEdatAdapter adapter_categoria_edat = new ListaCategoriaEdatAdapter(getContext(), Conexions.categoria_edats);
 		spinner_categoria_edad.setAdapter(adapter_categoria_edat);
 	}
 
-	public void indicarCategoriaEdad(EQUIPS equip) {
+	public void indicarCategoriaEdad(EQUIPS equip)
+	{
 
 		int i = 0;
 		int posicion = 0;
 
 		boolean encontrado = false;
-		Iterator<CATEGORIA_EDAT> iteratorCategoriaEdat= Conexions.categoria_edats.iterator();
-		while(iteratorCategoriaEdat.hasNext() && !encontrado){
+		Iterator<CATEGORIA_EDAT> iteratorCategoriaEdat = Conexions.categoria_edats.iterator();
+		while (iteratorCategoriaEdat.hasNext() && !encontrado)
+		{
 			CATEGORIA_EDAT categoria_edat = iteratorCategoriaEdat.next();
 
-			if (categoria_edat.getId() == equip.getId_categoria_edat()) {
+			if (categoria_edat.getId() == equip.getId_categoria_edat())
+			{
 				posicion = i;
 				encontrado = true;
 			}
@@ -727,23 +765,27 @@ public class EquipsFragment extends Fragment
 		spinner_categoria_edad.setSelection(posicion);
 	}
 
-	public void rellenarCategoriaEquipo() {
+	public void rellenarCategoriaEquipo()
+	{
 		spinner_categoria_equipo = root.findViewById(R.id.spinner_categoria);
 		ListaCategoriaEquipAdapter adapter_categoria_equip = new ListaCategoriaEquipAdapter(getContext(), Conexions.categoria_equips);
 		spinner_categoria_equipo.setAdapter(adapter_categoria_equip);
 	}
 
-	public void indicarCategoriaEquipo(EQUIPS equip) {
+	public void indicarCategoriaEquipo(EQUIPS equip)
+	{
 		int i = 0;
 		int posicion = 0;
 
 
 		boolean encontrado = false;
-		Iterator<CATEGORIA_EQUIP> iteratorCategoriaEquip= Conexions.categoria_equips.iterator();
-		while(iteratorCategoriaEquip.hasNext() && !encontrado){
+		Iterator<CATEGORIA_EQUIP> iteratorCategoriaEquip = Conexions.categoria_equips.iterator();
+		while (iteratorCategoriaEquip.hasNext() && !encontrado)
+		{
 			CATEGORIA_EQUIP categoria_equip = iteratorCategoriaEquip.next();
 
-			if (categoria_equip.getId() == equip.getId_categoria_equip()) {
+			if (categoria_equip.getId() == equip.getId_categoria_equip())
+			{
 				posicion = i;
 				encontrado = true;
 			}
@@ -753,23 +795,27 @@ public class EquipsFragment extends Fragment
 		spinner_categoria_equipo.setSelection(posicion);
 	}
 
-	public void rellenarSexo() {
+	public void rellenarSexo()
+	{
 		spinner_sexo = root.findViewById(R.id.spinner_sexe);
 		ListaSexeAdapter adapter_sexe = new ListaSexeAdapter(getContext(), Conexions.sexes);
 		spinner_sexo.setAdapter(adapter_sexe);
 	}
 
-	public void indicarSexo(EQUIPS equip) {
+	public void indicarSexo(EQUIPS equip)
+	{
 
 		int i = 0;
 		int posicion = 0;
 
 		boolean encontrado = false;
 		Iterator<SEXE> iteratorSexe = Conexions.sexes.iterator();
-		while(iteratorSexe.hasNext() && !encontrado){
+		while (iteratorSexe.hasNext() && !encontrado)
+		{
 			SEXE sexe = iteratorSexe.next();
 
-			if (sexe.getId() == equip.getId_sexe()) {
+			if (sexe.getId() == equip.getId_sexe())
+			{
 				posicion = i;
 				encontrado = true;
 			}
@@ -779,22 +825,26 @@ public class EquipsFragment extends Fragment
 		spinner_sexo.setSelection(posicion);
 	}
 
-	public void rellenarDeportes() {
+	public void rellenarDeportes()
+	{
 		spinner_deporte = root.findViewById(R.id.spinner_esport);
 		ListaEsportAdapter adapter_esport = new ListaEsportAdapter(getContext(), Conexions.esports);
 		spinner_deporte.setAdapter(adapter_esport);
 	}
 
-	public void indicarDeporte(EQUIPS equip) {
+	public void indicarDeporte(EQUIPS equip)
+	{
 		int i = 0;
 		int posicion = 0;
 
 		boolean encontrado = false;
 		Iterator<ESPORTS> iteratorEsport = Conexions.esports.iterator();
-		while(iteratorEsport.hasNext() && !encontrado){
+		while (iteratorEsport.hasNext() && !encontrado)
+		{
 			ESPORTS esport = iteratorEsport.next();
 
-			if (esport.getId() == equip.getId_esport()) {
+			if (esport.getId() == equip.getId_esport())
+			{
 				posicion = i;
 				encontrado = true;
 			}
@@ -802,6 +852,27 @@ public class EquipsFragment extends Fragment
 		}
 
 		spinner_deporte.setSelection(posicion);
+	}
+
+	public String nombreDeporteById(EQUIPS equip) {
+		int i = 0;
+		String nombre = "";
+
+		boolean encontrado = false;
+		Iterator<ESPORTS> iteratorEsport = Conexions.esports.iterator();
+		while (iteratorEsport.hasNext() && !encontrado)
+		{
+			ESPORTS esport = iteratorEsport.next();
+
+			if (esport.getId() == equip.getId_esport())
+			{
+				nombre = esport.getNom();
+				encontrado = true;
+			}
+			i++;
+		}
+
+		return nombre;
 	}
 
 
