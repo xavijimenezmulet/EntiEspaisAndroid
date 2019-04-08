@@ -155,7 +155,7 @@ public class ActivitatInstalacio extends FragmentActivity implements OnMapReadyC
 	{
 		//Retroservice
 		HoresService horesService = Api.getApi().create(HoresService.class);
-		Call<HORES> listCall = horesService.getHoresInstalacio(id_hora);
+		Call<HORES> listCall = horesService.getHoresId(id_hora);
 
 		listCall.enqueue(new Callback<HORES>()
 		{
