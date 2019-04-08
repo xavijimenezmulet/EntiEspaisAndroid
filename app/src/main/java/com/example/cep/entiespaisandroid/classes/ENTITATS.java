@@ -1,5 +1,7 @@
 package com.example.cep.entiespaisandroid.classes;
 
+import java.util.ArrayList;
+
 /**
  * CLASSE ENTITATS
  */
