@@ -18,13 +18,13 @@ public class DEMANDA_ACT implements Serializable
 	private int id_equip;
 	private int id_interval_hores;
 	private int id_espai;
-	private ArrayList<DIA_SEMANA> dia_semanas;
+	private ArrayList<DIA_SEMANA> DIA_SEMANA;
 	//CONSTRUCTORS
 	public DEMANDA_ACT()
 	{
 	}
 
-	public DEMANDA_ACT(int id, String nom, byte num_espais, byte num_dies, Boolean es_asignada, int id_equip, int id_interval_hores, int id_espai/*, ArrayList<DIA_SEMANA> dia_semanas*/)
+	public DEMANDA_ACT(int id, String nom, byte num_espais, byte num_dies, Boolean es_asignada, int id_equip, int id_interval_hores, int id_espai, ArrayList<DIA_SEMANA> DIA_SEMANA)
 	{
 		this.id = id;
 		this.nom = nom;
@@ -34,7 +34,7 @@ public class DEMANDA_ACT implements Serializable
 		this.id_equip = id_equip;
 		this.id_interval_hores = id_interval_hores;
 		this.id_espai = id_espai;
-		//this.dia_semanas=dia_semanas;
+		this.DIA_SEMANA=DIA_SEMANA;
 	}
 
 	//GETTERS && SETTERS
@@ -129,11 +129,11 @@ public class DEMANDA_ACT implements Serializable
 	}
 
 	public ArrayList<DIA_SEMANA> getDia_semanas() {
-		return dia_semanas;
+		return DIA_SEMANA;
 	}
 
-	public void setDia_semanas(ArrayList<DIA_SEMANA> dia_semanas) {
-		this.dia_semanas = dia_semanas;
+	public void setDia_semanas(ArrayList<DIA_SEMANA> DIA_SEMANA) {
+		this.DIA_SEMANA = DIA_SEMANA;
 	}
 
 }

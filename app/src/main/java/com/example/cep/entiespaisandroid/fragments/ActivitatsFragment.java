@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.cep.entiespaisandroid.R;
 import com.example.cep.entiespaisandroid.classes.ACTIVITATS;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
+import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 
@@ -146,7 +147,7 @@ public class ActivitatsFragment extends Fragment
 			private TextView horaI;
 			private TextView horaF;
 			private ListView dies;
-
+			private ArrayList<String> days = new ArrayList<>();
 
 			public PlaceViewHolder(View itemView) {
 				super(itemView);
@@ -155,6 +156,7 @@ public class ActivitatsFragment extends Fragment
 				equip = (TextView)itemView.findViewById(R.id.textNomEquipAct);
 				horaI = (TextView)itemView.findViewById(R.id.txtHoraIniAct);
 				horaF = (TextView)itemView.findViewById(R.id.txtHoraFiAct);
+				dies = (ListView)itemView.findViewById(R.id.lstDiesAct);
 			}
 
 			public void bindTitular(ACTIVITATS a) {
@@ -185,10 +187,17 @@ public class ActivitatsFragment extends Fragment
 						HoraFinal = Conexions.hores.get(i).getFi();
 					}
 				}
+				for(DIA_SEMANA dia : d.getDia_semanas())
+				{
+					days.add(dia.getNom());
+				}
 				nom.setText(d.getNom());
 				equip.setText(NomEquip);
 				horaI.setText(HoraInici);
 				horaF.setText(HoraFinal);
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, days);
+
+				dies.setAdapter(arrayAdapter);
 			}
 		}
 

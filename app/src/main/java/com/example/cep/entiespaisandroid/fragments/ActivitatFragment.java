@@ -169,55 +169,13 @@ public class ActivitatFragment extends Fragment
 		instalAct.setText(inst.getNom());
 		espaiAct.setText(esp.getNom());
 
-
-		Demanda_ActService ds = Api.getApi().create(Demanda_ActService.class);
-
-		Call<ArrayList<DIA_SEMANA>> diaDem = ds.getDemanda_actDays(demand.getId());
-
-		diaDem.enqueue(new Callback<ArrayList<DIA_SEMANA>>()
-		{
-			@Override
-			public void onResponse(Call<ArrayList<DIA_SEMANA>> call, Response<ArrayList<DIA_SEMANA>> response)
-			{
-				switch (response.code())
-				{
-					case 200:
-						days = response.body();
-						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
-						break;
-					default:
-						break;
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ArrayList<DIA_SEMANA>> call, Throwable t)
-			{
-				Toast.makeText(getActivity(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-			}
-		});
-
-
 		ArrayList<String> dias = new ArrayList<>();
-		for(DIA_SEMANA dia : days)
-		{
-			dias.add(dia.getNom());
+		if(demand.getDia_semanas() != null) {
+			for (DIA_SEMANA dia : demand.getDia_semanas()) {
+				dias.add(dia.getNom());
+			}
 		}
-/*
-        for(int i = 0; i < Conexions.dias_demanda.size(); i++)
-        {
-            if(Conexions.dias_demanda.get(i).getId_demanda_act() == demanda.getId())
-            {
-                for(int j = 0; j < Conexions.dies_setmana.size(); i++)
-                {
-                    if(Conexions.dies_setmana.get(j).getId() == Conexions.dias_demanda.get(i).getId_dia_setmana())
-                    {
-                        dias.add(Conexions.dies_setmana.get(j).getNom());
-                    }
-                }
-            }
-        }
-*/
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,dias);
 		lstDias.setAdapter(adapter);
 	}
