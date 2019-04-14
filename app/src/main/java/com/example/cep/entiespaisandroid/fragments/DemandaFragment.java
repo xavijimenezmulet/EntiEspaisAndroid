@@ -26,6 +26,7 @@ import com.example.cep.entiespaisandroid.adapters.SpinAdapterEspais;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
 import com.example.cep.entiespaisandroid.api.apiService.EquipService;
+import com.example.cep.entiespaisandroid.api.apiService.HoresService;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
 import com.example.cep.entiespaisandroid.classes.DIA_SEMANA;
 import com.example.cep.entiespaisandroid.classes.EQUIPS;
@@ -36,7 +37,10 @@ import com.example.cep.entiespaisandroid.classes.MensajeError;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +72,7 @@ public class DemandaFragment extends Fragment
 	private CheckBox divendres;
 	private CheckBox dissabte;
 	private CheckBox diumenge;
+	private int id;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 ViewGroup container,
@@ -196,8 +201,8 @@ public class DemandaFragment extends Fragment
 				}
 				else {
 					HORES horari = new HORES();
-					horari.setInici(iniciDem.getText() + ":00");
-					horari.setFi(fiDem.getText() + ":00");
+					horari.setInici(iniciDem.getText() + ":00.0000000");
+					horari.setFi(fiDem.getText() + ":00.0000000");
 					if(!dilluns.isChecked() && !dimarts.isChecked() && !dimecres.isChecked() && !dijous.isChecked() && !divendres.isChecked() && !dissabte.isChecked() && !diumenge.isChecked())
 					{
 						Toast.makeText(getActivity(), "Selecciona algun dia!", Toast.LENGTH_LONG).show();
@@ -249,8 +254,131 @@ public class DemandaFragment extends Fragment
 						demanda.setEs_asignada(false);
 						demanda.setNum_dies((byte)ndies);
 						demanda.setNum_espais((byte)1);
+						//Time hInici = Time.valueOf(horari.getInici());
+						//Time hFinal = Time.valueOf(horari.getFi());
 
-						//------------------INSERT-----------------------------
+						//---------------INSERT ASYNC
+
+						HoresService horesService = Api.getApi().create(HoresService.class);
+						Call<HORES> horesCall = horesService.InsertHores(horari);
+
+						horesCall.enqueue(new Callback<HORES>()
+						{
+							@Override
+							public void onResponse(Call<HORES> call, Response<HORES> response)
+							{
+								switch (response.code())
+								{
+									case 201: //----------sleep per acabar insert
+
+										try {
+											TimeUnit.SECONDS.sleep(5);
+										} catch (InterruptedException e) {
+											e.printStackTrace();
+										}
+										id = response.body().getId();
+										Conexions.hores.add(response.body());
+/*
+										try {
+											TimeUnit.SECONDS.sleep(15);
+										} catch (InterruptedException e) {
+											e.printStackTrace();
+										}
+										HoresService hs = Api.getApi().create(HoresService.class);
+
+										Call<ArrayList<HORES>> hours = hs.getHores();
+
+										hours.enqueue(new Callback<ArrayList<HORES>>()
+										{
+											@Override
+											public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
+											{
+												switch (response.code())
+												{
+													case 200:
+														Conexions.hores.clear();
+														Conexions.hores = response.body();
+														break;
+													default:
+														break;
+												}
+											}
+
+											@Override
+											public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
+											{
+												Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
+											}
+										});
+*/
+										break;
+									case 400:
+										Gson gson = new Gson();
+										MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+										Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+										break;
+								}
+							}
+
+							@Override
+							public void onFailure(Call<HORES> call, Throwable t)
+							{
+								Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+							}
+						});
+
+						//----------sleep per acabar insert
+/*
+						try {
+							TimeUnit.SECONDS.sleep(5);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+*/
+						//----------select per refrescar hores
+						/*
+						HoresService hs = Api.getApi().create(HoresService.class);
+
+						Call<ArrayList<HORES>> hours = hs.getHores();
+
+						hours.enqueue(new Callback<ArrayList<HORES>>()
+						{
+							@Override
+							public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
+							{
+								switch (response.code())
+								{
+									case 200:
+										Conexions.hores.clear();
+										Conexions.hores = response.body();
+										break;
+									default:
+										break;
+								}
+							}
+
+							@Override
+							public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
+							{
+								Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
+							}
+						});
+*/
+						/*
+						for (HORES interval : Conexions.hores)
+						{
+							if(interval.getInici().equals(horari.getInici().substring(0,8)) && interval.getFi().equals(horari.getFi().substring(0,8)))
+							{
+								demanda.setId_interval_hores(interval.getId());
+							}
+						}
+						*/
+						int last = Conexions.hores.size() - 1;
+						demanda.setId_interval_hores(Conexions.hores.get(last).getId());
+
+						demanda.setId_interval_hores(id);
+
+						//------------------INSERT DEMANDA-----------------------------
 						Demanda_ActService demandaService = Api.getApi().create(Demanda_ActService.class);
 						Call<DEMANDA_ACT> demandaCall = demandaService.InsertDemanda_act(demanda);
 
@@ -303,6 +431,42 @@ public class DemandaFragment extends Fragment
 							public void onFailure(Call<DEMANDA_ACT> call, Throwable t)
 							{
 								Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
+							}
+						});
+						//----------sleep per acabar insert
+
+						try {
+							TimeUnit.SECONDS.sleep(5);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+
+						//----------select per refrescar hores
+						Conexions.hores.clear();
+						HoresService hs = Api.getApi().create(HoresService.class);
+
+						Call<ArrayList<HORES>> hours = hs.getHores();
+
+						hours.enqueue(new Callback<ArrayList<HORES>>()
+						{
+							@Override
+							public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
+							{
+								switch (response.code())
+								{
+									case 200:
+
+										Conexions.hores = response.body();
+										break;
+									default:
+										break;
+								}
+							}
+
+							@Override
+							public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
+							{
+								Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
 							}
 						});
 						//-----------------------------------------------------
