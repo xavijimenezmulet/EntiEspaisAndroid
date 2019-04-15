@@ -1,7 +1,5 @@
 package com.example.cep.entiespaisandroid.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cep.entiespaisandroid.R;
-import com.example.cep.entiespaisandroid.activities.SplashActivity;
 import com.example.cep.entiespaisandroid.api.Api;
 import com.example.cep.entiespaisandroid.api.apiService.Demanda_ActService;
 import com.example.cep.entiespaisandroid.classes.DEMANDA_ACT;
@@ -27,7 +23,10 @@ import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.ESPAIS;
 import com.example.cep.entiespaisandroid.classes.HORES;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
+import com.example.cep.entiespaisandroid.classes.MensajeError;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
+import com.example.cep.entiespaisandroid.utilities.ProcesApi;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -80,31 +79,28 @@ public class VerDemandaFragment extends Fragment
             public void onClick(View view)
             {
                 //--delete-----------------
-                Demanda_ActService ds = Api.getApi().create(Demanda_ActService.class);
+                ArrayList<ProcesApi> processos = new ArrayList<>();
 
-                Call<DEMANDA_ACT> Dem = ds.DeleteDemandaAct(demanda.getId());
-
-                Dem.enqueue(new Callback<DEMANDA_ACT>()
+                try
                 {
-                    @Override
-                    public void onResponse(Call<DEMANDA_ACT> call, Response<DEMANDA_ACT> response)
+                    Conexions.demanda_acts.remove(demanda);
+                    ProcesApi p = new ProcesApi(demanda, 3);
+                    p.start();
+                    processos.add(p);
+                    ProcesApi p2 = new ProcesApi(1);
+                    processos.add(p2);
+
+                    for(int i = 0; i < processos.size(); i++)
                     {
-                        switch (response.code())
-                        {
-                            case 200:
-                                Toast.makeText(getActivity(), "Demanda Eliminada", Toast.LENGTH_SHORT).show();
-                                break;
-                            default:
-                                break;
-                        }
+                        processos.get(i).join(0);
                     }
 
-                    @Override
-                    public void onFailure(Call<DEMANDA_ACT> call, Throwable t)
-                    {
-                        Toast.makeText(getActivity(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-                    }
-                });
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e);
+                }
+
                 //----------------------
 
                 FragmentManager fragmentManager = getFragmentManager ();

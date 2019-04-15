@@ -35,6 +35,7 @@ import com.example.cep.entiespaisandroid.classes.HORES;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
 import com.example.cep.entiespaisandroid.classes.MensajeError;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
+import com.example.cep.entiespaisandroid.utilities.ProcesApi;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -200,7 +201,7 @@ public class DemandaFragment extends Fragment
 					Toast.makeText(getActivity(), "Horari incorrecte!", Toast.LENGTH_LONG).show();
 				}
 				else {
-					HORES horari = new HORES();
+					final HORES horari = new HORES();
 					horari.setInici(iniciDem.getText() + ":00.0000000");
 					horari.setFi(fiDem.getText() + ":00.0000000");
 					if(!dilluns.isChecked() && !dimarts.isChecked() && !dimecres.isChecked() && !dijous.isChecked() && !divendres.isChecked() && !dissabte.isChecked() && !diumenge.isChecked())
@@ -209,7 +210,7 @@ public class DemandaFragment extends Fragment
 					}
 					else {
 						//Insertar horari a la taula hores
-						DEMANDA_ACT demanda = new DEMANDA_ACT();
+						final DEMANDA_ACT demanda = new DEMANDA_ACT();
 						demanda.setNom(introNomDem.getText().toString());
 						demanda.setId_equip(selectedEquip.getId());
 						demanda.setId_espai(selectedEspai.getId());
@@ -254,8 +255,7 @@ public class DemandaFragment extends Fragment
 						demanda.setEs_asignada(false);
 						demanda.setNum_dies((byte)ndies);
 						demanda.setNum_espais((byte)1);
-						//Time hInici = Time.valueOf(horari.getInici());
-						//Time hFinal = Time.valueOf(horari.getFi());
+						id = Conexions.hores.get(Conexions.hores.size()-1).getId() + 1;
 
 						//---------------INSERT ASYNC
 
@@ -269,48 +269,7 @@ public class DemandaFragment extends Fragment
 							{
 								switch (response.code())
 								{
-									case 201: //----------sleep per acabar insert
-
-										try {
-											TimeUnit.SECONDS.sleep(5);
-										} catch (InterruptedException e) {
-											e.printStackTrace();
-										}
-										id = response.body().getId();
-										Conexions.hores.add(response.body());
-/*
-										try {
-											TimeUnit.SECONDS.sleep(15);
-										} catch (InterruptedException e) {
-											e.printStackTrace();
-										}
-										HoresService hs = Api.getApi().create(HoresService.class);
-
-										Call<ArrayList<HORES>> hours = hs.getHores();
-
-										hours.enqueue(new Callback<ArrayList<HORES>>()
-										{
-											@Override
-											public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
-											{
-												switch (response.code())
-												{
-													case 200:
-														Conexions.hores.clear();
-														Conexions.hores = response.body();
-														break;
-													default:
-														break;
-												}
-											}
-
-											@Override
-											public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
-											{
-												Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-											}
-										});
-*/
+									case 201:
 										break;
 									case 400:
 										Gson gson = new Gson();
@@ -327,148 +286,30 @@ public class DemandaFragment extends Fragment
 							}
 						});
 
-						//----------sleep per acabar insert
-/*
-						try {
-							TimeUnit.SECONDS.sleep(5);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-*/
-						//----------select per refrescar hores
-						/*
-						HoresService hs = Api.getApi().create(HoresService.class);
 
-						Call<ArrayList<HORES>> hours = hs.getHores();
-
-						hours.enqueue(new Callback<ArrayList<HORES>>()
-						{
-							@Override
-							public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
-							{
-								switch (response.code())
-								{
-									case 200:
-										Conexions.hores.clear();
-										Conexions.hores = response.body();
-										break;
-									default:
-										break;
-								}
-							}
-
-							@Override
-							public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
-							{
-								Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-							}
-						});
-*/
-						/*
-						for (HORES interval : Conexions.hores)
-						{
-							if(interval.getInici().equals(horari.getInici().substring(0,8)) && interval.getFi().equals(horari.getFi().substring(0,8)))
-							{
-								demanda.setId_interval_hores(interval.getId());
-							}
-						}
-						*/
-						int last = Conexions.hores.size() - 1;
-						demanda.setId_interval_hores(Conexions.hores.get(last).getId());
-
+						Conexions.hores.add(new HORES(id, horari.getInici().substring(0,8),horari.getFi().substring(0,8)));
 						demanda.setId_interval_hores(id);
-
 						//------------------INSERT DEMANDA-----------------------------
-						Demanda_ActService demandaService = Api.getApi().create(Demanda_ActService.class);
-						Call<DEMANDA_ACT> demandaCall = demandaService.InsertDemanda_act(demanda);
 
-						demandaCall.enqueue(new Callback<DEMANDA_ACT>()
+						ArrayList<ProcesApi> processos = new ArrayList<>();
+						try
 						{
-							@Override
-							public void onResponse(Call<DEMANDA_ACT> call, Response<DEMANDA_ACT> response)
+							Conexions.demanda_acts.add(demanda);
+							ProcesApi p = new ProcesApi(demanda, 2);
+							p.start();
+							processos.add(p);
+							ProcesApi p2 = new ProcesApi(1);
+							processos.add(p2);
+
+							for(int i = 0; i < processos.size(); i++)
 							{
-								switch (response.code())
-								{
-									case 201:
-										Toast.makeText(getContext(), "DEMANDA REALITZADA CORRECTAMENT", Toast.LENGTH_LONG).show();
-										//--------Refresquem la llista de demandes des del servidor
-										Demanda_ActService ds = Api.getApi().create(Demanda_ActService.class);
-
-										Call<ArrayList<DEMANDA_ACT>> dem = ds.getDemanda_acts();
-
-										dem.enqueue(new Callback<ArrayList<DEMANDA_ACT>>()
-										{
-											@Override
-											public void onResponse(Call<ArrayList<DEMANDA_ACT>> call, Response<ArrayList<DEMANDA_ACT>> response)
-											{
-												switch (response.code())
-												{
-													case 200:
-														Conexions.demanda_acts.clear();
-														Conexions.demanda_acts = response.body();
-														break;
-													default:
-														break;
-												}
-											}
-
-											@Override
-											public void onFailure(Call<ArrayList<DEMANDA_ACT>> call, Throwable t)
-											{
-												Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-											}
-										});
-										break;
-									case 400:
-										Gson gson = new Gson();
-										MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
-										Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
-										break;
-								}
+								processos.get(i).join(0);
 							}
 
-							@Override
-							public void onFailure(Call<DEMANDA_ACT> call, Throwable t)
-							{
-								Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
-							}
-						});
-						//----------sleep per acabar insert
-
-						try {
-							TimeUnit.SECONDS.sleep(5);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+						}catch(Exception e)
+						{
+							System.out.println(e);
 						}
-
-						//----------select per refrescar hores
-						Conexions.hores.clear();
-						HoresService hs = Api.getApi().create(HoresService.class);
-
-						Call<ArrayList<HORES>> hours = hs.getHores();
-
-						hours.enqueue(new Callback<ArrayList<HORES>>()
-						{
-							@Override
-							public void onResponse(Call<ArrayList<HORES>> call, Response<ArrayList<HORES>> response)
-							{
-								switch (response.code())
-								{
-									case 200:
-
-										Conexions.hores = response.body();
-										break;
-									default:
-										break;
-								}
-							}
-
-							@Override
-							public void onFailure(Call<ArrayList<HORES>> call, Throwable t)
-							{
-								Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-							}
-						});
 						//-----------------------------------------------------
 						FragmentManager fragmentManager = getFragmentManager();
 
