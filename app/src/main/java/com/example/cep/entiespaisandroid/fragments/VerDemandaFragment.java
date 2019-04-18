@@ -95,6 +95,7 @@ public class VerDemandaFragment extends Fragment
                         processos.get(i).join(0);
                     }
 
+                    Toast.makeText(getContext(), "Demanda Eliminada.", Toast.LENGTH_LONG).show();
                 }
                 catch(Exception e)
                 {
