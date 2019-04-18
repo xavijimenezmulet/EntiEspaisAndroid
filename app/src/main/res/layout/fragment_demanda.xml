@@ -172,50 +172,54 @@
                     android:text="Dies: "
                     style="@style/DatosMini"
                     />
-                <LinearLayout
-                    android:layout_weight="1"
+                <ScrollView
+                    android:layout_weight="2"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="150dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                    <CheckBox
-                        android:id="@+id/dilluns"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Dilluns"/>
+                        <CheckBox
+                            android:id="@+id/dilluns"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dilluns"/>
 
-                    <CheckBox
-                        android:id="@+id/dimarts"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Dimarts"/>
-                    <CheckBox
-                        android:id="@+id/dimecres"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Dimecres"/>
-                    <CheckBox
-                        android:id="@+id/dijous"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Dijous"/>
-                    <CheckBox
-                        android:id="@+id/divendres"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Divendres"
-                        />
-                    <CheckBox
-                        android:id="@+id/dissabte"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Dissabte"/>
-                    <CheckBox
-                        android:id="@+id/diumenge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Diumenge"/>
-                </LinearLayout>
+                        <CheckBox
+                            android:id="@+id/dimarts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dimarts"/>
+                        <CheckBox
+                            android:id="@+id/dimecres"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dimecres"/>
+                        <CheckBox
+                            android:id="@+id/dijous"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dijous"/>
+                        <CheckBox
+                            android:id="@+id/divendres"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Divendres"
+                            />
+                        <CheckBox
+                            android:id="@+id/dissabte"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dissabte"/>
+                        <CheckBox
+                            android:id="@+id/diumenge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Diumenge"/>
+                    </LinearLayout>
+                </ScrollView>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
