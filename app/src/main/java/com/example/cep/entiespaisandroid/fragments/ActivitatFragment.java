@@ -86,7 +86,7 @@ public class ActivitatFragment extends Fragment
 			public void onClick(View view)
 			{
 				//--delete-----------------
-
+				Conexions.activitats.remove(activitat);
 				ActivitatsService as = Api.getApi().create(ActivitatsService.class);
 
 				Call<ACTIVITATS> act = as.DeleteActivitat(activitat.getId());

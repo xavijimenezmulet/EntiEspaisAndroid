@@ -305,11 +305,12 @@ public class DemandaFragment extends Fragment
 							{
 								processos.get(i).join(0);
 							}
-
+							Toast.makeText(getContext(), "Demanda efectuada amb exit!", Toast.LENGTH_LONG).show();
 						}catch(Exception e)
 						{
 							System.out.println(e);
 						}
+
 						//-----------------------------------------------------
 						FragmentManager fragmentManager = getFragmentManager();
 

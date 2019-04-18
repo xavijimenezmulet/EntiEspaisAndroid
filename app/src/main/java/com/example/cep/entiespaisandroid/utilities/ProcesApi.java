@@ -18,7 +18,9 @@ import retrofit2.Response;
 public class ProcesApi extends Thread {
     private DEMANDA_ACT demanda;
     private int modo; //1- Select, 2- Insert, 3- Delete
-    public static String missatge;
+    public static String missatgeS;
+    public static String missatgeI;
+    public static String missatgeD;
 
     public ProcesApi(DEMANDA_ACT demanda, int modo) {
         this.demanda = demanda;
@@ -46,7 +48,7 @@ public class ProcesApi extends Thread {
         }
     }
 
-    public static void select()
+    public void select()
     {
         Demanda_ActService ds = Api.getApi().create(Demanda_ActService.class);
 
@@ -71,12 +73,12 @@ public class ProcesApi extends Thread {
             @Override
             public void onFailure(Call<ArrayList<DEMANDA_ACT>> call, Throwable t)
             {
-                missatge = "HA IDO MAL";
-               //Toast.makeText(MainActivity, "HA IDO MAL", Toast.LENGTH_LONG).show();
+                missatgeS = "HA IDO MAL";
+
             }
         });
     }
-    public static void insert(DEMANDA_ACT demanda)
+    public void insert(DEMANDA_ACT demanda)
     {
         Demanda_ActService demandaService = Api.getApi().create(Demanda_ActService.class);
         Call<DEMANDA_ACT> demandaCall = demandaService.InsertDemanda_act(demanda);
@@ -89,14 +91,13 @@ public class ProcesApi extends Thread {
                 switch (response.code())
                 {
                     case 201:
-                        missatge = "DEMANDA REALITZADA CORRECTAMENT";
-                        //Toast.makeText(getContext(), "DEMANDA REALITZADA CORRECTAMENT", Toast.LENGTH_LONG).show();
+                        missatgeI = "DEMANDA REALITZADA CORRECTAMENT";
 
                         break;
                     case 400:
                         Gson gson = new Gson();
                         MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
-                        missatge =  mensajeError.getMessage();
+                        missatgeI =  mensajeError.getMessage();
                         break;
                 }
             }
@@ -104,7 +105,7 @@ public class ProcesApi extends Thread {
             @Override
             public void onFailure(Call<DEMANDA_ACT> call, Throwable t)
             {
-                missatge = t.getCause() + " - " + t.getMessage();
+                missatgeI = t.getCause() + " - " + t.getMessage();
             }
         });
     }
@@ -123,17 +124,16 @@ public class ProcesApi extends Thread {
                 switch (response.code())
                 {
                     case 200:
-                       missatge = "Demanda Eliminada";
-                        //--------Refresquem la llista de demandes des del servidor
+                       missatgeD = "Demanda Eliminada";
 
                         break;
                     case 400:
                         Gson gson = new Gson();
                         MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
-                        missatge = mensajeError.getMessage();
+                        missatgeD = mensajeError.getMessage();
                         break;
                     case 404:
-                        missatge = "No s'ha trobat el registre";
+                        missatgeD = "No s'ha trobat el registre";
                         break;
                 }
             }
@@ -141,7 +141,7 @@ public class ProcesApi extends Thread {
             @Override
             public void onFailure(Call<DEMANDA_ACT> call, Throwable t)
             {
-               missatge = t.getCause() + " - " + t.getMessage();
+               missatgeD = t.getCause() + " - " + t.getMessage();
             }
         });
     }
