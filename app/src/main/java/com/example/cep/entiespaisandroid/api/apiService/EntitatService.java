@@ -27,6 +27,4 @@ public interface EntitatService
 
 	@PUT("api/ENTITATS/{id}")
 	Call<ENTITATS> updateEntitat(@Path("id") int id, @Body ENTITATS entitat );
-
-
 }
