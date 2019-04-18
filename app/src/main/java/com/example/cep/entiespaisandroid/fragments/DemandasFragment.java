@@ -155,7 +155,7 @@ public class DemandasFragment extends Fragment
 			private TextView horaI;
 			private TextView horaF;
 			private ListView dies;
-
+			private ArrayList<String> days = new ArrayList<>();
 
 			public PlaceViewHolder(View itemView) {
 				super(itemView);
@@ -164,12 +164,14 @@ public class DemandasFragment extends Fragment
 				equip = (TextView)itemView.findViewById(R.id.textNomEquip);
 				horaI = (TextView)itemView.findViewById(R.id.txtHoraIni);
 				horaF = (TextView)itemView.findViewById(R.id.txtHoraFi);
+				dies = (ListView)itemView.findViewById(R.id.lstDies);
 			}
 
 			public void bindTitular(DEMANDA_ACT d) {
 				String NomEquip = "";
 				String HoraInici = "";
 				String HoraFinal = "";
+
 				for(int i = 0; i < Conexions.equips.size(); i++)
 				{
 					if(Conexions.equips.get(i).getId() == d.getId_equip())
@@ -185,10 +187,18 @@ public class DemandasFragment extends Fragment
 						HoraFinal = Conexions.hores.get(i).getFi();
 					}
 				}
+				for(DIA_SEMANA dia : d.getDia_semanas())
+				{
+					days.add(dia.getNom());
+				}
 				nom.setText(d.getNom());
 				equip.setText(NomEquip);
 				horaI.setText(HoraInici);
 				horaF.setText(HoraFinal);
+
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, days);
+
+				dies.setAdapter(arrayAdapter);
 			}
 		}
 

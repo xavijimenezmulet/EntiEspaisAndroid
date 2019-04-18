@@ -31,6 +31,11 @@
         <item name="android:textColor">@color/negro</item>
         <item name="android:textSize">@dimen/datos</item>
     </style>
+    <style name="DatosMini" >
+        <item name="android:gravity">left</item>
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:textSize">@dimen/datosM</item>
+    </style>
     <style name="DatosAct" >
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>

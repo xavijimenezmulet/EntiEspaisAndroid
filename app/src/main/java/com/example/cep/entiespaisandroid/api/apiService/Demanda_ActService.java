@@ -29,7 +29,7 @@ public interface Demanda_ActService
 	@POST("api/DEMANDA_ACT")
 	Call<DEMANDA_ACT> InsertDemanda_act(@Body DEMANDA_ACT demanda_act);
 
-	@DELETE("api/DEMANDA_ACT/{id}")
-	Call<DEMANDA_ACT> DeleteDemandaAct(@Path("id")int id);
+	@DELETE("api/DEMANDA_ACT/5/{id}")
+	Call<DEMANDA_ACT> deleteDemandaAct(@Path("id")int id);
 
 }

@@ -60,6 +60,7 @@ import com.example.cep.entiespaisandroid.classes.HORES;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -521,7 +522,20 @@ public class SplashActivity extends AppCompatActivity
 			{
 				switch (response.code())
 				{
-					case 200:Conexions.hores = response.body();
+					case 200:
+						/*
+						for(int i = 0; i < response.body().size(); i++) {
+							String ini = response.body().get(i).getInici();
+							String res = ini.substring(0, 8);
+							Time inici = Time.valueOf(res);
+							String fi = response.body().get(i).getFi();
+							String f = fi.substring(0, 8);
+							Time fin = Time.valueOf(f);
+							int id = response.body().get(i).getId();
+							HORES h = new HORES(id, inici, fin);
+							Conexions.hores.add(h);
+						}*/
+						Conexions.hores = response.body();
 						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
 						break;
 					default:
