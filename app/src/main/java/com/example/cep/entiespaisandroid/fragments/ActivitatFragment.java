@@ -25,9 +25,14 @@ import com.example.cep.entiespaisandroid.classes.EQUIPS;
 import com.example.cep.entiespaisandroid.classes.ESPAIS;
 import com.example.cep.entiespaisandroid.classes.HORES;
 import com.example.cep.entiespaisandroid.classes.INSTALACIONS;
+import com.example.cep.entiespaisandroid.classes.MensajeError;
 import com.example.cep.entiespaisandroid.utilities.Conexions;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,9 +49,10 @@ public class ActivitatFragment extends Fragment
 	private TextView espaiAct;
 	private ListView lstDias;
 	private Button btnEliminar;
-	private ArrayList<DIA_SEMANA> days = new ArrayList<>();
+	//private ArrayList<DIA_SEMANA> days = new ArrayList<>();
 	private ACTIVITATS activitat = new ACTIVITATS();
 	private DEMANDA_ACT demand = new DEMANDA_ACT();
+	private boolean correcte = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -80,6 +86,7 @@ public class ActivitatFragment extends Fragment
 			public void onClick(View view)
 			{
 				//--delete-----------------
+				Conexions.activitats.remove(activitat);
 				ActivitatsService as = Api.getApi().create(ActivitatsService.class);
 
 				Call<ACTIVITATS> act = as.DeleteActivitat(activitat.getId());
@@ -92,9 +99,43 @@ public class ActivitatFragment extends Fragment
 						switch (response.code())
 						{
 							case 200:
-								Toast.makeText(getActivity(), "Demanda Eliminada", Toast.LENGTH_SHORT).show();
+								Toast.makeText(getActivity(), "Activitat Eliminada", Toast.LENGTH_SHORT).show();
+								correcte = true;
+								//--------Refresquem la llista d'activitats des del servidor
+								ActivitatsService as = Api.getApi().create(ActivitatsService.class);
+
+								Call<ArrayList<ACTIVITATS>> actCall = as.getActivitats();
+
+								actCall.enqueue(new Callback<ArrayList<ACTIVITATS>>()
+								{
+									@Override
+									public void onResponse(Call<ArrayList<ACTIVITATS>> call, Response<ArrayList<ACTIVITATS>> response)
+									{
+										switch (response.code())
+										{
+											case 200:
+												Conexions.activitats.clear();
+												Conexions.activitats = response.body();
+												break;
+											default:
+												break;
+										}
+									}
+
+									@Override
+									public void onFailure(Call<ArrayList<ACTIVITATS>> call, Throwable t)
+									{
+										Toast.makeText(getContext(), "HA IDO MAL", Toast.LENGTH_LONG).show();
+									}
+								});
 								break;
-							default:
+							case 400:
+								Gson gson = new Gson();
+								MensajeError mensajeError = gson.fromJson(response.errorBody().charStream(), MensajeError.class);
+								Toast.makeText(getContext(), mensajeError.getMessage(), Toast.LENGTH_LONG).show();
+								break;
+							case 404:
+								Toast.makeText(getContext(), "No s'ha trobat el registre", Toast.LENGTH_LONG).show();
 								break;
 						}
 					}
@@ -102,11 +143,16 @@ public class ActivitatFragment extends Fragment
 					@Override
 					public void onFailure(Call<ACTIVITATS> call, Throwable t)
 					{
-						Toast.makeText(getActivity(), "HA IDO MAL", Toast.LENGTH_LONG).show();
+						Toast.makeText(getContext(), t.getCause() + " - " + t.getMessage(), Toast.LENGTH_LONG).show();
 					}
 				});
-				//----------------------
 
+				//----------------------
+				/*
+				if(correcte) {
+					Conexions.activitats.remove(activitat);
+				}
+				*/
 				FragmentManager fragmentManager = getFragmentManager ();
 
 				Fragment frag = new ActivitatsFragment();
@@ -169,55 +215,13 @@ public class ActivitatFragment extends Fragment
 		instalAct.setText(inst.getNom());
 		espaiAct.setText(esp.getNom());
 
-
-		Demanda_ActService ds = Api.getApi().create(Demanda_ActService.class);
-
-		Call<ArrayList<DIA_SEMANA>> diaDem = ds.getDemanda_actDays(demand.getId());
-
-		diaDem.enqueue(new Callback<ArrayList<DIA_SEMANA>>()
-		{
-			@Override
-			public void onResponse(Call<ArrayList<DIA_SEMANA>> call, Response<ArrayList<DIA_SEMANA>> response)
-			{
-				switch (response.code())
-				{
-					case 200:
-						days = response.body();
-						//Toast.makeText(SplashActivity.this, "Ha ido bien", Toast.LENGTH_SHORT).show();
-						break;
-					default:
-						break;
-				}
-			}
-
-			@Override
-			public void onFailure(Call<ArrayList<DIA_SEMANA>> call, Throwable t)
-			{
-				Toast.makeText(getActivity(), "HA IDO MAL", Toast.LENGTH_LONG).show();
-			}
-		});
-
-
 		ArrayList<String> dias = new ArrayList<>();
-		for(DIA_SEMANA dia : days)
-		{
-			dias.add(dia.getNom());
+		if(demand.getDia_semanas() != null) {
+			for (DIA_SEMANA dia : demand.getDia_semanas()) {
+				dias.add(dia.getNom());
+			}
 		}
-/*
-        for(int i = 0; i < Conexions.dias_demanda.size(); i++)
-        {
-            if(Conexions.dias_demanda.get(i).getId_demanda_act() == demanda.getId())
-            {
-                for(int j = 0; j < Conexions.dies_setmana.size(); i++)
-                {
-                    if(Conexions.dies_setmana.get(j).getId() == Conexions.dias_demanda.get(i).getId_dia_setmana())
-                    {
-                        dias.add(Conexions.dies_setmana.get(j).getNom());
-                    }
-                }
-            }
-        }
-*/
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,dias);
 		lstDias.setAdapter(adapter);
 	}
