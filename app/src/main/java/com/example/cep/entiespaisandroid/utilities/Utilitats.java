@@ -72,5 +72,14 @@ public class Utilitats
 		}
 	}
 
+	public static String tempActual(){
+		String temporada = "";
+
+		temporada = Conexions.entitat_conectada.getTemporada();
+
+
+		return temporada;
+	}
+
 
 } // class
